@@ -2,12 +2,11 @@ const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/component/index.js',
+    entry: './src/component/Diagram.js',
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: 'index.js'
+        filename: 'Diagram.js'
     },
-    // externals: [nodeExternals()],
     module: {
         rules: [
             {
