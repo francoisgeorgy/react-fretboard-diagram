@@ -1,23 +1,6 @@
-// @flow
+import React from 'react';
 
-// import React from 'react';
-import * as React from 'react';
-
-type Props = {
-    x: number,
-    y: number,
-    w: number,
-    h: number,
-    color: string
-};
-
-export default class Diagram extends React.Component<Props> {
-
-/*
-    static defaultProps = {
-        color: "blue"
-    };
-*/
+export default class Diagram extends React.Component {
 
     render() {
         console.log(this.props);
