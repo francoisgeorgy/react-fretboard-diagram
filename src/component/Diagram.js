@@ -8,7 +8,7 @@ export default class Diagram extends React.Component {
         return (
             <div>
                 diagram
-                <Fretboard/>
+                <Fretboard strings={6} frets={5} />
                 <Shape/>
             </div>
         )
