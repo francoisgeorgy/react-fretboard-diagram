@@ -1,6 +1,5 @@
 // @flow
 
-// import React from 'react';
 import * as React from 'react';
 
 type Props = {
@@ -13,11 +12,9 @@ type Props = {
 
 export default class Diagram extends React.Component<Props> {
 
-/*
-    static defaultProps = {
+    static defaultProps : {
         color: "blue"
     };
-*/
 
     render() {
         console.log(this.props);
