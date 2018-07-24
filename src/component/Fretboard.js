@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as layout from "../utils/layout.js";
+import * as svg from "../utils/svg.js";
 
 const propTypes = {
     strings: PropTypes.number.isRequired,
@@ -11,18 +13,23 @@ const defaultProps = {
     frets: 5
 };
 
-function getStringsPath(strings, frets) {
+function getStringsPath(strings, frets, fretExtra) {
 
     // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
+    let stringLength = layout.stringLength(frets, fretExtra);
+
     let s = new Array(strings);
     for (let i=0; i<strings; i++) {
-        s[i] = `M 0,${i} H 10`
+        s[i] = svg.horizontalLine(layout.CONF.paddingRight, layout.CONF.paddingTop + (i * layout.CONF.stringInterval), stringLength);
     }
     return s.join(' ');
 }
 
 function getFretsPath(strings, frets) {
+
+    //TODO: add stroke-width/2 to X coordinate
+
     return '';
 }
 
@@ -30,10 +37,9 @@ export default class Fretboard extends React.Component {
 
     render() {
 
-        let s = getStringsPath(this.props.strings, this.props.frets);
-        console.log(s);
+        let s = getStringsPath(this.props.strings, this.props.frets, this.props.fretExtra);
 
-        return <div>fretboard with {this.props.strings} strings and {this.props.frets} frets.</div>
+        return <path fill="none" stroke="black" strokeWidth={1} d={s} />;
     }
 
 }
