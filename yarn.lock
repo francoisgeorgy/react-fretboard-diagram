@@ -273,6 +273,10 @@ asn1.js@^4.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
+assert-js@^0.19.0:
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/assert-js/-/assert-js-0.19.0.tgz#6abeaec43a3e59acd4382e7453752d47c9d8d58e"
+
 assert@^1.1.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"

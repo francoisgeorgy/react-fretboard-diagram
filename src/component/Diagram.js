@@ -30,7 +30,7 @@ export default class Diagram extends React.Component {
 
     render() {
 
-        let w = layout.width(this.props.frets, this.props.fretExtra)
+        let w = layout.width(this.props.frets, this.props.fretExtra);
         let h = layout.height(this.props.strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>

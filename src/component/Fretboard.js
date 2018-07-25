@@ -30,14 +30,25 @@ function getFretsPath(strings, frets) {
 
     //TODO: add stroke-width/2 to X coordinate
 
-    return '';
+    let fretLength = layout.fretLength(strings);
+
+    let s = new Array(strings);
+    for (let i=0; i<strings; i++) {
+        s[i] = svg.verticalLine(layout.CONF.paddingRight + (i * layout.CONF.fretInterval), layout.CONF.paddingTop, fretLength);
+    }
+    console.log('frets', s);
+    return s.join(' ');
 }
 
 export default class Fretboard extends React.Component {
 
     render() {
 
-        let s = getStringsPath(this.props.strings, this.props.frets, this.props.fretExtra);
+        let s = getStringsPath(this.props.strings, this.props.frets, this.props.fretExtra) +
+                ' ' +
+                getFretsPath(this.props.strings, this.props.frets);
+
+        console.log(s);
 
         return <path fill="none" stroke="black" strokeWidth={1} d={s} />;
     }
