@@ -16,13 +16,18 @@ const defaultProps = {
 
 function getStringsPath(strings, frets) {
 
+    console.log(`getStringsPath(${strings}, ${frets})`);
+
     // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
     let stringLength = layout.stringLength(frets);
 
     let s = new Array(strings);
     for (let i=0; i<strings; i++) {
-        s[i] = svg.horizontalLine(currentLayout.paddingLeft, currentLayout.paddingTop + (i * currentLayout.stringInterval), stringLength);
+        s[i] = svg.horizontalLine(
+            currentLayout.paddingLeft,                                      // X
+            currentLayout.paddingTop + (i * currentLayout.stringInterval),  // Y
+            stringLength);
     }
     return s.join(' ');
 }
@@ -31,11 +36,15 @@ function getFretsPath(strings, frets) {
 
     let fretLength = layout.fretLength(strings);
 
-    let s = new Array(strings);
-    for (let i=0; i<strings; i++) {
-        s[i] = svg.verticalLine(currentLayout.paddingLeft + (i * currentLayout.fretInterval), currentLayout.paddingTop, fretLength);
+    let f = Math.trunc(frets) + 1;  // +1 because we draw the fret 0
+
+    let s = new Array(f);
+    for (let i=0; i<f; i++) {
+        s[i] = svg.verticalLine(
+            currentLayout.paddingLeft + (i * currentLayout.fretInterval),   // X
+            currentLayout.paddingTop,                                       // Y
+            fretLength);
     }
-    console.log('frets', s);
     return s.join(' ');
 }
 

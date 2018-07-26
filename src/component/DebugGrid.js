@@ -11,7 +11,7 @@ const DebugGrid = () => (
             {/*<path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1"/>*/}
             {/*</pattern>*/}
             <pattern id="grid" width="1" height="1" patternUnits="userSpaceOnUse">
-                <path d="M 1 0 L 0 0 0 1" fill="none" stroke="gray" stroke-width="0.1"/>
+                <path d="M 1 0 L 0 0 0 1" fill="none" stroke="gray" strokeWidth="0.1"/>
             </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />

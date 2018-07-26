@@ -71,10 +71,13 @@ const LAYOUTS = {
         paddingRight : 2,
         paddingTop: 2,
         paddingBottom: 2,
+
         stringInterval: 6,
         stringWidth: 2,
+
         fretInterval: 6,
         fretWidth: 2,
+
         dotIn: 5,
         dotOut: 5
     },
@@ -142,7 +145,9 @@ export function height(strings) {
 export function stringLength(frets) {
     Assert.greaterThan(0, frets, "NUmber of frets must be an integer greater than 0");
     // return frets * layout.CONF.fretInterval + ((fretExtra ? layout.CONF.fretInterval : 0) * CONF.fretExtra) + 1;
-    return frets * currentLayout.fretInterval + currentLayout.fretWidth;
+    let tmp = frets * currentLayout.fretInterval + currentLayout.fretWidth;
+    console.log(`stringLength: ${frets} * ${currentLayout.fretInterval} + ${currentLayout.fretWidth} = ${tmp}`);
+    return frets * currentLayout.fretInterval + currentLayout.fretWidth - currentLayout.fretWidth / 2;
 }
 
 export function fretLength(strings) {

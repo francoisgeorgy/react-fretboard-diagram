@@ -14,8 +14,8 @@ const propTypes = {
 
 const defaultProps = {
     layout: 'def',
-    strings: 6,
-    frets: 5
+    strings: 3,
+    frets: 3.5
 };
 
 export default class Diagram extends React.Component {
