@@ -6,7 +6,7 @@ const App = () => (
     <div>
         <h1>react-fretboard-diagram sample app</h1>
         <div id={"container"}>
-
+{/*
             <div>
                 <Diagram layout={"test1"}/>
             </div>
@@ -19,7 +19,6 @@ const App = () => (
             <div>
                 <Diagram layout={"test4"}/>
             </div>
-
             <div>
                 <Diagram layout={"test5"}/>
             </div>
@@ -32,6 +31,7 @@ const App = () => (
             <div className={"big"}>
                 <Diagram layout={"test8"}/>
             </div>
+*/}
             <div className={"big"}>
                 <Diagram />
             </div>

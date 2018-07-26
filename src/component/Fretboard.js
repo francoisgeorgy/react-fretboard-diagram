@@ -48,13 +48,46 @@ function getFretsPath(strings, frets) {
     return s.join(' ');
 }
 
+function getFretsNumbers(strings, frets) {
+
+    //TODO: allow to choose placement over of below the strings
+
+    let f = Math.trunc(frets);
+
+    let s = [];
+    for (let i=0; i<f; i++) {
+        s.push(<text key={i}
+                     x={currentLayout.paddingLeft + ((i + 0.5) * currentLayout.fretInterval) + currentLayout.fretWidth / 2}
+                     y={currentLayout.paddingTop - 1}
+                     fontSize={currentLayout.fontSize}
+                     className="fret-number">12</text>);
+    }
+    return <Fragment>{s}</Fragment>;
+
+    // let i = 1;
+    // return <text x={currentLayout.paddingLeft + (i * currentLayout.fretInterval)}
+    //       y={currentLayout.paddingTop}
+    //       className="small">12</text>
+    //
+    // var rows = [];
+    // for (var i = 0; i < numrows; i++) {
+    //     // note: we add a key prop here to allow react to uniquely identify each
+    //     // element in this array. see: https://reactjs.org/docs/lists-and-keys.html
+    //     rows.push(<ObjectRow key={i} />);
+    // }
+    // return <tbody>{rows}</tbody>;
+
+}
+
 export default class Fretboard extends React.Component {
 
     render() {
+        // let i = 1;
         return (
             <Fragment>
                 <path fill="none" className="string" strokeWidth={currentLayout.stringWidth} d={getStringsPath(this.props.strings, this.props.frets)} />
                 <path fill="none" className="fret" strokeWidth={currentLayout.fretWidth} d={getFretsPath(this.props.strings, this.props.frets)} />
+                {getFretsNumbers(this.props.strings, this.props.frets)}
             </Fragment>
         );
     }

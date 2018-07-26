@@ -35,7 +35,7 @@ export default class Diagram extends React.Component {
                 <DebugGrid />
                 <g>
                     <Fretboard {...this.props} />
-                    {/*<Shape/>*/}
+                    <Shape/>
                 </g>
             </svg>
         )

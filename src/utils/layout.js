@@ -8,68 +8,79 @@ const COLORS_DEFAULT = {
 const LAYOUTS = {
     def : {
         paddingLeft: 20,
-        paddingRight: 10,
+        paddingRight: 5,
+
         paddingTop: 10,
         paddingBottom: 10,
-        stringInterval: 10,
-        stringWidth: 1,
-        fretInterval: 20,
-        fretWidth: 1,
-        dotIn: 5,
-        dotOut: 5
+
+        stringInterval: 20,
+        stringWidth: 2,
+
+        fretInterval: 30,
+        fretWidth: 2,
+
+        dotIn: 15,
+        dotOut: 10,
+        dotRadius: 6,
+
+        fontSize: 5
     },
     test1 : {
-        paddingLeft : 1,
+        paddingLeft : 2,
         paddingRight : 1,
-        paddingTop: 1,
+        paddingTop: 2,
         paddingBottom: 1,
         stringInterval: 2,
         stringWidth: 1,
         fretInterval: 2,
         fretWidth: 1,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test2 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
         stringInterval: 4,
         stringWidth: 1,
         fretInterval: 4,
         fretWidth: 1,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test3 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
         stringInterval: 4,
         stringWidth: 3,
         fretInterval: 4,
         fretWidth: 3,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test4 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
         stringInterval: 6,
         stringWidth: 3,
         fretInterval: 6,
         fretWidth: 3,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test5 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
 
         stringInterval: 6,
@@ -79,43 +90,47 @@ const LAYOUTS = {
         fretWidth: 2,
 
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test6 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
         stringInterval: 6,
         stringWidth: 2,
         fretInterval: 6,
         fretWidth: 4,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test7 : {
-        paddingLeft : 2,
+        paddingLeft : 4,
         paddingRight : 2,
-        paddingTop: 2,
+        paddingTop: 3,
         paddingBottom: 2,
         stringInterval: 6,
         stringWidth: 4,
         fretInterval: 6,
         fretWidth: 2,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     },
     test8 : {
-        paddingLeft : 10,
+        paddingLeft : 5,
         paddingRight : 5,
-        paddingTop: 10,
+        paddingTop: 5,
         paddingBottom: 5,
         stringInterval: 7,
         stringWidth: 2,
         fretInterval: 7,
         fretWidth: 2,
         dotIn: 5,
-        dotOut: 5
+        dotOut: 5,
+        fontSize: 1
     }
 };
 
