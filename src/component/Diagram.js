@@ -3,41 +3,36 @@ import Fretboard from "./Fretboard";
 import Shape from "./Shape";
 import PropTypes from "prop-types";
 import * as layout from "../utils";
-
-/*
-    Fretboard size:
-
-    length = padding-left + (fret-gap * frets) + fret-extra + padding-right
-    height = padding-top + (string-gap * (strings - 1)) + padding-bottom
-
-
-*/
+import DebugGrid from "./DebugGrid";
 
 
 const propTypes = {
+    layout: PropTypes.string,
     strings: PropTypes.number.isRequired,
-    frets: PropTypes.number.isRequired,
-    fretExtra: PropTypes.bool
+    frets: PropTypes.number.isRequired
 };
 
 const defaultProps = {
+    layout: 'def',
     strings: 6,
-    frets: 5,
-    fretExtra: false
+    frets: 5
 };
 
 export default class Diagram extends React.Component {
 
     render() {
 
-        let w = layout.width(this.props.frets, this.props.fretExtra);
+        layout.setLayout(this.props.layout);
+
+        let w = layout.width(this.props.frets);
         let h = layout.height(this.props.strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
-        console.log(`viewbox = ${box}`);
+        console.log(`${this.props.layout} : viewbox = ${box}`);
 
         return (
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'>
+                <DebugGrid />
                 <g>
                     <Fretboard {...this.props} />
                     {/*<Shape/>*/}
@@ -45,12 +40,6 @@ export default class Diagram extends React.Component {
             </svg>
         )
     }
-
-/*
-            <svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                <rect x={this.props.x} y={this.props.y} width={this.props.w} height={this.props.h} style={{stroke:this.props.color, strokeWidth:"2", fill:"none"}} />
-            </svg>
-*/
 
 }
 

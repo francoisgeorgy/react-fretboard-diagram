@@ -4,6 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>react-fretboard-diagram sample app</title>
+    <style>
+        #container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #container > div {
+            margin-right: 10px;
+            width: 400px;
+        }
+        .big {
+            width: 1000px!important;
+        }
+        .fret {
+            stroke: #000;
+            stroke-opacity: 0.5;
+        }
+        .string {
+            stroke: blue;
+            stroke-opacity: 0.5;
+        }
+    </style>
 </head>
 <body>
     <noscript>

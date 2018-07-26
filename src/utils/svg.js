@@ -1,16 +1,15 @@
-
-const STROKE_WIDTH = 1;
+import {currentLayout} from "./layout";
 
 export function horizontalLine(x, y, length) {
 
     //add stroke-width/2 to Y coordinate to correct SVG coordinates. See https://codepen.io/fgeorgy/pen/NBjYzP
 
-    return `M ${x},${y + STROKE_WIDTH/2} h ${length}`;
+    return `M ${x},${y + currentLayout.stringWidth/2} h ${length}`;
 }
 
 export function verticalLine(x, y, length) {
 
     //add stroke-width/2 to X coordinate to correct SVG coordinates. See https://codepen.io/fgeorgy/pen/NBjYzP
 
-    return `M ${x + STROKE_WIDTH/2},${y} v ${length}`;
+    return `M ${x + currentLayout.fretWidth/2},${y} v ${length}`;
 }
