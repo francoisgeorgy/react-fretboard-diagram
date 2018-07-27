@@ -48,7 +48,9 @@ function getFretsPath(strings, frets) {
     return s.join(' ');
 }
 
-function getFretsNumbers(strings, frets) {
+function getFretsNumbers(strings, frets, startAt) {
+
+    //TODO: add option to display only odd (1, 3, 5, ...) or only "standard" (3, 5, 7, 9, 12, ...) numbers
 
     //TODO: allow to choose placement over of below the strings
 
@@ -58,9 +60,9 @@ function getFretsNumbers(strings, frets) {
     for (let i=0; i<f; i++) {
         s.push(<text key={i}
                      x={currentLayout.paddingLeft + ((i + 0.5) * currentLayout.fretInterval) + currentLayout.fretWidth / 2}
-                     y={currentLayout.paddingTop - 1}
+                     y={currentLayout.paddingTop - 5}
                      fontSize={currentLayout.fontSize}
-                     className="fret-number">12</text>);
+                     className="fret-number">{startAt + i}</text>);
     }
     return <Fragment>{s}</Fragment>;
 
@@ -87,7 +89,7 @@ export default class Fretboard extends React.Component {
             <Fragment>
                 <path fill="none" className="string" strokeWidth={currentLayout.stringWidth} d={getStringsPath(this.props.strings, this.props.frets)} />
                 <path fill="none" className="fret" strokeWidth={currentLayout.fretWidth} d={getFretsPath(this.props.strings, this.props.frets)} />
-                {getFretsNumbers(this.props.strings, this.props.frets)}
+                {getFretsNumbers(this.props.strings, this.props.frets, 1)}
             </Fragment>
         );
     }

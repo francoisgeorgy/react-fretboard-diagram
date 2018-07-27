@@ -3,22 +3,15 @@ import Diagram from "../component/Diagram";
 
 const Home = () => (
     <div>
-        <div style={{width:"200px"}}>
-            <Diagram strings={6} frets={4} layout={ {
-                // paddingLeft: 20,
-                // paddingRight: 5,
-                // paddingTop: 10,
-                // paddingBottom: 10,
-                // stringInterval: 20,
-                stringWidth: 2,
-                // fretInterval: 30,
-                fretWidth: 3,
-                // dotIn: 15,
-                // dotOut: 10,
-                // dotRadius: 6,
-                // fontSize: 5
-            }} />
+        <div style={{width:"400px"}}>
+            <Diagram strings={6} frets={4} shapes={[
+                {
+                    frets: [0, 2, 2, 1, 0, 0],
+                    intervals: ['R', '5', 'R', '3', '5', 'R']
+                }
+            ]} />
         </div>
+{/*
         <div style={{width:"300px"}}>
             <Diagram strings={6} frets={4} layout={ {
                 paddingLeft: 200,
@@ -36,6 +29,7 @@ const Home = () => (
                 fontSize: 50
             }} />
         </div>
+*/}
     </div>
 );
 

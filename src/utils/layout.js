@@ -10,8 +10,8 @@ const LAYOUTS = {
     def : {
         paddingLeft: 70,
         paddingRight: 15,
-        paddingTop: 30,
-        paddingBottom: 10,
+        paddingTop: 40,
+        paddingBottom: 30,
         stringInterval: 60,
         stringWidth: 4,
         fretInterval: 100,

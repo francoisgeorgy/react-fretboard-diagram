@@ -13,7 +13,7 @@ const propTypes = {
     ]),
     strings: PropTypes.number.isRequired,
     frets: PropTypes.number.isRequired,
-    shapes: PropTypes.object,
+    shapes: PropTypes.array,
     debug: PropTypes.bool
 };
 
@@ -29,6 +29,8 @@ export default class Diagram extends React.Component {
 
     render() {
 
+        console.log('shapes', this.props.shapes);
+
         layout.setLayout(this.props.layout);
 
         let w = layout.width(this.props.frets);
@@ -42,7 +44,10 @@ export default class Diagram extends React.Component {
                 {this.props.debug && <DebugGrid />}
                 <g>
                     <Fretboard {...this.props} />
-                    {this.props.shapes && <Shape/>}
+                    {this.props.shapes &&
+                    this.props.shapes.map(
+                        (shape, index) => <Shape key={index} shape={shape}/>
+                    )}
                 </g>
             </svg>
         )

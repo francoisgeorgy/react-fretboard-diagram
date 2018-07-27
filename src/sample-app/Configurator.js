@@ -42,7 +42,7 @@ const defs = {
     paddingLeft: 70,
     paddingRight: 15,
     paddingTop: 30,
-    paddingBottom: 10,
+    paddingBottom: 20,
     stringInterval: 60,
     stringWidth: 4,
     fretInterval: 100,
@@ -75,17 +75,12 @@ class Configurator extends Component {
 
     handleChange = (event) => {
         let p = event.target.id.substring(1);
-        console.log('handleChange', event.target.id, p, event.target.value);
+        // console.log('handleChange', event.target.id, p, event.target.value);
         this.setState({[p]: Number(event.target.value)});
         return true;
     };
 
     render() {
-
-        //console.log(Object.getOwnPropertyNames(this.state));
-        // console.log('defs', defs);
-        // console.log(this.state);
-        // console.log(this.state.stringInterval);
         return (
             <div>
                 <div style={{display:"flex"}}>
@@ -98,7 +93,7 @@ class Configurator extends Component {
                         )}
                     </div>
                     <div style={{width:`${this.state.mainWidth}px`}}>
-                        <Diagram strings={6} frets={4} layout={this.state} shapes={{}}/>
+                        <Diagram strings={6} frets={4} layout={this.state} shapes={[{frets:[0, 2, 2, 1, 0, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
                     </div>
                 </div>
                 <pre>{JSON.stringify(this.state, null, 2)}</pre>
