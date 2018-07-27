@@ -10,6 +10,7 @@ A React component to build SVG fretboard diagrams
 - Type checking:
     - Flow or TypeScript. Go with Flow if possible.
 
+- Make sure react-router is not build into the component because it is only used by the sample-app.
 ----
 
 # Never forget:

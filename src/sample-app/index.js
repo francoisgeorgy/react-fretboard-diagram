@@ -1,42 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Diagram from "../component/Diagram";
+import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import Home from "./Home";
+import Grids from "./Grids";
+import Grid1 from "./Grid1";
 
 const App = () => (
-    <div>
-        <h1>react-fretboard-diagram sample app</h1>
-        <div id={"container"}>
-{/*
-            <div>
-                <Diagram layout={"test1"}/>
-            </div>
-            <div>
-                <Diagram layout={"test2"}/>
-            </div>
-            <div>
-                <Diagram layout={"test3"}/>
-            </div>
-            <div>
-                <Diagram layout={"test4"}/>
-            </div>
-            <div>
-                <Diagram layout={"test5"}/>
-            </div>
-            <div>
-                <Diagram layout={"test6"}/>
-            </div>
-            <div>
-                <Diagram layout={"test7"}/>
-            </div>
-            <div className={"big"}>
-                <Diagram layout={"test8"}/>
-            </div>
-*/}
-            <div className={"big"}>
-                <Diagram />
+    <Router>
+        <div>
+            <h1>react-fretboard-diagram sample app</h1>
+            <Link className="header-link" to="/">Home</Link>&nbsp;
+            <Link className="header-link" to="/grids">Grids</Link>&nbsp;
+            <Link className="header-link" to="/grid1">Grid-1</Link>
+            <div id={"container"}>
+                <Switch>
+                    <Route exact={true} path="/" component={Home} />
+                    <Route path="/grids" component={Grids} />
+                    <Route path="/grid1" component={Grid1} />
+                </Switch>
             </div>
         </div>
-    </div>
+    </Router>
 );
 
 ReactDOM.render(<App/>, document.getElementById('app'));
