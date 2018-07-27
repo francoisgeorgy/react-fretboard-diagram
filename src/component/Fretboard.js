@@ -84,7 +84,6 @@ function getFretsNumbers(strings, frets, startAt) {
 export default class Fretboard extends React.Component {
 
     render() {
-        // let i = 1;
         return (
             <Fragment>
                 <path fill="none" className="string" strokeWidth={currentLayout.stringWidth} d={getStringsPath(this.props.strings, this.props.frets)} />

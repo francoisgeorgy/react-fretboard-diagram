@@ -3,14 +3,31 @@
 A React component to build SVG fretboard diagrams
 
 
+### Strings numbering
+
+For the user: strings are numbered starting at 1 and from the lowest pitched to the highest pitched.
+
+Implementation: strings are in an array 0-index.
+
+### Frets numbering
+
+Frets are numbered starting at 0 and from the head of the neck towards the bridge.
+
+Fret number 0 is the nut, or the "zero fret" installed close the the nut on certain guitars.
+
+
 ----
 
 # TODO
+
+- Color schemes
+    - colors for intervals
 
 - Type checking:
     - Flow or TypeScript. Go with Flow if possible.
 
 - Make sure react-router is not build into the component because it is only used by the sample-app.
+
 ----
 
 # Never forget:

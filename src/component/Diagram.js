@@ -46,7 +46,7 @@ export default class Diagram extends React.Component {
                     <Fretboard {...this.props} />
                     {this.props.shapes &&
                     this.props.shapes.map(
-                        (shape, index) => <Shape key={index} shape={shape}/>
+                        (shape, index) => <Shape key={index} shape={shape} strings={this.props.strings} />
                     )}
                 </g>
             </svg>
