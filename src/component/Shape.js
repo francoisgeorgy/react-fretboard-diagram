@@ -12,11 +12,11 @@ export default class Shape extends React.Component {
         let y3 = currentLayout.paddingTop + (2 * currentLayout.stringInterval) + currentLayout.stringWidth / 2;
         return (
             <g>
-                <circle cx={x1} cy={y1} r={currentLayout.dotRadius} fill={"white"} fillOpacity={0.4} stroke={"black"}/>
+                <circle cx={x1} cy={y1} r={currentLayout.dotRadius} className="dot" strokeWidth={currentLayout.dotStroke}/>
                 <text x={x1} y={y1} alignmentBaseline="central" fontSize={currentLayout.fontSize * 1.5} className="dot-number">C&#9837;</text>
-                <circle cx={x2} cy={y2} r={currentLayout.dotRadius} fill={"white"} fillOpacity={0.4} stroke={"black"} strokeWidth={0.5}/>
+                <circle cx={x2} cy={y2} r={currentLayout.dotRadius} className="dot" strokeWidth={currentLayout.dotStroke}/>
                 <text x={x2} y={y2} alignmentBaseline="central" fontSize={currentLayout.fontSize * 1.5} className="dot-number">C&#9839;</text>
-                <circle cx={x3} cy={y3} r={currentLayout.dotRadius} fill={"white"} fillOpacity={0.4} stroke={"black"} strokeWidth={0.5}/>
+                <circle cx={x3} cy={y3} r={currentLayout.dotRadius} className="dot" strokeWidth={currentLayout.dotStroke}/>
                 <text x={x3} y={y3} alignmentBaseline="central" fontSize={currentLayout.fontSize * 1.5} className="dot-number">3m</text>
             </g>
         );

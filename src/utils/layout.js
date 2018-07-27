@@ -1,4 +1,5 @@
 import Assert from "assert-js";
+import * as layout from "./index";
 
 const COLORS_DEFAULT = {
     fretColor: '',
@@ -7,23 +8,19 @@ const COLORS_DEFAULT = {
 
 const LAYOUTS = {
     def : {
-        paddingLeft: 20,
-        paddingRight: 5,
-
-        paddingTop: 10,
+        paddingLeft: 70,
+        paddingRight: 15,
+        paddingTop: 30,
         paddingBottom: 10,
-
-        stringInterval: 20,
-        stringWidth: 2,
-
-        fretInterval: 30,
-        fretWidth: 2,
-
-        dotIn: 15,
-        dotOut: 10,
-        dotRadius: 6,
-
-        fontSize: 5
+        stringInterval: 60,
+        stringWidth: 4,
+        fretInterval: 100,
+        fretWidth: 4,
+        dotIn: 50,
+        dotOut: 30,
+        dotRadius: 20,
+        dotStroke: 2,
+        fontSize: 17
     },
     test1 : {
         paddingLeft : 2,
@@ -36,6 +33,7 @@ const LAYOUTS = {
         fretWidth: 1,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test2 : {
@@ -49,6 +47,7 @@ const LAYOUTS = {
         fretWidth: 1,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test3 : {
@@ -62,6 +61,7 @@ const LAYOUTS = {
         fretWidth: 3,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test4 : {
@@ -75,6 +75,7 @@ const LAYOUTS = {
         fretWidth: 3,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test5 : {
@@ -91,6 +92,7 @@ const LAYOUTS = {
 
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test6 : {
@@ -104,6 +106,7 @@ const LAYOUTS = {
         fretWidth: 4,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test7 : {
@@ -117,6 +120,7 @@ const LAYOUTS = {
         fretWidth: 2,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     },
     test8 : {
@@ -130,15 +134,22 @@ const LAYOUTS = {
         fretWidth: 2,
         dotIn: 5,
         dotOut: 5,
+        dotRadius: 5,
         fontSize: 1
     }
 };
 
 export var currentLayout = LAYOUTS['def'];
 
-export function setLayout(name) {
-    Assert.true(LAYOUTS.hasOwnProperty(name));
-    currentLayout = LAYOUTS[name];
+export function setLayout(layout) {
+    if (typeof layout === 'string') {
+        console.log("string layout");
+        Assert.true(LAYOUTS.hasOwnProperty(layout));
+        currentLayout = LAYOUTS[layout];
+    } else {
+        currentLayout = Object.assign(LAYOUTS['def'], layout);
+    }
+    // currentLayout = LAYOUTS[name];
     console.log('setLayout: currentLayout', currentLayout);
 }
 

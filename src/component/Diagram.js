@@ -7,15 +7,22 @@ import DebugGrid from "./DebugGrid";
 
 
 const propTypes = {
-    layout: PropTypes.string,
+    layout: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     strings: PropTypes.number.isRequired,
-    frets: PropTypes.number.isRequired
+    frets: PropTypes.number.isRequired,
+    shapes: PropTypes.object,
+    debug: PropTypes.bool
 };
 
 const defaultProps = {
     layout: 'def',
     strings: 3,
-    frets: 3.5
+    frets: 3.5,
+    shapes: null,
+    debug: false
 };
 
 export default class Diagram extends React.Component {
@@ -32,10 +39,10 @@ export default class Diagram extends React.Component {
 
         return (
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'>
-                <DebugGrid />
+                {this.props.debug && <DebugGrid />}
                 <g>
                     <Fretboard {...this.props} />
-                    <Shape/>
+                    {this.props.shapes && <Shape/>}
                 </g>
             </svg>
         )

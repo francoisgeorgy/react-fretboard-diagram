@@ -16,13 +16,25 @@
         .big {
             width: 1000px!important;
         }
-        .fret {
+        .fret,
+        .string,
+        .dot {
+            stroke: black;
+        }
+        .dot {
+            fill: white;
+        }
+        .debug .fret {
             stroke: #000;
             stroke-opacity: 0.5;
         }
-        .string {
+        .debug .string {
             stroke: blue;
             stroke-opacity: 0.5;
+        }
+        .debug .dot {
+            stroke: black;
+            fill-opacity: 0.4;
         }
         .fret-number {
             /*font-size: 1;*/

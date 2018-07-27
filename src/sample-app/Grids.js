@@ -2,7 +2,7 @@ import React from 'react';
 import Diagram from "../component/Diagram";
 
 const Grids = () => (
-    <div id="grids">
+    <div id="grids" className={"debug"}>
         <div>
             <Diagram layout={"test1"}/>
         </div>
