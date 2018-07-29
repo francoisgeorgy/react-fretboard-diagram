@@ -11,6 +11,8 @@ const propTypes = {
         PropTypes.string,
         PropTypes.object
     ]),
+    orientation: PropTypes.string,      // TODO: make bool instead?
+    leftHanded: PropTypes.bool,
     strings: PropTypes.number.isRequired,
     frets: PropTypes.number.isRequired,
     shapes: PropTypes.array,
@@ -19,6 +21,8 @@ const propTypes = {
 
 const defaultProps = {
     layout: 'def',
+    orientation: 'vertical',
+    leftHanded: false,
     strings: 3,
     frets: 3.5,
     shapes: null,

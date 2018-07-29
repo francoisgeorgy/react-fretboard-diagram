@@ -8,10 +8,10 @@ const COLORS_DEFAULT = {
 
 const LAYOUTS = {
     def : {
-        paddingLeft: 70,
-        paddingRight: 15,
         paddingTop: 40,
+        paddingRight: 15,
         paddingBottom: 30,
+        paddingLeft: 70,
         stringInterval: 60,
         stringWidth: 4,
         fretInterval: 100,
