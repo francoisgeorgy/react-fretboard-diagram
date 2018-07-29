@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
 import {currentLayout} from "../utils/layout";
 import PropTypes from "prop-types";
-import Diagram from "./Diagram";
-import Fretboard from "./Fretboard";
+
 
 function x(fret) {
     // console.log(`x(${fret})`);
