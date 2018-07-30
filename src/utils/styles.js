@@ -1,12 +1,11 @@
 import Assert from "assert-js";
-import * as layout from "./index";
 
 const COLORS_DEFAULT = {
     fretColor: '',
     fretOpacity: ''
 };
 
-const LAYOUTS = {
+const STYLES = {
     def : {
         paddingTop: 40,
         paddingRight: 15,
@@ -139,32 +138,34 @@ const LAYOUTS = {
     }
 };
 
-export var currentLayout = LAYOUTS['def'];
+// export var currentLayout = STYLES['def'];
 
-export function getLayout(layout) {
+export function getStyle(layout) {
     if (typeof layout === 'string') {
         console.log("string layout");
-        Assert.true(LAYOUTS.hasOwnProperty(layout));
-        return LAYOUTS[layout];
+        Assert.true(STYLES.hasOwnProperty(layout));
+        return STYLES[layout];
     } else {
-        return Object.assign(LAYOUTS['def'], layout);
+        return Object.assign(STYLES['def'], layout);
     }
-    // currentLayout = LAYOUTS[name];
+    // currentLayout = STYLES[name];
     // console.log('setLayout: currentLayout', currentLayout);
 }
 
 
+/*
 export function setLayout(layout) {
     if (typeof layout === 'string') {
         console.log("string layout");
-        Assert.true(LAYOUTS.hasOwnProperty(layout));
-        currentLayout = LAYOUTS[layout];
+        Assert.true(STYLES.hasOwnProperty(layout));
+        currentLayout = STYLES[layout];
     } else {
-        currentLayout = Object.assign(LAYOUTS['def'], layout);
+        currentLayout = Object.assign(STYLES['def'], layout);
     }
-    // currentLayout = LAYOUTS[name];
+    // currentLayout = STYLES[name];
     console.log('setLayout: currentLayout', currentLayout);
 }
+*/
 
 export function width(frets) {
     console.log('width: currentLayout', currentLayout);

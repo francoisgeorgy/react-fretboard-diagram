@@ -1,22 +1,8 @@
 import React, {Fragment} from 'react';
-import {currentLayout} from "../utils/layout";
 import PropTypes from "prop-types";
 
 
-function x(fret) {
-    // console.log(`x(${fret})`);
-    return fret === 0
-        ? currentLayout.paddingLeft - currentLayout.dotOut + currentLayout.fretWidth / 2
-        : currentLayout.paddingLeft + ((fret - 1) * currentLayout.fretInterval) + (currentLayout.fretInterval - currentLayout.dotIn) + currentLayout.fretWidth / 2;
-
-}
-
-function y(string) {
-    // console.log(`y(${string})`);
-    return currentLayout.paddingTop + (string * currentLayout.stringInterval) + currentLayout.stringWidth / 2;
-}
-
-
+/*
 const Dot = ({fret, string, text}) => (
     // see also dominantBaseline https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/dominant-baseline
     <Fragment>
@@ -24,6 +10,7 @@ const Dot = ({fret, string, text}) => (
         <text x={x(fret)} y={y(string)} alignmentBaseline="central" fontSize={currentLayout.fontSize * 1.5} className="dot-number">{text}</text>
     </Fragment>
 );
+*/
 
 
 const propTypes = {
@@ -43,6 +30,29 @@ export default class Shape extends React.Component {
     // --> should be done by the fretboard-api.
 
 
+    x(fret) {
+        // console.log(`x(${fret})`);
+        return fret === 0
+            ? this.props.style.paddingLeft - this.props.style.dotOut + this.props.style.fretWidth / 2
+            : this.props.style.paddingLeft + ((fret - 1) * this.props.style.fretInterval) + (this.props.style.fretInterval - this.props.style.dotIn) + this.props.style.fretWidth / 2;
+
+    }
+
+    y(string) {
+        // console.log(`y(${string})`);
+        return this.props.style.paddingTop + (string * this.props.style.stringInterval) + this.props.style.stringWidth / 2;
+    }
+
+
+    dot(string, fret, text) {
+        return (
+            <Fragment>
+                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.style.dotRadius} className="dot" strokeWidth={this.props.style.dotStroke}/>
+                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.style.fontSize * 1.5} className="dot-number">{text}</text>
+            </Fragment>
+        );
+    }
+
     render() {
 
         let s = this.props.shape;
@@ -59,10 +69,12 @@ export default class Shape extends React.Component {
         for (let i = 0; i < s.frets.length; i++) {
             if (Array.isArray(s.frets[i])) {
                 for (let k = 0; k < s.frets[i].length; k++) {
-                    e.push(<Dot key={`${i}_${k}`} fret={s.frets[i][k]} string={this.props.strings - 1 - i} text={texts ? texts[i][k] : ''} />);
+                    //e.push(<Dot key={`${i}_${k}`} fret={s.frets[i][k]} string={this.props.strings - 1 - i} text={texts ? texts[i][k] : ''} style={this.props.style} />);
+                    e.push(this.dot(this.props.strings - 1 - i, s.frets[i][k], texts ? texts[i][k] : ''));
                 }
             } else {
-                e.push(<Dot key={`_${i}`} fret={s.frets[i]} string={this.props.strings - 1 - i} text={texts ? texts[i] : ''} />);
+                // e.push(<Dot key={`_${i}`} fret={s.frets[i]} string={this.props.strings - 1 - i} text={texts ? texts[i] : ''} style={this.props.style} />);
+                e.push(this.dot(this.props.strings - 1 - i, s.frets[i], texts ? texts[i] : ''));
             }
         }
         return e;
