@@ -13,6 +13,22 @@
             margin-right: 10px;
             width: 400px;
         }
+        #examples {
+            display: grid;
+            grid-template-columns: 260px auto;
+            justify-items: start;
+            align-items: start;
+        }
+        #examples > div {
+            border: 0;
+            margin: 0;
+        }
+        #examples div:nth-child(odd) {
+            width: 250px;
+        }
+        #examples div:nth-child(even) {
+            font-family: monospace;
+        }
         .big {
             width: 1000px!important;
         }

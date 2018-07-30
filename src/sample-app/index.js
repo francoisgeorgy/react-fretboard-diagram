@@ -5,6 +5,7 @@ import Home from "./Home";
 import Grids from "./Grids";
 import Grid1 from "./Grid1";
 import Configurator from "./Configurator";
+import Examples from "./Examples";
 
 const App = () => (
     <Router>
@@ -13,12 +14,14 @@ const App = () => (
             <Link className="header-link" to="/">Home</Link>&nbsp;
             <Link className="header-link" to="/grids">Grids</Link>&nbsp;
             <Link className="header-link" to="/grid1">Grid-1</Link>&nbsp;
+            <Link className="header-link" to="/examples">Examples</Link>&nbsp;
             <Link className="header-link" to="/configurator">Configurator</Link>
             <div id={"container"}>
                 <Switch>
                     <Route exact={true} path="/" component={Home} />
                     <Route path="/grids" component={Grids} />
                     <Route path="/grid1" component={Grid1} />
+                    <Route path="/examples" component={Examples} />
                     <Route path="/configurator" component={Configurator} />
                 </Switch>
             </div>

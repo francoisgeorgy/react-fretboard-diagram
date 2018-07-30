@@ -23,8 +23,8 @@ const defaultProps = {
     layout: 'def',
     orientation: 'vertical',
     leftHanded: false,
-    strings: 3,
-    frets: 3.5,
+    strings: 6,
+    frets: 4,
     shapes: null,
     debug: false
 };
@@ -43,13 +43,15 @@ export default class Diagram extends React.Component {
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
         console.log(`${this.props.layout} : viewbox = ${box}`);
 
+        let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
+
         return (
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'>
                 {this.props.debug && <DebugGrid />}
                 <g>
-                    <Fretboard {...this.props} />
-                    {this.props.shapes &&
-                    this.props.shapes.map(
+                    <Fretboard {...p} />
+                    {shapes &&
+                    shapes.map(
                         (shape, index) => <Shape key={index} shape={shape} strings={this.props.strings} />
                     )}
                 </g>
