@@ -34,7 +34,7 @@ const Home = () => (
         </div>
 {/*
         <div style={{width:"300px"}}>
-            <Diagram strings={6} frets={4} layout={ {
+            <Diagram strings={6} frets={4} diagramStyle={ {
                 paddingLeft: 200,
                 paddingRight: 50,
                 paddingTop: 100,

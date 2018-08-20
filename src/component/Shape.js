@@ -45,10 +45,32 @@ export default class Shape extends React.Component {
 
 
     dot(string, fret, text) {
+        let fill = 'white';
+        let stroke = 'black';
+        let textColor = 'black';
+        if (this.props.style.colors.interval.hasOwnProperty(text)) {
+            console.log(this.props.style.colors.interval);
+            fill = this.props.style.colors.interval[text].fill;
+            stroke = this.props.style.colors.interval[text].stroke;
+            textColor = this.props.style.colors.interval[text].text;
+        }
+        // console.log(text, fg, bg);
+
         return (
             <Fragment>
-                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.style.dotRadius} className="dot" strokeWidth={this.props.style.dotStroke}/>
-                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.style.fontSize * 1.5} className="dot-number">{text}</text>
+                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.style.dotRadius} className="dot" strokeWidth={this.props.style.dotStroke}
+                        stroke={stroke} fill={fill}
+                />
+                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.style.fontSize * 1.5} className="dot-number"
+                      fill={textColor}>{text}</text>
+            </Fragment>
+        );
+    }
+
+    cross(string) {
+        return (
+            <Fragment>
+                <text x={this.x(0)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.style.fontSize * 1.5} className="dot-number">&#x2715;</text>
             </Fragment>
         );
     }
@@ -66,7 +88,10 @@ export default class Shape extends React.Component {
         }
 
         let e = [];
-        for (let i = 0; i < s.frets.length; i++) {
+        for (let i = 0; i < s.frets.length; i++) {      // for each string
+
+            console.log(s.frets[i]);
+
             if (Array.isArray(s.frets[i])) {
                 for (let k = 0; k < s.frets[i].length; k++) {
                     //e.push(<Dot key={`${i}_${k}`} fret={s.frets[i][k]} string={this.props.strings - 1 - i} text={texts ? texts[i][k] : ''} style={this.props.style} />);
@@ -74,7 +99,9 @@ export default class Shape extends React.Component {
                 }
             } else {
                 // e.push(<Dot key={`_${i}`} fret={s.frets[i]} string={this.props.strings - 1 - i} text={texts ? texts[i] : ''} style={this.props.style} />);
-                e.push(this.dot(this.props.strings - 1 - i, s.frets[i], texts ? texts[i] : ''));
+                e.push(s.frets[i] < 0 ?
+                    this.cross(this.props.strings - 1 - i) :
+                    this.dot(this.props.strings - 1 - i, s.frets[i], texts ? texts[i] : ''));
             }
         }
         return e;

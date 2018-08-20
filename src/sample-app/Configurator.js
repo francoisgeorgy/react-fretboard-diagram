@@ -93,7 +93,7 @@ class Configurator extends Component {
                         )}
                     </div>
                     <div style={{width:`${this.state.mainWidth}px`}}>
-                        <Diagram strings={6} frets={4} layout={this.state} shapes={[{frets:[0, 2, 2, 1, 0, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
+                        <Diagram strings={6} frets={4} diagramStyle={this.state} shapes={[{frets:[0, 2, 2, 1, 0, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
                     </div>
                 </div>
                 <pre>{JSON.stringify(this.state, null, 2)}</pre>

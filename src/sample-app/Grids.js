@@ -1,31 +1,32 @@
 import React from 'react';
 import Diagram from "../component/Diagram";
+import {STYLES} from "../utils/styles";
 
 const Grids = () => (
     <div id="grids" className={"debug"}>
         <div>
-            <Diagram layout={"test1"}/>
+            <Diagram frets={1} strings={2} diagramStyle={STYLES.test1}/>
         </div>
         <div>
-            <Diagram layout={"test2"}/>
+            <Diagram diagramStyle={STYLES.test2}/>
         </div>
         <div>
-            <Diagram layout={"test3"}/>
+            <Diagram diagramStyle={STYLES.test3}/>
         </div>
         <div>
-            <Diagram layout={"test4"}/>
+            <Diagram diagramStyle={STYLES.test4}/>
         </div>
         <div>
-            <Diagram layout={"test5"}/>
+            <Diagram diagramStyle={STYLES.test5}/>
         </div>
         <div>
-            <Diagram layout={"test6"}/>
+            <Diagram diagramStyle={STYLES.test6}/>
         </div>
         <div>
-            <Diagram layout={"test7"}/>
+            <Diagram diagramStyle={STYLES.test7}/>
         </div>
         <div className={"big"}>
-            <Diagram layout={"test8"}/>
+            <Diagram diagramStyle={STYLES.test8}/>
         </div>
         <div className={"big"}>
             <Diagram />

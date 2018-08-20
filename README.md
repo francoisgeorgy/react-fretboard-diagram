@@ -20,6 +20,8 @@ Fret number 0 is the nut, or the "zero fret" installed close the the nut on cert
 
 # TODO
 
+- Display stacked intervals
+
 - Color schemes
     - colors for intervals
 

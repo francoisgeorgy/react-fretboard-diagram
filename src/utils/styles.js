@@ -5,7 +5,7 @@ const COLORS_DEFAULT = {
     fretOpacity: ''
 };
 
-const STYLES = {
+export const STYLES = {
     def : {
         paddingTop: 40,
         paddingRight: 15,

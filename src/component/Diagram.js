@@ -7,10 +7,11 @@ import DiagramStyle from "../utils/DiagramStyle";
 
 
 const propTypes = {
-    layout: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.object
-    ]),
+    // layout: PropTypes.oneOfType([
+    //     PropTypes.string,
+    //     PropTypes.object
+    // ]),
+    diagramStyle: PropTypes.object,
     orientation: PropTypes.string,      // TODO: make bool instead?
     leftHanded: PropTypes.bool,
     strings: PropTypes.number.isRequired,
@@ -20,7 +21,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    style: 'def',
+    diagramStyle: {},
     orientation: 'vertical',
     leftHanded: false,
     strings: 6,
@@ -35,16 +36,12 @@ export default class Diagram extends React.Component {
 
         console.log('shapes', this.props.shapes);
 
-        // layout.setLayout(this.props.layout);
-
-        // let s = style.getStyle(this.props.style);
-        let s = new DiagramStyle();
+        let s = new DiagramStyle(this.props.diagramStyle);
 
         let w = s.width(this.props.frets);
         let h = s.height(this.props.strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
-        // console.log(`${this.props.layout} : viewbox = ${box}`);
 
         let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
 
