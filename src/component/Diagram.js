@@ -34,7 +34,7 @@ export default class Diagram extends React.Component {
 
     render() {
 
-        console.log('shapes', this.props.shapes);
+        console.log('Diagram.render: shapes', this.props.shapes);
 
         let s = new DiagramStyle(this.props.diagramStyle);
 

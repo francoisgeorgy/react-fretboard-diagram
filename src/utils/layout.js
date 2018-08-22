@@ -1,5 +1,7 @@
+//TODO: delete me
+
 import Assert from "assert-js";
-import * as layout from "./index";
+// import * as layout from "./index";
 
 const COLORS_DEFAULT = {
     fretColor: '',
