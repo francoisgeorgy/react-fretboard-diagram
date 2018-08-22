@@ -2,14 +2,17 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import * as svg from "../utils/svg.js";
 
+
 const propTypes = {
     strings: PropTypes.number.isRequired,
-    frets: PropTypes.number.isRequired
+    frets: PropTypes.number.isRequired,
+    diagramStyle: PropTypes.object        // rename to diagramStyle?
 };
 
 const defaultProps = {
     strings: 6,
-    frets: 5
+    frets: 5,
+    diagramStyle: {}
 };
 
 export default class Fretboard extends React.Component {
@@ -20,32 +23,32 @@ export default class Fretboard extends React.Component {
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
-        let stringLength = this.props.style.stringLength(frets);
+        let stringLength = this.props.diagramStyle.stringLength(frets);
 
         let s = new Array(strings);
         for (let i=0; i<strings; i++) {
             s[i] = svg.horizontalLine(
-                this.props.style.paddingLeft,                                           // X
-                this.props.style.paddingTop + (i * this.props.style.stringInterval),    // Y
+                this.props.diagramStyle.paddingLeft,                                           // X
+                this.props.diagramStyle.paddingTop + (i * this.props.diagramStyle.stringInterval),    // Y
                 stringLength,
-                this.props.style.stringWidth);  // FIXME: stringWidth or fretWidth ???
+                this.props.diagramStyle.stringWidth);  // FIXME: stringWidth or fretWidth ???
         }
         return s.join(' ');
     }
 
     getFretsPath(strings, frets) {
 
-        let fretLength = this.props.style.fretLength(strings);
+        let fretLength = this.props.diagramStyle.fretLength(strings);
 
         let f = Math.trunc(frets) + 1;  // +1 because we draw the fret 0
 
         let s = new Array(f);
         for (let i=0; i<f; i++) {
             s[i] = svg.verticalLine(
-                this.props.style.paddingLeft + (i * this.props.style.fretInterval), // X
-                this.props.style.paddingTop,                                        // Y
+                this.props.diagramStyle.paddingLeft + (i * this.props.diagramStyle.fretInterval), // X
+                this.props.diagramStyle.paddingTop,                                        // Y
                 fretLength,
-                this.props.style.fretWidth);    // FIXME: stringWidth or fretWidth ???
+                this.props.diagramStyle.fretWidth);    // FIXME: stringWidth or fretWidth ???
         }
         return s.join(' ');
     }
@@ -61,9 +64,9 @@ export default class Fretboard extends React.Component {
         let s = [];
         for (let i=0; i<f; i++) {
             s.push(<text key={i}
-                         x={this.props.style.paddingLeft + ((i + 0.5) * this.props.style.fretInterval) + this.props.style.fretWidth / 2}
-                         y={this.props.style.paddingTop - 5}
-                         fontSize={this.props.style.fontSize}
+                         x={this.props.diagramStyle.paddingLeft + ((i + 0.5) * this.props.diagramStyle.fretInterval) + this.props.diagramStyle.fretWidth / 2}
+                         y={this.props.diagramStyle.paddingTop - 5}
+                         fontSize={this.props.diagramStyle.fontSize}
                          className="fret-number">{startAt + i}</text>);
         }
         return <Fragment>{s}</Fragment>;
@@ -87,8 +90,8 @@ export default class Fretboard extends React.Component {
     render() {
         return (
             <Fragment>
-                <path fill="none" className="string" strokeWidth={this.props.style.stringWidth} d={this.getStringsPath(this.props.strings, this.props.frets)} />
-                <path fill="none" className="fret" strokeWidth={this.props.style.fretWidth} d={this.getFretsPath(this.props.strings, this.props.frets)} />
+                <path fill="none" className="string" strokeWidth={this.props.diagramStyle.stringWidth} d={this.getStringsPath(this.props.strings, this.props.frets)} />
+                <path fill="none" className="fret" strokeWidth={this.props.diagramStyle.fretWidth} d={this.getFretsPath(this.props.strings, this.props.frets)} />
                 {this.getFretsNumbers(this.props.strings, this.props.frets, 1)}
             </Fragment>
         );

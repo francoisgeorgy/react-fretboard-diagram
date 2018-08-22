@@ -7,8 +7,8 @@ const Home = () => (
         <div style={{width:"400px"}}>
             <Diagram strings={6} frets={4} shapes={[
                 {
-                    frets: [0, 2, 2, 1, 0, 0],
-                    intervals: ['R', '5', 'R', '3', '5', 'R']
+                    frets: [[0], [2], [2], [1], [0], [0]],
+                    intervals: [['R'], ['5'], ['R'], ['3'], ['5'], ['R']]
                 }
             ]} />
         </div>
