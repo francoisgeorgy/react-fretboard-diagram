@@ -38,20 +38,20 @@ const maxs = {
 
 
 const defs = {
-    mainWidth: 400,
+    mainWidth: 600,
     paddingLeft: 70,
     paddingRight: 15,
     paddingTop: 30,
-    paddingBottom: 20,
+    paddingBottom: 30,
     stringInterval: 60,
     stringWidth: 4,
     fretInterval: 100,
     fretWidth: 4,
     dotIn: 50,
     dotOut: 30,
-    dotRadius: 20,
+    dotRadius: 22,
     dotStroke: 2,
-    fontSize: 17
+    fontSize: 16
 };
 
 class Configurator extends Component {
@@ -84,19 +84,24 @@ class Configurator extends Component {
         return (
             <div>
                 <div style={{display:"flex"}}>
-                    {/*<input type={"range"} defaultValue={"50"} min={"0"} max={"100"} onChange={this.handleChange}  />*/}
                     <div>
-                        {Object.getOwnPropertyNames(this.state).map(
-                            (p,i) => <div key={i}>
-                                    {p} <input key={p} id={`_${p}`} type={"range"} defaultValue={defs[p]} min={mins[p]} max={maxs[p]} onChange={this.handleChange} step={1} /> {this.state[p]}
-                                 </div>
-                        )}
+                    {Object.getOwnPropertyNames(this.state).map(
+                        (p,i) => <div key={i}>
+                            {p} <input key={p} id={`_${p}`} type={"range"} style={{width:"400px"}}
+                                       defaultValue={defs[p]} min={mins[p]} max={maxs[p]}
+                                       onChange={this.handleChange} step={1} /> {this.state[p]}
+                        </div>
+                    )}
                     </div>
+                    <pre>{JSON.stringify(this.state, null, 2)}</pre>
+                </div>
+                <div style={{display:"flex"}}>
+                    {/*<input type={"range"} defaultValue={"50"} min={"0"} max={"100"} onChange={this.handleChange}  />*/}
                     <div style={{width:`${this.state.mainWidth}px`}}>
-                        <Diagram strings={6} frets={4} diagramStyle={this.state} shapes={[{frets:[0, 2, 2, 1, 0, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
+                        <Diagram strings={6} frets={4} diagramStyle={this.state}
+                                 shapes={[{frets:[0, 2, 2, 1, 3, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
                     </div>
                 </div>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
             </div>
         );
     }

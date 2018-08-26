@@ -1,8 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
 import {Humanizer} from "fretboard-api";
-import {Interval} from "tonal";
-
 
 const propTypes = {
     shape: PropTypes.object.isRequired,
@@ -35,6 +33,7 @@ export default class Shape extends React.Component {
     dot(string, fret, text) {
         let fill = 'white';
         let stroke = 'black';
+        let dotStrokeColor = 'black';
         let textColor = 'black';
         if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
             // console.log(this.props.diagramStyle.colors.interval);
@@ -46,7 +45,7 @@ export default class Shape extends React.Component {
         return (
             <Fragment key={`${string}.${fret}`}>
                 <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.diagramStyle.dotRadius} className="dot" strokeWidth={this.props.diagramStyle.dotStroke}
-                        stroke={stroke} fill={fill} />
+                        stroke={dotStrokeColor} fill={fill} />
                 <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.diagramStyle.fontSize * 1.5} className="dot-number"
                       fill={textColor}>{text}</text>
             </Fragment>
