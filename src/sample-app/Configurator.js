@@ -16,7 +16,9 @@ const mins = {
     dotOut: 0,
     dotRadius: 0,
     dotStroke: 0,
-    fontSize: 0
+    fontSize: 0,
+    fretNumberFontSize: 0,
+    fretNumberDistance: 0
 };
 
 const maxs = {
@@ -33,7 +35,9 @@ const maxs = {
     dotOut: 1000,
     dotRadius: 500,
     dotStroke: 100,
-    fontSize: 200
+    fontSize: 200,
+    fretNumberFontSize: 200,
+    fretNumberDistance: 1000
 };
 
 
@@ -41,7 +45,7 @@ const defs = {
     mainWidth: 600,
     paddingLeft: 70,
     paddingRight: 15,
-    paddingTop: 30,
+    paddingTop: 70,
     paddingBottom: 30,
     stringInterval: 60,
     stringWidth: 4,
@@ -50,8 +54,10 @@ const defs = {
     dotIn: 50,
     dotOut: 30,
     dotRadius: 22,
-    dotStroke: 2,
-    fontSize: 16
+    dotStroke: 3,
+    fontSize: 16,
+    fretNumberFontSize: 42,
+    fretNumberDistance: 30
 };
 
 class Configurator extends Component {
@@ -70,7 +76,9 @@ class Configurator extends Component {
         dotOut: defs['dotOut'],
         dotRadius: defs['dotRadius'],
         dotStroke: defs['dotStroke'],
-        fontSize: defs['fontSize']
+        fontSize: defs['fontSize'],
+        fretNumberFontSize: defs['fretNumberFontSize'],
+        fretNumberDistance: defs['fretNumberDistance']
     };
 
     handleChange = (event) => {
@@ -99,7 +107,7 @@ class Configurator extends Component {
                     {/*<input type={"range"} defaultValue={"50"} min={"0"} max={"100"} onChange={this.handleChange}  />*/}
                     <div style={{width:`${this.state.mainWidth}px`}}>
                         <Diagram strings={6} frets={4} diagramStyle={this.state}
-                                 shapes={[{frets:[0, 2, 2, 1, 3, 0], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
+                                 shapes={[{frets:[0, 2, 2, 1, 3, 4], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
                     </div>
                 </div>
             </div>

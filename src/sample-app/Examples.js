@@ -32,6 +32,13 @@ const Examples = () => (
             &lt;Diagram orientation="vertical" leftHanded={true} /&gt;
         </div>
 
+        <div>
+            <Diagram strings={2} frets={2} />
+        </div>
+        <div>
+            &lt;Diagram strings={2} frets={2} /&gt;
+        </div>
+
     </div>
 );
 

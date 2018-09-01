@@ -3,7 +3,7 @@ import Assert from "assert-js";
 class DiagramStyle {
 
     constructor({
-            paddingTop = 40,
+            paddingTop = 70,    // make room for fret numbers
             paddingRight = 15,
             paddingBottom = 30,
             paddingLeft = 70,
@@ -14,8 +14,11 @@ class DiagramStyle {
             dotIn = 50,
             dotOut = 30,
             dotRadius = 20,
-            dotStroke = 2,
+            dotStroke = 3,
             fontSize = 17,
+            fretNumberDistance = 30,
+            fretNumberFontSize = 24,
+            fretNumberColor = '#999'
         } = {}) {
 
         this.paddingTop = paddingTop;
@@ -31,6 +34,9 @@ class DiagramStyle {
         this.dotRadius = dotRadius;
         this.dotStroke = dotStroke;
         this.fontSize = fontSize;
+        this.fretNumberDistance = fretNumberDistance;
+        this.fretNumberFontSize = fretNumberFontSize;
+        this.fretNumberColor = fretNumberColor;
 
         this.colors = {
             interval: {
