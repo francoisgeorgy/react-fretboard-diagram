@@ -59,7 +59,7 @@ export default class Diagram extends React.Component {
             f = new F({frets: frets});  // build a default fretboard
             if (this.props.shapes) {
                 for (const s of this.props.shapes) {
-                    f.addShape({shape: s});
+                    f.addShape(s);
                 }
             }
         }
