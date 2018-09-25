@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
-import { Note } from "tonal";
+import {Note} from "tonal";
 import {Humanizer} from "fretboard-api";
 
 const propTypes = {
@@ -77,7 +77,7 @@ export default class Shape extends React.Component {
                     textColor = this.props.diagramStyle.colors.interval[text].text;
                 }
                 break;
-            case 'interval-compund':
+            case 'interval-compound':
                 if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
                     // console.log(this.props.diagramStyle.colors.interval);
                     fill = this.props.diagramStyle.colors.interval[text].fill;

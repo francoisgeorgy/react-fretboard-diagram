@@ -8,10 +8,6 @@ import {Fretboard as F, Shape as S} from "fretboard-api";
 import FretNumbers from "./FretNumbers";   //TODO: import API, and use API.Fretboard...
 
 const propTypes = {
-    // layout: PropTypes.oneOfType([
-    //     PropTypes.string,
-    //     PropTypes.object
-    // ]),
     diagramStyle: PropTypes.object,
     orientation: PropTypes.oneOf(['vertical', 'horizontal']),   // TODO: make bool instead?
     text: PropTypes.oneOf([
@@ -56,7 +52,6 @@ export default class Diagram extends React.Component {
 
         let strings = this.props.strings;
         let frets = this.props.frets;
-
         let f;
 
         if (this.props.fretboard) {
