@@ -106,8 +106,7 @@ class Configurator extends Component {
                 <div style={{display:"flex"}}>
                     {/*<input type={"range"} defaultValue={"50"} min={"0"} max={"100"} onChange={this.handleChange}  />*/}
                     <div style={{width:`${this.state.mainWidth}px`}}>
-                        <Diagram strings={6} frets={4} diagramStyle={this.state}
-                                 shapes={[{frets:[0, 2, 2, 1, 3, 4], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
+                        <Diagram strings={6} frets={4} diagramStyle={this.state} shapes={["022134"]}/>
                     </div>
                 </div>
             </div>

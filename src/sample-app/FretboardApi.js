@@ -11,8 +11,7 @@ class FretboardApi extends Component {
 
         let f = new F();
         // let s = new S({frets:"X22100"});
-        let s = new S({frets:"X32010"});
-
+        let s = new S("X32010");
 
         // let shape = new Shape("022100");
 

@@ -15,6 +15,14 @@ Frets are numbered starting at 0 and from the head of the neck towards the bridg
 
 Fret number 0 is the nut, or the "zero fret" installed close the the nut on certain guitars.
 
+### Interval display
+
+Intervals can be displayed in two forms:
+
+- full interval: 11
+- simplified interval: 4
+
+"P" and "M" are omitted. 
 
 ----
 
@@ -29,6 +37,9 @@ Fret number 0 is the nut, or the "zero fret" installed close the the nut on cert
     - Flow or TypeScript. Go with Flow if possible.
 
 - Make sure react-router is not build into the component because it is only used by the sample-app.
+
+- Allow overriding of the display options per Shape. For example, on the same diagram, one shape could be displayed with
+notes and another shape could be displayed with intervals.
 
 ----
 

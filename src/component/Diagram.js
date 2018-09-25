@@ -14,6 +14,13 @@ const propTypes = {
     // ]),
     diagramStyle: PropTypes.object,
     orientation: PropTypes.oneOf(['vertical', 'horizontal']),   // TODO: make bool instead?
+    text: PropTypes.oneOf([
+        'note',
+        'note-octave',
+        'interval',             // M10 --> M3
+        'interval-compound',    // M10 --> M10 (no simplification)
+        'finger',
+        'custom']),   // TODO: define "custom"
     leftHanded: PropTypes.bool,
     strings: PropTypes.number.isRequired,
     stringsProportional: PropTypes.bool,        // if true will draw strings with prop widths
@@ -33,6 +40,7 @@ const defaultProps = {
     frets: 4,
     fretNumbers: 'latin',
     fretNumbersPosition: 'top',
+    text: 'note',
     shapes: null,
     debug: false
 };
@@ -59,6 +67,7 @@ export default class Diagram extends React.Component {
             f = new F({frets: frets});  // build a default fretboard
             if (this.props.shapes) {
                 for (const s of this.props.shapes) {
+                    console.log('adding', s);
                     f.addShape(s);
                 }
             }
@@ -78,7 +87,7 @@ export default class Diagram extends React.Component {
                     <Fretboard strings={strings} frets={frets} diagramStyle={s} />
                     {f.shapes &&
                     f.shapes.map(
-                        (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={s} />
+                        (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={s} text={this.props.text} />
                     )}
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={s} />}
                 </g>

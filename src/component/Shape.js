@@ -1,18 +1,21 @@
 import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
+import { Note } from "tonal";
 import {Humanizer} from "fretboard-api";
 
 const propTypes = {
     shape: PropTypes.object.isRequired,
     string: PropTypes.number,   // shape position
     fret: PropTypes.number,     // shape position
-    diagramStyle: PropTypes.object
+    diagramStyle: PropTypes.object,
+    text: PropTypes.oneOf(['note', 'interval', 'finger', 'custom']),   // TODO: define "custom"
 };
 
 const defaultProps = {
     string: -1,
     fret: -1,
-    diagramStyle: {}
+    diagramStyle: {},
+    text: 'note'
 };
 
 export default class Shape extends React.Component {
@@ -30,16 +33,60 @@ export default class Shape extends React.Component {
         return this.props.diagramStyle.paddingTop + (string * this.props.diagramStyle.stringInterval) + this.props.diagramStyle.stringWidth / 2;
     }
 
+    getText(string, fretIndex) {
+
+        let t = '';
+        let s = this.props.shape;
+
+        switch (this.props.text) {
+            case 'note':
+                t = Note.pc(s.notes[string][fretIndex]);
+                break;
+            case 'note-octave':
+                t = s.notes[string][fretIndex];
+                break;
+            case 'interval':
+                t = Humanizer.intervalText(s.intervals[string][fretIndex]);
+                break;
+            case 'interval-compound':
+                t = Humanizer.intervalText(s.intervals[string][fretIndex], true);
+                break;
+            case 'finger':
+                if (s.hasOwnProperty('fingers')) t = s.fingers[string][fretIndex];
+                break;
+        }
+
+        return t;
+    }
+
     dot(string, fret, text) {
+
         let fill = 'white';
         let stroke = 'black';
         let dotStrokeColor = 'black';
         let textColor = 'black';
-        if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
-            // console.log(this.props.diagramStyle.colors.interval);
-            fill = this.props.diagramStyle.colors.interval[text].fill;
-            stroke = this.props.diagramStyle.colors.interval[text].stroke;
-            textColor = this.props.diagramStyle.colors.interval[text].text;
+
+        switch (this.props.text) {
+            case 'note':
+                break;
+            case 'interval':
+                if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
+                    // console.log(this.props.diagramStyle.colors.interval);
+                    fill = this.props.diagramStyle.colors.interval[text].fill;
+                    stroke = this.props.diagramStyle.colors.interval[text].stroke;
+                    textColor = this.props.diagramStyle.colors.interval[text].text;
+                }
+                break;
+            case 'interval-compund':
+                if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
+                    // console.log(this.props.diagramStyle.colors.interval);
+                    fill = this.props.diagramStyle.colors.interval[text].fill;
+                    stroke = this.props.diagramStyle.colors.interval[text].stroke;
+                    textColor = this.props.diagramStyle.colors.interval[text].text;
+                }
+                break;
+            case 'finger':
+                break;
         }
 
         return (
@@ -59,29 +106,10 @@ export default class Shape extends React.Component {
             </Fragment>
         );
     }
-/*
-    label(shape, string, fret) {
-        let texts = null;
-        if (s.hasOwnProperty('intervals')) {
-            texts = s.intervals;
-        } else if (s.hasOwnProperty('fingers')) {
-            texts = s.fingers;
-        }
-        texts ? texts[i][k] : ''
-    }
-    */
 
     render() {
 
         let s = this.props.shape;
-
-        // TODO: add option to select which information to display inside the dots
-        let texts = null;
-        if (s.hasOwnProperty('intervals')) {
-            texts = s.intervals;
-        } else if (s.hasOwnProperty('fingers')) {
-            texts = s.fingers;
-        }
 
         let e = [];
         for (let i = 0; i < s.frets.length; i++) {      // for each string
@@ -90,7 +118,7 @@ export default class Shape extends React.Component {
                     e.push(this.cross(this.props.strings - 1 - i));
                 } else {
                     for (let k = 0; k < s.frets[i].length; k++) {
-                        e.push(this.dot(this.props.strings - 1 - i, s.frets[i][k], texts ? Humanizer.intervalSimple(texts[i][k]) : ''));
+                        e.push(this.dot(this.props.strings - 1 - i, s.frets[i][k], this.getText(i, k)));
                     }
                 }
             }
