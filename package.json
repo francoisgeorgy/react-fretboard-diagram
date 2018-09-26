@@ -6,9 +6,9 @@
     "author": "François Georgy <francois.georgy@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "webpack --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
-        "start": "webpack-dev-server --open --config webpack.dev-server.js",
+        "build": "rimraf dist && babel src -d dist --copy-files",
+        "prepublish": "npm run build",
+        "start": "webpack-dev-server --open --config webpack.config.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "peerDependencies": {
@@ -16,6 +16,7 @@
         "react-dom": "^16.4.1"
     },
     "devDependencies": {
+        "babel-cli": "^6.26.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.5",
         "babel-plugin-transform-class-properties": "^6.24.1",
@@ -36,7 +37,6 @@
         "assert-js": "^0.19.0",
         "fretboard-api": "^0.3.6",
         "prop-types": "^15.6.2",
-        "roman-numbers": "^1.0.1",
         "tonal": "^2.0.0"
     }
 }

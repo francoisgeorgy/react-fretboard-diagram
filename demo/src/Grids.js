@@ -1,6 +1,6 @@
 import React from 'react';
-import Diagram from "../component/Diagram";
-import {STYLES} from "../utils/styles";
+import Diagram from "../../src/component/Diagram";
+import {STYLES} from "../../src/utils/styles";
 
 const Grids = () => (
     <div id="grids" className={"debug"}>

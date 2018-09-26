@@ -1,6 +1,6 @@
 import {Component} from "react";
 import {SHAPES, Fretboard as F, Shape as S} from "fretboard-api";
-import Diagram from "../component/Diagram";
+import Diagram from "../../src/component/Diagram";
 import React from "react";
 
 class FretboardApi extends Component {

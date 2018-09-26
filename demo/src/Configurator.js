@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Diagram from "../component/Diagram";
+import Diagram from "../../src/component/Diagram";
 
 
 const mins = {
