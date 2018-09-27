@@ -5,24 +5,19 @@ import PropTypes from "prop-types";
 import DebugGrid from "./DebugGrid";
 import DiagramStyle from "../utils/DiagramStyle";
 import {Fretboard as F, Shape as S} from "fretboard-api";
-import FretNumbers from "./FretNumbers";   //TODO: import API, and use API.Fretboard...
+import FretNumbers from "./FretNumbers";
+import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";   //TODO: import API, and use API.Fretboard...
 
 const propTypes = {
     diagramStyle: PropTypes.object,
-    orientation: PropTypes.oneOf(['vertical', 'horizontal']),   // TODO: make bool instead?
-    text: PropTypes.oneOf([
-        'note',
-        'note-octave',
-        'interval',             // M10 --> M3
-        'interval-compound',    // M10 --> M10 (no simplification)
-        'finger',
-        'custom']),   // TODO: define "custom"
+    orientation: PropTypes.oneOf(ORIENTATION),   // TODO: make bool instead?
+    text: PropTypes.oneOf(DOT_TEXT),   // TODO: define "custom"
     leftHanded: PropTypes.bool,
     strings: PropTypes.number.isRequired,
     stringsProportional: PropTypes.bool,        // if true will draw strings with prop widths
     frets: PropTypes.number.isRequired,
-    fretNumbers: PropTypes.oneOf(['none', 'latin', 'roman']),
-    fretNumbersPosition: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),   // left, right only when vertical orientation
+    fretNumbers: PropTypes.oneOf(FRET_NUMBER_FORMAT),
+    fretNumbersPosition: PropTypes.oneOf(FRET_NUMBER_POSITION),   // left, right only when vertical orientation
     shapes: PropTypes.array,
     debug: PropTypes.bool
 };
@@ -45,22 +40,22 @@ export default class Diagram extends React.Component {
 
     render() {
 
-        console.log('Diagram.render: fretboard', this.props.fretboard);
-        console.log('Diagram.render: shapes', this.props.shapes);
+        // console.log('Diagram.render: fretboard', this.props.fretboard);
+        // console.log('Diagram.render: shapes', this.props.shapes);
 
         let s = new DiagramStyle(this.props.diagramStyle);
 
         let strings = this.props.strings;
         let frets = this.props.frets;
-        let f;
+        let f = null;
 
         if (this.props.fretboard) {
             f = this.props.fretboard;
             strings = f.tuning.length;
             frets = f.maxFret - f.minFret;
         } else {
-            f = new F({frets: frets});  // build a default fretboard
             if (this.props.shapes) {
+                f = new F({frets: frets});  // build a default fretboard
                 for (const s of this.props.shapes) {
                     console.log('adding', s);
                     f.addShape(s);
@@ -80,7 +75,7 @@ export default class Diagram extends React.Component {
                 {this.props.debug && <DebugGrid />}
                 <g>
                     <Fretboard strings={strings} frets={frets} diagramStyle={s} />
-                    {f.shapes &&
+                    {f && f.shapes &&
                     f.shapes.map(
                         (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={s} text={this.props.text} />
                     )}
