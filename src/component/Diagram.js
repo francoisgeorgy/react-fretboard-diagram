@@ -36,9 +36,39 @@ const defaultProps = {
     debug: false
 };
 
+//TODO: move in fretboard-api
+//TODO: use immer lib
+function addDot(string, fret, frets) {
+    const numberOfStrings = 6;  // TODO: get this from the fretboard
+    let f = frets ? frets : Array(numberOfStrings).fill(null);
+    if (!f[string]) f[string] = []; //TODO: see if possible to write with destruct
+    f[string].push(fret);
+    return f;
+}
+
 export default class Diagram extends React.Component {
 
     s = null;
+    state = {
+        fretboard: null,
+        editShapeId: null   // ID of the shape being edited
+    };
+
+    addDot = (string, fret) => {
+        console.log(`addDot(${string}, ${fret})`);
+
+        let shape;
+        if (this.state.editShapeId === null) {
+            let f = addDot(string, fret, null);
+            shape = new S(f);
+        } else {
+
+        }
+        console.log(shape);
+        let f = this.state.fretboard;
+        f.addShape(shape);
+        this.setState({fretboard: f});
+    };
 
     editInPlace = (e) => {
 
@@ -77,11 +107,11 @@ export default class Diagram extends React.Component {
         //     return
         // }
 
-        let n = Math.floor(((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval + 0.5);
-        if (n < 0) n = 0;
-        if (n >= this.props.strings) n = this.props.strings - 1;
+        let nString = Math.floor(((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval + 0.5);
+        if (nString < 0) nString = 0;
+        if (nString >= this.props.strings) nString = this.props.strings - 1;
 
-        console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval}; n string = ${n}`);
+        console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval}; n string = ${nString}`);
 
         // fret
 
@@ -96,14 +126,56 @@ export default class Diagram extends React.Component {
             return;
         }
 
-        n = Math.floor(((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval + 0.5);
-        if (n < 0) n = 0;
-        if (n >= this.props.frets) n = this.props.frets;
+        let nFret = Math.floor(((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval + 0.5);
+        if (nFret < 0) nFret = 0;
+        if (nFret >= this.props.frets) nFret = this.props.frets;
 
-        console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; n fret = ${n}`);
+        console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; nFret fret = ${nFret}`);
 
+        this.addDot(nString, nFret);
 
     };
+
+    /**
+     * https://twitter.com/dan_abramov/status/953612246634188800?lang=en
+     * getDerivedStateFromProps() is being replaced by getDerivedStateFromProps()
+     *
+     * Note: initializing state from props is a bad idea in 95% cases because now it won’t update when props change. Just use props.
+     *
+     * @param props
+     * @param state
+     * @returns {*}
+     */
+    static getDerivedStateFromProps(props, state) {
+        console.log("getDerivedStateFromProps", props);
+        // const { fretboard } = state;
+        if (props.fretboard && props.fretboard !== null) {
+            return {
+                fretboard: props.fretboard
+            }
+        } else {
+            console.log(`new fretboard with ${props.frets} frets`);
+            let f = new F({tuning: props.tuning, frets: props.frets});  // build a default fretboard
+            if (props.shapes) {
+                for (const s of props.shapes) {
+                    // console.log('adding', this.s);
+                    f.addShape(s);
+                }
+            }
+            return {
+                fretboard: f
+            }
+        }
+        // const { currentRowIndex } = props;
+        // const { lastRowIndex } = state;
+        // if (currentRowIndex === lastRowIndex) {
+        //     return null;
+        // }
+        // return {
+        //     lastRowIndex: currentRowIndex,
+        //     isScrollingDown: lastRowIndex > currentRowIndex
+        // };
+    }
 
     render() {
 
@@ -112,10 +184,11 @@ export default class Diagram extends React.Component {
 
         this.s = new DiagramStyle(this.props.diagramStyle);
 
-        let strings = this.props.strings;
-        let frets = this.props.frets;
-        let f = null;
+        // let strings = this.props.strings;
+        // let frets = this.props.frets;
+        // let f = null;
 
+        /*
         if (this.props.fretboard) {
             f = this.props.fretboard;
             strings = f.tuning.length;
@@ -129,6 +202,15 @@ export default class Diagram extends React.Component {
                 }
             }
         }
+        */
+
+        console.log(this.state);
+
+        let f = this.state.fretboard;
+        let strings = f.tuning.length;
+        let frets = f.maxFret - f.minFret;
+
+        console.log(`string=${strings}, frets=${frets}`);
 
         let w = this.s.width(frets);
         let h = this.s.height(strings);
