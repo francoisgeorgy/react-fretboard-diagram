@@ -4,7 +4,7 @@ import Diagram from "../../src/component/Diagram";
 const Grid1 = () => (
     <div className={"debug"}>
         <div className={"big"}>
-            <Diagram />
+            <Diagram diagramStyle={{paddingBottom: 100}} />
         </div>
     </div>
 );

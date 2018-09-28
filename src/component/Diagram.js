@@ -38,12 +38,79 @@ const defaultProps = {
 
 export default class Diagram extends React.Component {
 
+    s = null;
+
+    editInPlace = (e) => {
+
+        console.log(`paddingTop=${this.s.paddingTop}, s=${this.props.strings}, interval=${this.s.stringInterval}, bottom=${this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval)}`);
+
+        // console.log('event', e.currentTarget, e.nativeEvent);
+        console.log(`(${e.clientX}, ${e.clientY}), (${e.nativeEvent.clientX}, ${e.nativeEvent.clientY})`);
+        let svg = e.currentTarget.getBoundingClientRect();
+        console.log('targetRect', svg);
+
+        console.log(`targetRect: (${svg.width} ${svg.height}), ratio = ${svg.width/svg.height}`);
+
+        let w = this.s.width(this.props.frets);
+        let scale = svg.width / w;
+
+        console.log(`scale = ${svg.width} / ${w} = ${scale}`);
+
+        let dx = e.clientX - svg.left;
+        let dy = e.clientY - svg.top;
+        console.log(`delta=(${dx}, ${dy})`);
+
+        console.log(`dy / scale = ${dy / scale}`);
+
+        if ((dy / scale) < (this.s.paddingTop - (this.s.stringInterval / 2))) {
+            console.log('in padding top, ignore');
+            return;
+        }
+
+        console.log(`bottom limit = ${((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))}`);
+        if ((dy / scale) > ((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))) {
+            console.log('in padding bottom, ignore');
+            return;
+        }
+        // if ((dy / scale) > (this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval) + this.s.stringWidth)) {
+        //     console.log('in padding bottom, ignore');
+        //     return
+        // }
+
+        let n = Math.floor(((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval + 0.5);
+        if (n < 0) n = 0;
+        if (n >= this.props.strings) n = this.props.strings - 1;
+
+        console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval}; n string = ${n}`);
+
+        // fret
+
+        if ((dx / scale) < (this.s.paddingLeft - (this.s.fretInterval / 2))) {
+            console.log('in padding left, ignore');
+            return;
+        }
+
+        console.log(`right limit = ((${svg.width} / ${scale}) - ${this.s.paddingRight} + (${this.s.fretInterval} / 2)) = ${((svg.width / scale) - this.s.paddingRight + (this.s.fretInterval / 2))}`);
+        if ((dx / scale) > ((svg.width / scale) - this.s.paddingRight + (this.s.fretInterval / 2))) {
+            console.log('in padding right, ignore');
+            return;
+        }
+
+        n = Math.floor(((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval + 0.5);
+        if (n < 0) n = 0;
+        if (n >= this.props.frets) n = this.props.frets;
+
+        console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; n fret = ${n}`);
+
+
+    };
+
     render() {
 
         // console.log('Diagram.render: fretboard', this.props.fretboard);
         // console.log('Diagram.render: shapes', this.props.shapes);
 
-        let s = new DiagramStyle(this.props.diagramStyle);
+        this.s = new DiagramStyle(this.props.diagramStyle);
 
         let strings = this.props.strings;
         let frets = this.props.frets;
@@ -57,29 +124,31 @@ export default class Diagram extends React.Component {
             if (this.props.shapes) {
                 f = new F({frets: frets});  // build a default fretboard
                 for (const s of this.props.shapes) {
-                    console.log('adding', s);
+                    // console.log('adding', this.s);
                     f.addShape(s);
                 }
             }
         }
 
-        let w = s.width(frets);
-        let h = s.height(strings);
+        let w = this.s.width(frets);
+        let h = this.s.height(strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
+
+        console.log(`viewbox: (${w} ${h}), ratio = ${w/h}`);
 
         // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
 
         return (
-            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'>
+            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'  onClick={this.editInPlace}>
                 {this.props.debug && <DebugGrid />}
                 <g>
-                    <Fretboard strings={strings} frets={frets} diagramStyle={s} />
+                    <Fretboard strings={strings} frets={frets} diagramStyle={this.s} />
                     {f && f.shapes &&
                     f.shapes.map(
-                        (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={s} text={this.props.text} />
+                        (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={this.s} text={this.props.text} />
                     )}
-                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={s} />}
+                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={this.s} />}
                 </g>
             </svg>
         )
