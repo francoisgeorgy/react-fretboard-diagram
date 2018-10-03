@@ -1,6 +1,12 @@
 {
     "name": "react-fretboard-diagram",
     "version": "0.1.1",
+    "description": "A React component to display a fretboard",
+    "keywords": [
+        "fretboard",
+        "react",
+        "component"
+    ],
     "main": "dist/index.js",
     "repository": "https://github.com/francoisgeorgy/react-fretboard-diagram.git",
     "author": "François Georgy <francois.georgy@gmail.com>",
@@ -35,7 +41,7 @@
     },
     "dependencies": {
         "assert-js": "^0.19.0",
-        "fretboard-api": "^0.3.6",
+        "fretboard-api": "^0.4.7",
         "prop-types": "^15.6.2",
         "tonal": "^2.0.0"
     }

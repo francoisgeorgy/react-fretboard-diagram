@@ -2337,13 +2337,14 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-fretboard-api@^0.3.6:
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.3.6.tgz#7a16458fe9bf89885824802f4c7133500e24c317"
-  integrity sha512-xJPOGQohE1reri1zicfNzifkg2bo265AYIeDzWIr35RcE24bERXVUDFqWdetaXvRHbw+O8XNt/rylEEO4ZcCHw==
+fretboard-api@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.4.7.tgz#b58ba64cb736b7474e43e03106945a6ccf4cb7ce"
+  integrity sha512-IP6YtWy5QuBH+F9OmT2Pe8HNdHtvH2jMRcMfaJmHKD/Cl3AcYjd6JEHCExbIkXHDLahaT0pvHAPLhMRZLnICWA==
   dependencies:
     assert-js "^0.19.0"
     enharmonics "^1.0.3"
+    immer "^1.7.2"
     json-stringify-pretty-compact "^1.2.0"
     tonal "^2.0.0"
 
@@ -2737,6 +2738,11 @@ ignore-walk@^3.0.1:
   integrity sha512-DTVlMx3IYPe0/JJcYP7Gxg7ttZZu3IInhuEhbchuqneY9wWe5Ojy2mXLBaQFUQmo0AW2r3qG7m1mg86js+gnlQ==
   dependencies:
     minimatch "^3.0.4"
+
+immer@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.7.2.tgz#a51e9723c50b27e132f6566facbec1c85fc69547"
+  integrity sha512-4Urocwu9+XLDJw4Tc6ZCg7APVjjLInCFvO4TwGsAYV5zT6YYSor14dsZR0+0tHlDIN92cFUOq+i7fC00G5vTxA==
 
 import-local@^2.0.0:
   version "2.0.0"

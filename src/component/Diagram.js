@@ -4,7 +4,8 @@ import Shape from "./Shape";
 import PropTypes from "prop-types";
 import DebugGrid from "./DebugGrid";
 import DiagramStyle from "../utils/DiagramStyle";
-import {Fretboard as F, Shape as S} from "fretboard-api";
+// import {Fretboard as F, Shape as S} from "fretboard-api";
+import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";   //TODO: import API, and use API.Fretboard...
 
@@ -13,11 +14,12 @@ const propTypes = {
     orientation: PropTypes.oneOf(ORIENTATION),   // TODO: make bool instead?
     text: PropTypes.oneOf(DOT_TEXT),   // TODO: define "custom"
     leftHanded: PropTypes.bool,
-    strings: PropTypes.number.isRequired,
+    // strings: PropTypes.number.isRequired,
     stringsProportional: PropTypes.bool,        // if true will draw strings with prop widths
     frets: PropTypes.number.isRequired,
     fretNumbers: PropTypes.oneOf(FRET_NUMBER_FORMAT),
     fretNumbersPosition: PropTypes.oneOf(FRET_NUMBER_POSITION),   // left, right only when vertical orientation
+    tuning: PropTypes.array.isRequired,
     shapes: PropTypes.array,
     debug: PropTypes.bool
 };
@@ -26,12 +28,13 @@ const defaultProps = {
     diagramStyle: {},
     orientation: 'vertical',
     leftHanded: false,
-    strings: 6,
+    // strings: 6,
     stringsProportional: false,
     frets: 4,
     fretNumbers: 'latin',
     fretNumbersPosition: 'top',
     text: 'note',
+    tuning: Tuning.guitar.standard,
     shapes: null,
     debug: false
 };
@@ -50,13 +53,13 @@ export default class Diagram extends React.Component {
 
     s = null;
     state = {
-        fretboard: null,
+        // fretboard: null,
         editShapeId: null   // ID of the shape being edited
     };
 
     addDot = (string, fret) => {
         console.log(`addDot(${string}, ${fret})`);
-
+/*
         let shape;
         if (this.state.editShapeId === null) {
             let f = addDot(string, fret, null);
@@ -68,10 +71,11 @@ export default class Diagram extends React.Component {
         let f = this.state.fretboard;
         f.addShape(shape);
         this.setState({fretboard: f});
+*/
     };
 
     editInPlace = (e) => {
-
+/*
         console.log(`paddingTop=${this.s.paddingTop}, s=${this.props.strings}, interval=${this.s.stringInterval}, bottom=${this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval)}`);
 
         // console.log('event', e.currentTarget, e.nativeEvent);
@@ -133,7 +137,7 @@ export default class Diagram extends React.Component {
         console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; nFret fret = ${nFret}`);
 
         this.addDot(nString, nFret);
-
+*/
     };
 
     /**
@@ -149,6 +153,7 @@ export default class Diagram extends React.Component {
     static getDerivedStateFromProps(props, state) {
         console.log("getDerivedStateFromProps", props);
         // const { fretboard } = state;
+        /*
         if (props.fretboard && props.fretboard !== null) {
             return {
                 fretboard: props.fretboard
@@ -166,6 +171,8 @@ export default class Diagram extends React.Component {
                 fretboard: f
             }
         }
+        */
+
         // const { currentRowIndex } = props;
         // const { lastRowIndex } = state;
         // if (currentRowIndex === lastRowIndex) {
@@ -175,6 +182,11 @@ export default class Diagram extends React.Component {
         //     lastRowIndex: currentRowIndex,
         //     isScrollingDown: lastRowIndex > currentRowIndex
         // };
+        return {
+            tuning: props.tuning,
+            frets: props.frets,
+            shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
+        };
     }
 
     render() {
@@ -206,9 +218,11 @@ export default class Diagram extends React.Component {
 
         console.log(this.state);
 
-        let f = this.state.fretboard;
-        let strings = f.tuning.length;
-        let frets = f.maxFret - f.minFret;
+        // let f = this.state.fretboard;
+        // let strings = f.tuning.length;
+        let strings = this.state.tuning.length;
+        // let frets = f.maxFret - f.minFret;
+        let frets = this.state.frets;
 
         console.log(`string=${strings}, frets=${frets}`);
 
@@ -226,8 +240,8 @@ export default class Diagram extends React.Component {
                 {this.props.debug && <DebugGrid />}
                 <g>
                     <Fretboard strings={strings} frets={frets} diagramStyle={this.s} />
-                    {f && f.shapes &&
-                    f.shapes.map(
+                    {this.state.shapes &&
+                    this.state.shapes.map(
                         (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={this.s} text={this.props.text} />
                     )}
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={this.s} />}

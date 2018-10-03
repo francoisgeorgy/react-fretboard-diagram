@@ -3,6 +3,7 @@ src
 demo
 doc
 tmp
+sample
 .idea
 webpack.config.js
 

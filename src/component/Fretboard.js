@@ -19,7 +19,7 @@ export default class Fretboard extends React.Component {
 
     getStringsPath(strings, frets) {
 
-        // console.log(`getStringsPath(${strings}, ${frets})`);
+        console.log(`getStringsPath(${strings}, ${frets})`);
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
