@@ -4,22 +4,22 @@ import Shape from "./Shape";
 import PropTypes from "prop-types";
 import DebugGrid from "./DebugGrid";
 import DiagramStyle from "../utils/DiagramStyle";
-// import {Fretboard as F, Shape as S} from "fretboard-api";
 import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";   //TODO: import API, and use API.Fretboard...
+
+//TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
 const propTypes = {
     diagramStyle: PropTypes.object,
     orientation: PropTypes.oneOf(ORIENTATION),   // TODO: make bool instead?
     text: PropTypes.oneOf(DOT_TEXT),   // TODO: define "custom"
     leftHanded: PropTypes.bool,
-    // strings: PropTypes.number.isRequired,
     stringsProportional: PropTypes.bool,        // if true will draw strings with prop widths
     frets: PropTypes.number.isRequired,
     fretNumbers: PropTypes.oneOf(FRET_NUMBER_FORMAT),
     fretNumbersPosition: PropTypes.oneOf(FRET_NUMBER_POSITION),   // left, right only when vertical orientation
-    tuning: PropTypes.array.isRequired,
+    tuning: PropTypes.array,
     shapes: PropTypes.array,
     debug: PropTypes.bool
 };
@@ -28,7 +28,6 @@ const defaultProps = {
     diagramStyle: {},
     orientation: 'vertical',
     leftHanded: false,
-    // strings: 6,
     stringsProportional: false,
     frets: 4,
     fretNumbers: 'latin',

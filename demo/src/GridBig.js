@@ -1,7 +1,7 @@
 import React from 'react';
 import Diagram from "../../src/component/Diagram";
 
-const Grid1 = () => (
+const GridBig = () => (
     <div className={"debug"}>
         <div className={"big"}>
             <Diagram diagramStyle={{paddingBottom: 100}} />
@@ -9,4 +9,4 @@ const Grid1 = () => (
     </div>
 );
 
-export default Grid1;
+export default GridBig;

@@ -2,7 +2,7 @@ import React from 'react';
 import Diagram from "../../src/component/Diagram";
 import {STYLES} from "../../src/utils/styles";
 
-const Grids = () => (
+const GridExamples = () => (
     <div id="grids" className={"debug"}>
         <div>
             <Diagram frets={1} tuning={['E2', 'A2']} diagramStyle={STYLES.test1} debug={true} />
@@ -34,4 +34,4 @@ const Grids = () => (
     </div>
 );
 
-export default Grids;
+export default GridExamples;
