@@ -114,15 +114,22 @@ export default class Shape extends React.Component {
         let e = [];
         for (let i = 0; i < s.frets.length; i++) {      // for each string
             if (Array.isArray(s.frets[i])) {
-                if (s.frets[i].length === 0) {          // non-played string
-                    e.push(this.cross(this.props.strings - 1 - i));
-                } else {
+                // if (s.frets[i].length === 0) {          // non-played string
+                //     //e.push(this.cross(this.props.strings - 1 - i));     // strings numbering [0] is lowest pitched
+                //     //TODO: ignore
+                // } else if (s.frets[i][0] === 'X') {
+                //     e.push(this.cross(this.props.strings - 1 - i));     // strings numbering [0] is lowest pitched
+                // } else {
                     for (let k = 0; k < s.frets[i].length; k++) {
-                        e.push(this.dot(this.props.strings - 1 - i, s.frets[i][k], this.getText(i, k)));
+                        if (s.frets[i][k] === 'X') {
+                            e.push(this.cross(this.props.strings - 1 - i));     // strings numbering [0] is lowest pitched
+                        } else {
+                            e.push(this.dot(this.props.strings - 1 - i, s.frets[i][k], this.getText(i, k)));
+                        }
                     }
-                }
+                // }
             }
-
+            // TODO: throw error if not an array? invalid format error
         }
         return e;
 

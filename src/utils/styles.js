@@ -123,7 +123,7 @@ export const STYLES = {
         fontSize: 1
     },
     test8 : {
-        paddingLeft : 5,
+        paddingLeft : 10,
         paddingRight : 5,
         paddingTop: 5,
         paddingBottom: 5,

@@ -13,35 +13,37 @@
     "license": "MIT",
     "scripts": {
         "build": "rimraf dist && babel src -d dist --copy-files",
-        "prepublish": "npm run build",
+        "prepublishrim": "npm run build",
         "start": "webpack-dev-server --open --config webpack.config.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "peerDependencies": {
-        "react": "^16.4.1",
-        "react-dom": "^16.4.1"
+        "react": "^16.5.2",
+        "react-dom": "^16.5.2",
+        "react-router-dom": "^4.3.1"
     },
     "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-core": "^6.26.3",
-        "babel-loader": "^7.1.5",
-        "babel-plugin-transform-class-properties": "^6.24.1",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-react": "^6.24.1",
-        "babel-preset-stage-2": "^6.24.1",
+        "@babel/cli": "^7.1.2",
+        "@babel/core": "^7.1.2",
+        "@babel/plugin-proposal-class-properties": "^7.1.0",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/preset-react": "^7.0.0",
+        "@babel/preset-stage-2": "^7.0.0",
+        "babel-loader": "^8.0.4",
         "clean-webpack-plugin": "^0.1.19",
         "html-webpack-plugin": "^3.2.0",
-        "react": "^16.4.1",
-        "react-dom": "^16.4.1",
+        "react": "^16.5.2",
+        "react-dom": "^16.5.2",
         "react-router-dom": "^4.3.1",
-        "webpack": "^4.16.1",
-        "webpack-cli": "^3.1.0",
-        "webpack-dev-server": "^3.1.4",
-        "webpack-merge": "^4.1.3"
+        "webpack": "^4.20.2",
+        "webpack-cli": "^3.1.2",
+        "webpack-dev-server": "^3.1.9",
+        "webpack-merge": "^4.1.4"
     },
     "dependencies": {
         "assert-js": "^0.19.0",
-        "fretboard-api": "^0.4.8",
+        "fretboard-api": "^0.4.9",
+        "immer": "^1.7.2",
         "prop-types": "^15.6.2",
         "tonal": "^2.0.0"
     }

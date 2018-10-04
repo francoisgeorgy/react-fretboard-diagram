@@ -17,6 +17,7 @@ const Home = () => (
             <Diagram frets={4} shapes={["022100"]} />
         </div>
 
+{/*
         <h3>Major scale with intervals:</h3>
         <div style={{width:"400px"}}>
             <Diagram frets={4} text={"interval"} shapes={["2 4, 1 2 4, 1 3 4, 1 3 4, 2 4, 1 2 4"]} />
@@ -31,6 +32,7 @@ const Home = () => (
                 }
             ]} />
         </div>
+*/}
 
 {/*
         <div style={{width:"300px"}}>

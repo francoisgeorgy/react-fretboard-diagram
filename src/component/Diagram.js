@@ -6,7 +6,8 @@ import DebugGrid from "./DebugGrid";
 import DiagramStyle from "../utils/DiagramStyle";
 import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import FretNumbers from "./FretNumbers";
-import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";   //TODO: import API, and use API.Fretboard...
+import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
+import {produce} from "immer";   //TODO: import API, and use API.Fretboard...
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
@@ -40,103 +41,147 @@ const defaultProps = {
 
 //TODO: move in fretboard-api
 //TODO: use immer lib
-function addDot(string, fret, frets) {
+function addDotInShape(string, fret, frets) {
+
+    console.log(`addDotInShape(${string}, ${fret}, ${frets})`);
+
     const numberOfStrings = 6;  // TODO: get this from the fretboard
-    let f = frets ? frets : Array(numberOfStrings).fill(null);
-    if (!f[string]) f[string] = []; //TODO: see if possible to write with destruct
-    f[string].push(fret);
+
+    // let f = frets ? frets : Array(numberOfStrings).fill([]);    // Array(3).fill([]); will store the same array in each index.b =
+    let f = frets ? frets : Array.from(new Array(numberOfStrings), () => []);
+
+    console.log(`addDotInShape: 1 f=${f}`, f);
+
+    let stringIndex = numberOfStrings - string - 1;     //
+
+    if (!f[stringIndex]) f[stringIndex] = []; //TODO: see if possible to write with destruct
+
+    f[stringIndex].push(fret);
+
+    console.log(`addDotInShape: 2 f=${f}`, f);
+
     return f;
 }
 
 export default class Diagram extends React.Component {
 
     s = null;
-    state = {
-        // fretboard: null,
-        editShapeId: null   // ID of the shape being edited
-    };
+
+    constructor(props) {
+        // Required step: always call the parent class' constructor
+        super(props);
+
+        // Set the state directly. Use props if necessary.
+        this.state = {
+            frets: this.props.frets,
+            tuning: this.props.tuning,
+            shapes: this.props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null,
+            editShapeId: null   // ID of the shape being edited
+        }
+    }
+
 
     addDot = (string, fret) => {
+
         console.log(`addDot(${string}, ${fret})`);
-/*
+
         let shape;
         if (this.state.editShapeId === null) {
-            let f = addDot(string, fret, null);
-            shape = new S(f);
+            let f = addDotInShape(string, fret, null);
+            shape = S.create(f);
         } else {
-
+            //TODO: find the shape
         }
-        console.log(shape);
-        let f = this.state.fretboard;
-        f.addShape(shape);
-        this.setState({fretboard: f});
-*/
+        // console.log('addDot: add shape', shape);
+        // let f = this.state.fretboard;
+        // f.addShape(shape);
+        // this.setState({fretboard: f});
+
+        if (shape) {
+
+            console.log('addDot: shape', shape);
+
+            let played = F.play(shape);
+
+            console.log('addDot: played', played);
+
+            this.setState(produce(draft => {
+                draft.shapes.push(played)
+            }));
+        }
+
     };
 
     editInPlace = (e) => {
-/*
-        console.log(`paddingTop=${this.s.paddingTop}, s=${this.props.strings}, interval=${this.s.stringInterval}, bottom=${this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval)}`);
+
+        // console.log(`paddingTop=${this.s.paddingTop}, s=${this.props.strings}, interval=${this.s.stringInterval}, bottom=${this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval)}`);
 
         // console.log('event', e.currentTarget, e.nativeEvent);
-        console.log(`(${e.clientX}, ${e.clientY}), (${e.nativeEvent.clientX}, ${e.nativeEvent.clientY})`);
+        // console.log(`(${e.clientX}, ${e.clientY}), (${e.nativeEvent.clientX}, ${e.nativeEvent.clientY})`);
         let svg = e.currentTarget.getBoundingClientRect();
-        console.log('targetRect', svg);
-
-        console.log(`targetRect: (${svg.width} ${svg.height}), ratio = ${svg.width/svg.height}`);
+        // console.log('targetRect', svg);
+        // console.log(`targetRect: (${svg.width} ${svg.height}), ratio = ${svg.width/svg.height}`);
 
         let w = this.s.width(this.props.frets);
         let scale = svg.width / w;
 
-        console.log(`scale = ${svg.width} / ${w} = ${scale}`);
+        // console.log(`scale = ${svg.width} / ${w} = ${scale}`);
 
         let dx = e.clientX - svg.left;
         let dy = e.clientY - svg.top;
-        console.log(`delta=(${dx}, ${dy})`);
 
-        console.log(`dy / scale = ${dy / scale}`);
+        // console.log(`delta=(${dx}, ${dy})`);
+        // console.log(`dy / scale = ${dy / scale}`);
 
-        if ((dy / scale) < (this.s.paddingTop - (this.s.stringInterval / 2))) {
-            console.log('in padding top, ignore');
+        let deltaY = dy / scale;
+
+        if ((deltaY) < (this.s.paddingTop - (this.s.stringInterval / 2))) {
+            // console.log('in padding top, ignore');
             return;
         }
 
-        console.log(`bottom limit = ${((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))}`);
-        if ((dy / scale) > ((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))) {
-            console.log('in padding bottom, ignore');
+        // console.log(`bottom limit = ${((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))}`);
+        if ((deltaY) > ((svg.height / scale) - this.s.paddingBottom + (this.s.stringInterval / 2))) {
+            // console.log('in padding bottom, ignore');
             return;
         }
-        // if ((dy / scale) > (this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval) + this.s.stringWidth)) {
+        // if ((deltaY) > (this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval) + this.s.stringWidth)) {
         //     console.log('in padding bottom, ignore');
         //     return
         // }
 
-        let nString = Math.floor(((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval + 0.5);
+        let nString = Math.floor(((deltaY) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval + 0.5);
         if (nString < 0) nString = 0;
         if (nString >= this.props.strings) nString = this.props.strings - 1;
 
-        console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((dy / scale) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval}; n string = ${nString}`);
+        // console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((deltaY) - this.s.paddingTop - (this.s.stringWidth / 2)) / this.s.stringInterval}; n string = ${nString}`);
 
         // fret
 
-        if ((dx / scale) < (this.s.paddingLeft - (this.s.fretInterval / 2))) {
-            console.log('in padding left, ignore');
+        let deltaX = dx / scale;
+
+        if (deltaX < (this.s.paddingLeft - this.s.fretInterval + (this.s.fretWidth / 2))) {
+            // console.log('in padding left, ignore');
             return;
         }
 
-        console.log(`right limit = ((${svg.width} / ${scale}) - ${this.s.paddingRight} + (${this.s.fretInterval} / 2)) = ${((svg.width / scale) - this.s.paddingRight + (this.s.fretInterval / 2))}`);
-        if ((dx / scale) > ((svg.width / scale) - this.s.paddingRight + (this.s.fretInterval / 2))) {
-            console.log('in padding right, ignore');
+        if (deltaX > ((svg.width / scale) - this.s.paddingRight)) {
+            // console.log('in padding right, ignore');
             return;
         }
 
-        let nFret = Math.floor(((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval + 0.5);
+        let nFret = Math.floor(((deltaX - this.s.paddingLeft - this.s.fretWidth) / this.s.fretInterval) + 1);
         if (nFret < 0) nFret = 0;
-        if (nFret >= this.props.frets) nFret = this.props.frets;
+        // if (nFret >= this.props.frets) nFret = this.props.frets;
+        if (nFret > this.props.frets) {
+            return;
+        }
 
-        console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${((dx / scale) - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; nFret fret = ${nFret}`);
+        //console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${(deltaX - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; nFret fret = ${nFret}`);
+        // console.log(deltaX, nString, nFret);
 
         this.addDot(nString, nFret);
-*/
+
     };
 
     /**
@@ -149,8 +194,8 @@ export default class Diagram extends React.Component {
      * @param state
      * @returns {*}
      */
-    static getDerivedStateFromProps(props, state) {
-        console.log("getDerivedStateFromProps", props);
+    // static getDerivedStateFromProps(props, state) {
+    //     console.log("getDerivedStateFromProps", props);
         // const { fretboard } = state;
         /*
         if (props.fretboard && props.fretboard !== null) {
@@ -181,14 +226,16 @@ export default class Diagram extends React.Component {
         //     lastRowIndex: currentRowIndex,
         //     isScrollingDown: lastRowIndex > currentRowIndex
         // };
-        return {
-            tuning: props.tuning,
-            frets: props.frets,
-            shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
-        };
-    }
+        // return {
+        //     tuning: props.tuning,
+        //     frets: props.frets,
+        //     shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
+        // };
+    // }
 
     render() {
+
+        console.log('render', this.state);
 
         // console.log('Diagram.render: fretboard', this.props.fretboard);
         // console.log('Diagram.render: shapes', this.props.shapes);
@@ -223,19 +270,19 @@ export default class Diagram extends React.Component {
         // let frets = f.maxFret - f.minFret;
         let frets = this.state.frets;
 
-        console.log(`string=${strings}, frets=${frets}`);
+        // console.log(`string=${strings}, frets=${frets}`);
 
         let w = this.s.width(frets);
         let h = this.s.height(strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
 
-        console.log(`viewbox: (${w} ${h}), ratio = ${w/h}`);
+        // console.log(`viewbox: (${w} ${h}), ratio = ${w/h}`);
 
         // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
 
         return (
-            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'  onClick={this.editInPlace}>
+            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%' onClick={this.editInPlace}>
                 {this.props.debug && <DebugGrid />}
                 <g>
                     <Fretboard strings={strings} frets={frets} diagramStyle={this.s} />
