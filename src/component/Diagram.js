@@ -39,29 +39,6 @@ const defaultProps = {
     debug: false
 };
 
-//TODO: move in fretboard-api
-//TODO: use immer lib
-function addDotInShape(string, fret, frets) {
-
-    console.log(`addDotInShape(${string}, ${fret}, ${frets})`);
-
-    const numberOfStrings = 6;  // TODO: get this from the fretboard
-
-    // let f = frets ? frets : Array(numberOfStrings).fill([]);    // Array(3).fill([]); will store the same array in each index.b =
-    let f = frets ? frets : Array.from(new Array(numberOfStrings), () => []);
-
-    console.log(`addDotInShape: 1 f=${f}`, f);
-
-    let stringIndex = numberOfStrings - string - 1;     //
-
-    if (!f[stringIndex]) f[stringIndex] = []; //TODO: see if possible to write with destruct
-
-    f[stringIndex].push(fret);
-
-    console.log(`addDotInShape: 2 f=${f}`, f);
-
-    return f;
-}
 
 export default class Diagram extends React.Component {
 
@@ -76,42 +53,47 @@ export default class Diagram extends React.Component {
             frets: this.props.frets,
             tuning: this.props.tuning,
             shapes: this.props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null,
-            editShapeId: null   // ID of the shape being edited
+            editedShape: null       // shape in edition
         }
     }
 
 
+    /**
+     *
+     * @param string
+     * @param fret
+     */
     addDot = (string, fret) => {
 
-        console.log(`addDot(${string}, ${fret})`);
+        // console.log(`addDot(${string}, ${fret})`);
+
+        let s = this.state.editedShape ? this.state.editedShape : S.create();
+
+        // console.log(s, s.frets, Array.isArray(s.frets[string]) && s.frets[string].includes(fret));       // handle 'X'
 
         let shape;
-        if (this.state.editShapeId === null) {
-            let f = addDotInShape(string, fret, null);
-            shape = S.create(f);
+        if (Array.isArray(s.frets[string]) && s.frets[string].includes(fret)) {
+            shape = S.remove(s, string, fret)
         } else {
-            //TODO: find the shape
+            shape = S.add(s, string, fret)
         }
-        // console.log('addDot: add shape', shape);
-        // let f = this.state.fretboard;
-        // f.addShape(shape);
-        // this.setState({fretboard: f});
 
-        if (shape) {
+        // console.log('addDot: shape', shape);
+        //
+        // let played = F.play(shape);
+        //
+        // console.log('addDot: played', played);
 
-            console.log('addDot: shape', shape);
-
-            let played = F.play(shape);
-
-            console.log('addDot: played', played);
-
-            this.setState(produce(draft => {
-                draft.shapes.push(played)
-            }));
-        }
+        this.setState(produce(draft => {
+            draft.editedShape = F.play(shape)
+        }));
 
     };
 
+    /**
+     *
+     * @param e
+     */
     editInPlace = (e) => {
 
         // console.log(`paddingTop=${this.s.paddingTop}, s=${this.props.strings}, interval=${this.s.stringInterval}, bottom=${this.s.paddingTop + ((this.props.strings - 1) * this.s.stringInterval)}`);
@@ -180,7 +162,7 @@ export default class Diagram extends React.Component {
         //console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${(deltaX - this.s.paddingLeft - (this.s.fretWidth / 2)) / this.s.fretInterval}; nFret fret = ${nFret}`);
         // console.log(deltaX, nString, nFret);
 
-        this.addDot(nString, nFret);
+        this.addDot(this.state.tuning.length - nString - 1, nFret);
 
     };
 
@@ -235,49 +217,19 @@ export default class Diagram extends React.Component {
 
     render() {
 
-        console.log('render', this.state);
-
-        // console.log('Diagram.render: fretboard', this.props.fretboard);
-        // console.log('Diagram.render: shapes', this.props.shapes);
+        // console.log('render', this.state);
 
         this.s = new DiagramStyle(this.props.diagramStyle);
 
-        // let strings = this.props.strings;
-        // let frets = this.props.frets;
-        // let f = null;
+        // console.log(this.state);
 
-        /*
-        if (this.props.fretboard) {
-            f = this.props.fretboard;
-            strings = f.tuning.length;
-            frets = f.maxFret - f.minFret;
-        } else {
-            if (this.props.shapes) {
-                f = new F({frets: frets});  // build a default fretboard
-                for (const s of this.props.shapes) {
-                    // console.log('adding', this.s);
-                    f.addShape(s);
-                }
-            }
-        }
-        */
-
-        console.log(this.state);
-
-        // let f = this.state.fretboard;
-        // let strings = f.tuning.length;
         let strings = this.state.tuning.length;
-        // let frets = f.maxFret - f.minFret;
         let frets = this.state.frets;
-
-        // console.log(`string=${strings}, frets=${frets}`);
 
         let w = this.s.width(frets);
         let h = this.s.height(strings);
 
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
-
-        // console.log(`viewbox: (${w} ${h}), ratio = ${w/h}`);
 
         // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
 
@@ -290,6 +242,9 @@ export default class Diagram extends React.Component {
                     this.state.shapes.map(
                         (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={this.s} text={this.props.text} />
                     )}
+                    {this.state.editedShape &&
+                        <Shape key="dummy" shape={this.state.editedShape} strings={strings} diagramStyle={this.s} text={this.props.text} />
+                    }
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={this.s} />}
                 </g>
             </svg>
