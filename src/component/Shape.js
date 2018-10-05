@@ -41,6 +41,8 @@ export default class Shape extends React.Component {
         let t = '';
         let s = this.props.shape;
 
+        if ((s.notes[string][fretIndex] === undefined) || (s.notes[string][fretIndex] === null)) return;
+
         switch (this.props.text) {
             case 'note':
                 t = Note.pc(s.notes[string][fretIndex]);
