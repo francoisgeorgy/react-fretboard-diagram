@@ -7,7 +7,6 @@ import DiagramStyle from "../utils/DiagramStyle";
 import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
-import {produce} from "immer";   //TODO: import API, and use API.Fretboard...
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
@@ -23,7 +22,9 @@ const propTypes = {
     fretNumbersPosition: PropTypes.oneOf(FRET_NUMBER_POSITION),   // left, right only when vertical orientation
     tuning: PropTypes.array,
     shapes: PropTypes.array,
-    debug: PropTypes.bool
+    debug: PropTypes.bool,
+    mouseClickHandler: PropTypes.func,
+    mouseMoveHandler: PropTypes.func
 };
 
 const defaultProps = {
@@ -44,87 +45,22 @@ const defaultProps = {
 
 export default class Diagram extends React.Component {
 
-    s = null;
+    s = null;   //TODO: get rid of this variable
 
-    constructor(props) {
-        // Required step: always call the parent class' constructor
-        super(props);
-
-        // Set the state directly. Use props if necessary.
-        this.state = {
-            frets: this.props.frets,
-            tuning: this.props.tuning,
-            shapes: this.props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null,
-            editedShape: null,      // shape in edition
-            overString: null,
-            overFret: null,
-            overShape: null
-        }
-    }
-
-
-    /**
-     *
-     * @param string
-     * @param fret
-     */
-    toggleDot = (string, fret) => {
-
-        // console.log(`toggleDot(${string}, ${fret})`);
-
-        let s = this.state.editedShape ? this.state.editedShape : S.create({frets:[], root:{string:0, fret:0}});
-
-        let shape;
-        if (Array.isArray(s.frets[string]) && s.frets[string].includes(fret)) {
-            shape = S.remove(s, string, fret)
-        } else {
-            shape = S.add(s, string, fret)
-        }
-
-        this.setState(produce(draft => {
-            draft.editedShape = F.play(shape)
-        }));
-
-    };
 
     /**
      *
      * @param e
      */
+    onMouseClick = (e) => {
 
-    editInPlace = (e) => {
+        if (typeof this.props.mouseClickHandler !== "function") return;
 
-        let sf = this.s.getStringFretFromMouseEvent(e, this.state.tuning.length, this.props.frets);
+        let sf = this.s.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
 
         if (!sf) return;
 
-        this.toggleDot(sf.string, sf.fret);
-
-    };
-
-
-    /**
-     *
-     * @param string
-     * @param fret
-     */
-    overDot = (string, fret) => {
-
-        // console.log(`overDot(${string}, ${fret})`, this.state.overString, this.state.overFret);
-
-        let shape = this.state.overShape ? this.state.overShape : S.create({frets:[], root:{string:0, fret:0}});
-
-        if (this.state.overString !== null && this.state.overFret !== null) {
-            shape = S.remove(shape, this.state.overString, this.state.overFret);
-        }
-
-        shape = S.add(shape, string, fret);
-
-        this.setState(produce(draft => {
-            draft.overString = string;
-            draft.overFret = fret;
-            draft.overShape = F.play(shape);
-        }));
+        this.props.mouseClickHandler(sf.string, sf.fret, e);
 
     };
 
@@ -133,115 +69,49 @@ export default class Diagram extends React.Component {
      *
      * @param e
      */
-    mouseMove = (e) => {
+    onMouseMove = (e) => {
 
-        let sf = this.s.getStringFretFromMouseEvent(e, this.state.tuning.length, this.props.frets);
+        if (typeof this.props.mouseMoveHandler !== "function") return;
+
+        let sf = this.s.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
 
         if (!sf) return;
 
-        if (sf.string === this.state.overString && sf.fret === this.state.overFret) {
-            return;
-        }
-
-        this.overDot(sf.string, sf.fret);
+        this.props.mouseMoveHandler(sf.string, sf.fret, e);
 
     };
 
 
     /**
-     * https://twitter.com/dan_abramov/status/953612246634188800?lang=en
-     * getDerivedStateFromProps() is being replaced by getDerivedStateFromProps()
      *
-     * Note: initializing state from props is a bad idea in 95% cases because now it won’t update when props change. Just use props.
-     *
-     * @param props
-     * @param state
      * @returns {*}
      */
-    static getDerivedStateFromProps(props, state) {
-        console.log("getDerivedStateFromProps", props);
-
-        // console.log("getDerivedStateFromProps", props.shapes === state.shapes);
-        //
-        // return {
-        //     shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
-        // };
-
-        // const { fretboard } = state;
-        /*
-        if (props.fretboard && props.fretboard !== null) {
-            return {
-                fretboard: props.fretboard
-            }
-        } else {
-            console.log(`new fretboard with ${props.frets} frets`);
-            let f = new F({tuning: props.tuning, frets: props.frets});  // build a default fretboard
-            if (props.shapes) {
-                for (const s of props.shapes) {
-                    // console.log('adding', this.s);
-                    f.addShape(s);
-                }
-            }
-            return {
-                fretboard: f
-            }
-        }
-        */
-
-        // const { currentRowIndex } = props;
-        // const { lastRowIndex } = state;
-        // if (currentRowIndex === lastRowIndex) {
-        //     return null;
-        // }
-        // return {
-        //     lastRowIndex: currentRowIndex,
-        //     isScrollingDown: lastRowIndex > currentRowIndex
-        // };
-        // return {
-        //     tuning: props.tuning,
-        //     frets: props.frets,
-        //     shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
-        // };
-    }
-
-
     render() {
 
-        console.log('Diagram render', this.state);
+        // console.log('Diagram render', this.props.shapes);
 
         this.s = new DiagramStyle(this.props.diagramStyle);
 
-        // console.log(this.state);
-
-        let strings = this.state.tuning.length;
-        let frets = this.state.frets;
-
-        let w = this.s.width(frets);
+        let strings = this.props.tuning.length;
+        let w = this.s.width(this.props.frets);
         let h = this.s.height(strings);
-
         let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
 
         // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
 
         return (
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'
-                 className={this.props.className}
-                 onClick={this.editInPlace}
-                 onMouseMove={this.mouseMove}>
+                 className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
                 <g className="fretboard-group">
-                    <Fretboard strings={strings} frets={frets} diagramStyle={this.s} />
-                    {this.state.shapes &&
-                    this.state.shapes.map(
-                        (shape, index) => <Shape key={index} shape={shape} strings={strings} diagramStyle={this.s} text={this.props.text} />
-                    )}
-                    {this.state.editedShape &&
-                        <Shape key="editshape" shape={this.state.editedShape} strings={strings} diagramStyle={this.s} text={this.props.text} />
+                    <Fretboard strings={strings} frets={this.props.frets} diagramStyle={this.s} />
+                    {
+                        this.props.shapes &&
+                        this.props.shapes.map(
+                            (s, index) => <Shape key={index} shape={F.play(S.create(s))} strings={strings} diagramStyle={this.s} text={this.props.text} />
+                        )
                     }
-                    {this.state.overShape &&
-                        <Shape key="overshape" shape={this.state.overShape} strings={strings} diagramStyle={this.s} text={this.props.text} className="over" />
-                    }
-                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={this.s} />}
+                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.s} />}
                 </g>
             </svg>
         )
