@@ -158,8 +158,15 @@ export default class Diagram extends React.Component {
      * @param state
      * @returns {*}
      */
-    // static getDerivedStateFromProps(props, state) {
-    //     console.log("getDerivedStateFromProps", props);
+    static getDerivedStateFromProps(props, state) {
+        console.log("getDerivedStateFromProps", props);
+
+        // console.log("getDerivedStateFromProps", props.shapes === state.shapes);
+        //
+        // return {
+        //     shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
+        // };
+
         // const { fretboard } = state;
         /*
         if (props.fretboard && props.fretboard !== null) {
@@ -195,12 +202,12 @@ export default class Diagram extends React.Component {
         //     frets: props.frets,
         //     shapes: props.shapes ? props.shapes.map(s => F.play(S.create(s))) : null
         // };
-    // }
+    }
 
 
     render() {
 
-        // console.log('render', this.state);
+        console.log('Diagram render', this.state);
 
         this.s = new DiagramStyle(this.props.diagramStyle);
 
