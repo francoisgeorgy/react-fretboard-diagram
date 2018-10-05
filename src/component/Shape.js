@@ -2,8 +2,10 @@ import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
 import {Note} from "tonal";
 import {Humanizer} from "fretboard-api";
+import './Shape.css';
 
 const propTypes = {
+    classname: PropTypes.string,
     shape: PropTypes.object.isRequired,
     string: PropTypes.number,   // shape position
     fret: PropTypes.number,     // shape position
@@ -12,6 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    classname: '',
     string: -1,
     fret: -1,
     diagramStyle: {},
@@ -91,9 +94,14 @@ export default class Shape extends React.Component {
 
         return (
             <Fragment key={`${string}.${fret}`}>
-                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.diagramStyle.dotRadius} className="dot" strokeWidth={this.props.diagramStyle.dotStroke}
-                        stroke={dotStrokeColor} fill={fill} />
-                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.diagramStyle.fontSize * 1.5} className="dot-number"
+                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.diagramStyle.dotRadius}
+                        className={`${this.props.className} fretboard-dot`}
+                        strokeWidth={this.props.diagramStyle.dotStroke}
+                        stroke={dotStrokeColor}
+                        fill={fill} />
+                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central"
+                      className={`${this.props.className} fretboard-dot-number`}
+                      fontSize={this.props.diagramStyle.fontSize * 1.5}
                       fill={textColor}>{text}</text>
             </Fragment>
         );
@@ -102,7 +110,10 @@ export default class Shape extends React.Component {
     cross(string) {
         return (
             <Fragment key={`${string}.X`}>
-                <text x={this.x(0)} y={this.y(string)} alignmentBaseline="central" fontSize={this.props.diagramStyle.fontSize * 1.5} className="dot-number">&#x2715;</text>
+                <text x={this.x(0)} y={this.y(string)}
+                      alignmentBaseline="central"
+                      className="fretboard-dot-number"
+                      fontSize={this.props.diagramStyle.fontSize * 1.5} >&#x2715;</text>
             </Fragment>
         );
     }

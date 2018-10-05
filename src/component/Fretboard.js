@@ -56,8 +56,8 @@ export default class Fretboard extends React.Component {
     render() {
         return (
             <Fragment>
-                <path fill="none" className="string" strokeWidth={this.props.diagramStyle.stringWidth} d={this.getStringsPath(this.props.strings, this.props.frets)} />
-                <path fill="none" className="fret" strokeWidth={this.props.diagramStyle.fretWidth} d={this.getFretsPath(this.props.strings, this.props.frets)} />
+                <path fill="none" strokeWidth={this.props.diagramStyle.stringWidth} className="fretboard-string" d={this.getStringsPath(this.props.strings, this.props.frets)} />
+                <path fill="none" strokeWidth={this.props.diagramStyle.fretWidth} className="fretboard-fret" d={this.getFretsPath(this.props.strings, this.props.frets)} />
             </Fragment>
         );
     }

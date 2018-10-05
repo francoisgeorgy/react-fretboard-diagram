@@ -12,6 +12,7 @@ import {produce} from "immer";   //TODO: import API, and use API.Fretboard...
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
 const propTypes = {
+    classname: PropTypes.string,
     diagramStyle: PropTypes.object,
     orientation: PropTypes.oneOf(ORIENTATION),   // TODO: make bool instead?
     text: PropTypes.oneOf(DOT_TEXT),   // TODO: define "custom"
@@ -26,6 +27,7 @@ const propTypes = {
 };
 
 const defaultProps = {
+    classname: '',
     diagramStyle: {},
     orientation: 'vertical',
     leftHanded: false,
@@ -216,10 +218,11 @@ export default class Diagram extends React.Component {
 
         return (
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'
+                 className={this.props.className}
                  onClick={this.editInPlace}
                  onMouseMove={this.mouseMove}>
                 {this.props.debug && <DebugGrid />}
-                <g>
+                <g className="fretboard-group">
                     <Fretboard strings={strings} frets={frets} diagramStyle={this.s} />
                     {this.state.shapes &&
                     this.state.shapes.map(
@@ -229,7 +232,7 @@ export default class Diagram extends React.Component {
                         <Shape key="editshape" shape={this.state.editedShape} strings={strings} diagramStyle={this.s} text={this.props.text} />
                     }
                     {this.state.overShape &&
-                        <Shape key="overshape" shape={this.state.overShape} strings={strings} diagramStyle={this.s} text={this.props.text} />
+                        <Shape key="overshape" shape={this.state.overShape} strings={strings} diagramStyle={this.s} text={this.props.text} className="over" />
                     }
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={frets} startAt={1} diagramStyle={this.s} />}
                 </g>

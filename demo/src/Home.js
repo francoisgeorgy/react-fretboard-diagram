@@ -14,7 +14,7 @@ const Home = () => (
 
         <h3>E major chord:</h3>
         <div style={{width:"800px"}}>
-            <Diagram frets={4} shapes={["022100"]} />
+            <Diagram frets={4} shapes={["022100"]} className="foo" />
         </div>
 
 {/*

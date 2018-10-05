@@ -1,0 +1,40 @@
+.fretboard {}
+
+.fretboard-group {}
+
+.fretboard-dot {
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 3;
+}
+
+.fretboard-dot-number {
+
+    font-family: sans-serif;
+    text-anchor: middle;
+
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 1;
+    font-size: 20;
+}
+
+.fretboard-string {
+    stroke: #000;
+}
+
+.fretboard-fret {
+    stroke: #000;
+}
+
+.fretboard-fret-number-group {}
+
+.fretboard-fret-number {
+    text-anchor: middle;
+    font-family: sans-serif;
+
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 1;
+    font-size: 20;
+}
