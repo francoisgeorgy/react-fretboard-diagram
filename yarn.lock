@@ -2179,10 +2179,10 @@ fresh@0.5.2:
   resolved "https://registry.yarnpkg.com/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
 
-fretboard-api@^0.4.13:
-  version "0.4.13"
-  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.4.13.tgz#6ef56ce365a27cb9c72b3c2118b42eb8d07afced"
-  integrity sha512-QxZPHFjRywpYkXng150yL9JUQBbjNBCmUH85VLCGalXfTU7Kq0J6iwpbhSuqH7Lvwvk1EHwaSfuL+UbffvlXDQ==
+fretboard-api@^0.4.14:
+  version "0.4.14"
+  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.4.14.tgz#3e2870d01344dbc7719d6d91c0a80e81468b6bc9"
+  integrity sha512-PfsKjrm9qtxvvcc6Atg4bv8p/DOuYZLvfcKw5o19BXrk/jDwPRCw6uABu7lkaXJws49v3hyA0z8ZO/JFVgn/xQ==
   dependencies:
     assert-js "^0.19.0"
     enharmonics "^1.0.3"

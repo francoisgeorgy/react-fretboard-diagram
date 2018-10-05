@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "assert-js": "^0.19.0",
-        "fretboard-api": "^0.4.13",
+        "fretboard-api": "^0.4.14",
         "immer": "^1.7.2",
         "prop-types": "^15.6.2",
         "tonal": "^2.0.0"
