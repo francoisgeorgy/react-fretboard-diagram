@@ -8,6 +8,7 @@ import Configurator from "./Configurator";
 import Examples from "./Examples";
 import MultipleShapes from "./MultipleShapes";
 import FretboardApi from "./FretboardApi";
+import MouseSupport from "./MouseSupport";
 
 const App = () => (
     <Router>
@@ -18,6 +19,7 @@ const App = () => (
             <Link className="header-link" to="/grid-big">Grid Big</Link>&nbsp;
             <Link className="header-link" to="/multiple-shapes">Multiple shapes</Link>&nbsp;
             <Link className="header-link" to="/examples">Examples</Link>&nbsp;
+            <Link className="header-link" to="/mouse-support">Mouse</Link>&nbsp;
             <Link className="header-link" to="/fretboard-api">Fretboard API</Link>&nbsp;
             <Link className="header-link" to="/configurator">Configurator</Link>
             <div id={"container"}>
@@ -27,6 +29,7 @@ const App = () => (
                     <Route path="/grid-big" component={GridBig} />
                     <Route path="/multiple-shapes" component={MultipleShapes} />
                     <Route path="/examples" component={Examples} />
+                    <Route path="/mouse-support" component={MouseSupport} />
                     <Route path="/fretboard-api" component={FretboardApi} />
                     <Route path="/configurator" component={Configurator} />
                 </Switch>
