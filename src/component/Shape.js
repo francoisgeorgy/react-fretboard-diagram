@@ -2,10 +2,10 @@ import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
 import {Note} from "tonal";
 import {Humanizer} from "fretboard-api";
-import './Shape.css';
+// import './Shape.css';
 
 const propTypes = {
-    classname: PropTypes.string,
+    className: PropTypes.string,
     shape: PropTypes.object.isRequired,
     string: PropTypes.number,   // shape position
     fret: PropTypes.number,     // shape position
@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    classname: '',
+    className: '',
     string: -1,
     fret: -1,
     diagramStyle: {},
