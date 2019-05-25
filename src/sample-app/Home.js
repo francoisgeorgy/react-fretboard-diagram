@@ -1,6 +1,8 @@
 import React from 'react';
 import Diagram from "../component/Diagram";
 
+//TODO: intervals should be automatically computed
+
 const Home = () => (
     <div>
         <h3>E major chord:</h3>
