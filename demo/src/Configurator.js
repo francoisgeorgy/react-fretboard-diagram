@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Diagram from "../component/Diagram";
+import Diagram from "../../src/component/Diagram";
 
 
 const mins = {
@@ -47,15 +47,15 @@ const defs = {
     paddingRight: 15,
     paddingTop: 70,
     paddingBottom: 30,
-    stringInterval: 60,
+    stringInterval: 64,
     stringWidth: 4,
     fretInterval: 100,
     fretWidth: 4,
     dotIn: 50,
     dotOut: 30,
-    dotRadius: 22,
-    dotStroke: 3,
-    fontSize: 16,
+    dotRadius: 24,
+    dotStroke: 4,
+    fontSize: 20,
     fretNumberFontSize: 42,
     fretNumberDistance: 30
 };
@@ -106,8 +106,7 @@ class Configurator extends Component {
                 <div style={{display:"flex"}}>
                     {/*<input type={"range"} defaultValue={"50"} min={"0"} max={"100"} onChange={this.handleChange}  />*/}
                     <div style={{width:`${this.state.mainWidth}px`}}>
-                        <Diagram strings={6} frets={4} diagramStyle={this.state}
-                                 shapes={[{frets:[0, 2, 2, 1, 3, 4], intervals:['R', '5', 'R', '3', '5', 'R']}]}/>
+                        <Diagram strings={6} frets={4} diagramStyle={this.state} shapes={["022134"]}/>
                     </div>
                 </div>
             </div>

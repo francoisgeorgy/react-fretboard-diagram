@@ -32,14 +32,12 @@
         .big {
             width: 1000px!important;
         }
+/*
         .fret,
         .string {
-        /*.dot {*/
             stroke: black;
         }
-        /*.dot {*/
-            /*fill: white;*/
-        /*}*/
+*/
         .debug .fret {
             stroke: #000;
             stroke-opacity: 0.5;
@@ -52,17 +50,82 @@
             stroke: black;
             fill-opacity: 0.4;
         }
+/*
         .fret-number {
-            /*font-size: 1;*/
             text-anchor: middle;
             font-family: sans-serif;
         }
         .dot-number {
             font-family: sans-serif;
             text-anchor: middle;
-            /*alignment-baseline: */
         }
+
+        .editable .dot {
+            stroke: #999;
+        }
+
+        .editable .dot-number {
+            stroke: #999;
+        }
+
+        svg.foo .dot {
+            stroke: darkgreen;
+        }
+*/
+
+
+        .fretboard {}
+
+        .fretboard-group {}
+
+        .fretboard-dot {
+            fill: #fff;
+            stroke: #000;
+            stroke-width: 4;
+        }
+
+        .fretboard-dot-number {
+
+            font-family: sans-serif;
+            text-anchor: middle;
+
+            fill: #000;
+            /*stroke: #fff;*/
+            stroke-width: 0;
+            font-size: 20;
+        }
+
+        .fretboard-string {
+            stroke: #000;
+        }
+
+        .fretboard-fret {
+            stroke: #000;
+        }
+
+        .fretboard-fret-number-group {}
+
+        .fretboard-fret-number {
+            text-anchor: middle;
+            font-family: sans-serif;
+
+            fill: #000;
+            /*stroke: #000;*/
+            stroke-width: 0;
+            font-size: 20;
+        }
+
+        .over.fretboard-dot {
+            fill: #eee;
+            stroke: #999;
+        }
+
+        .over.fretboard-dot-number {
+            fill: #999;
+        }
+
     </style>
+    <!--<link rel="stylesheet" href="diagram.css">-->
 </head>
 <body>
     <noscript>

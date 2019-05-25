@@ -1,5 +1,5 @@
 import React from 'react';
-import Diagram from "../component/Diagram";
+import Diagram from "../../src/component/Diagram";
 
 const Examples = () => (
     <div id="examples">

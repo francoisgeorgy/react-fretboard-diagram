@@ -1,5 +1,10 @@
 import React, {Fragment} from 'react';
-import {arabToRoman} from "roman-numbers";
+// import {arabToRoman} from "roman-numbers";
+
+function arabToRoman(a) {
+    //TODO: implement arabToRoman()
+    return a;
+}
 
 export default class FretNumbers extends React.Component {
 
@@ -23,9 +28,9 @@ export default class FretNumbers extends React.Component {
                          y={y}
                          fontSize={this.props.diagramStyle.fretNumberFontSize}
                          stroke={this.props.diagramStyle.fretNumberColor}
-                         className="fret-number">{arabToRoman(startAt + i)}</text>);
+                         className="fretboard-fret-number">{arabToRoman(startAt + i)}</text>);
         }
-        return <g>{s}</g>;
+        return <g className="fretboard-fret-number-group">{s}</g>;
         // return <Fragment>{s}</Fragment>;
 
         // let i = 1;

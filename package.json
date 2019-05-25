@@ -1,44 +1,52 @@
 {
     "name": "react-fretboard-diagram",
-    "version": "0.1.0",
-    "main": "index.js",
+    "version": "0.1.1",
+    "description": "A React component to display a fretboard",
+    "keywords": [
+        "fretboard",
+        "react",
+        "component"
+    ],
+    "main": "dist/index.js",
     "repository": "https://github.com/francoisgeorgy/react-fretboard-diagram.git",
     "author": "François Georgy <francois.georgy@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "dev": "webpack --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
-        "start": "webpack-dev-server --open --config webpack.dev-server.js",
+        "build": "rimraf dist && babel src -d dist --copy-files",
+        "prepublishrim": "npm run build",
+        "start": "webpack-dev-server --open --config webpack.config.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
+    "peerDependencies": {
+        "react": "^16.5.2",
+        "react-dom": "^16.5.2",
+        "react-router-dom": "^4.3.1"
+    },
     "devDependencies": {
-        "@babel/core": "^7.0.0",
-        "@babel/plugin-proposal-class-properties": "^7.0.0",
-        "@babel/plugin-proposal-decorators": "^7.0.0",
-        "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
-        "@babel/plugin-proposal-function-sent": "^7.0.0",
-        "@babel/plugin-proposal-json-strings": "^7.0.0",
-        "@babel/plugin-proposal-numeric-separator": "^7.0.0",
-        "@babel/plugin-proposal-throw-expressions": "^7.0.0",
-        "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-        "@babel/plugin-syntax-import-meta": "^7.0.0",
-        "@babel/preset-env": "^7.0.0",
+        "@babel/cli": "^7.2.0",
+        "@babel/core": "^7.2.0",
+        "@babel/plugin-proposal-class-properties": "^7.2.1",
+        "@babel/preset-env": "^7.2.0",
         "@babel/preset-react": "^7.0.0",
-        "babel-loader": "^8.0.6",
-        "clean-webpack-plugin": "^2.0.2",
+        "@babel/preset-stage-2": "^7.0.0",
+        "babel-loader": "^8.0.4",
+        "clean-webpack-plugin": "^1.0.0",
+        "css-loader": "^1.0.1",
         "html-webpack-plugin": "^3.2.0",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6",
-        "webpack": "^4.32.2",
-        "webpack-cli": "^3.3.2",
-        "webpack-dev-server": "^3.4.1",
-        "webpack-merge": "^4.2.1"
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3",
+        "react-router-dom": "^4.3.1",
+        "style-loader": "^0.23.1",
+        "webpack": "^4.27.1",
+        "webpack-cli": "^3.1.2",
+        "webpack-dev-server": "^3.1.10",
+        "webpack-merge": "^4.1.4"
     },
     "dependencies": {
-        "assert-js": "^0.22.0",
+        "assert-js": "^0.21.0",
         "fretboard-api": "^0.4.15",
-        "prop-types": "^15.7.2",
-        "react-router-dom": "^5.0.0",
-        "roman-numbers": "^1.0.1"
+        "immer": "^1.8.0",
+        "prop-types": "^15.6.2",
+        "tonal": "^2.1.2"
     }
 }

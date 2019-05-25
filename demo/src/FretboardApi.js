@@ -1,6 +1,6 @@
 import {Component} from "react";
-import {SHAPES, Fretboard as F, Shape as S} from "fretboard-api";
-import Diagram from "../component/Diagram";
+import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
+import Diagram from "../../src/component/Diagram";
 import React from "react";
 
 class FretboardApi extends Component {
@@ -9,10 +9,9 @@ class FretboardApi extends Component {
 
         // console.log(SHAPES);
 
-        let f = new F();
+        // let f = new F();
         // let s = new S({frets:"X22100"});
-        let s = new S({frets:"X32010"});
-
+        let s = F.play(S.create("X32010"), 8);
 
         // let shape = new Shape("022100");
 

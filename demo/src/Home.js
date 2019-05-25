@@ -1,39 +1,41 @@
 import React from 'react';
-import Diagram from "../component/Diagram";
+import Diagram from "../../src/component/Diagram";
+import {Tuning} from 'fretboard-api';
 
 //TODO: intervals should be automatically computed
 
 const Home = () => (
     <div>
-        <h3>E major chord:</h3>
-        <div style={{width:"400px"}}>
-            <Diagram strings={6} frets={4} shapes={[
-                {
-                    frets: [[0], [2], [2], [1], [0], [0]],
-                    intervals: [['R'], ['5'], ['R'], ['3'], ['5'], ['R']]
-                }
-            ]} />
+        <div>
+            <h4>Defaults</h4>
+            <ul>
+                <li>Tuning: standard guitar tuning = {Tuning.guitar.standard}</li>
+                <li>Number of strings: {Tuning.guitar.standard.length} (determined by the tuning)</li>
+            </ul>
         </div>
 
+        <h3>E major chord:</h3>
+        <div style={{width:"800px"}}>
+            <Diagram frets={4} shapes={["022100"]} className="foo" />
+        </div>
+
+{/*
         <h3>Major scale with intervals:</h3>
         <div style={{width:"400px"}}>
-            <Diagram strings={6} frets={4} shapes={[
-                {
-                    frets: [[2, 4], [1, 2, 4], [1, 3, 4], [1, 3, 4], [2, 4], [1, 2, 4]],
-                    intervals: [['R', '2'], ['3', '4', '5'], ['6', '7', 'R'], ['2', '3', '4'], ['5', '6'], ['7', 'R', '2']]
-                }
-            ]} />
+            <Diagram frets={4} text={"interval"} shapes={["2 4, 1 2 4, 1 3 4, 1 3 4, 2 4, 1 2 4"]} />
         </div>
 
         <h3>Major scale with fingers:</h3>
         <div style={{width:"400px"}}>
-            <Diagram strings={6} frets={4} shapes={[
+            <Diagram frets={4} text={"finger"} shapes={[
                 {
-                    frets: [[2, 4], [1, 2, 4], [1, 3, 4], [1, 3, 4], [2, 4], [1, 2, 4]],
-                    fingers: [[2, 4], [1, 2, 4], [1, 3, 4], [1, 3, 4], [2, 4], [1, 2, 4]]
+                    frets: "2 4, 1 2 4, 1 3 4, 1 3 4, 2 4, 1 2 4",
+                    fingers: "2 4, 1 2 4, 1 3 4, 1 3 4, 2 4, 1 2 4"
                 }
             ]} />
         </div>
+*/}
+
 {/*
         <div style={{width:"300px"}}>
             <Diagram strings={6} frets={4} diagramStyle={ {

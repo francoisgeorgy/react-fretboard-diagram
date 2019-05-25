@@ -94,6 +94,82 @@ class DiagramStyle {
     //     return this.fretWidth;
     // }
 
+    getStringFretFromMouseEvent(event, strings, frets) {
+
+        // console.log(`paddingTop=${this.paddingTop}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingTop + ((this.props.strings - 1) * this.stringInterval)}`);
+
+        // console.log('event', event.currentTarget, event.nativeEvent);
+        // console.log(`(${e.clientX}, ${e.clientY}), (${e.nativeEvent.clientX}, ${e.nativeEvent.clientY})`);
+        let svg = event.currentTarget.getBoundingClientRect();
+        // console.log('targetRect', svg);
+        // console.log(`targetRect: (${svg.width} ${svg.height}), ratio = ${svg.width/svg.height}`);
+
+        let w = this.width(frets);
+        let scale = svg.width / w;
+
+        // console.log(`scale = ${svg.width} / ${w} = ${scale}`);
+
+        let dx = event.clientX - svg.left;
+        let dy = event.clientY - svg.top;
+
+        // console.log(`delta=(${dx}, ${dy})`);
+        // console.log(`dy / scale = ${dy / scale}`);
+
+        let deltaY = dy / scale;
+
+        if (deltaY < (this.paddingTop - (this.stringInterval / 2))) {
+            // console.log('in padding top, ignore');
+            return null;
+        }
+
+        // console.log(`bottom limit = ${((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))}`);
+        if (deltaY > ((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))) {
+            // console.log('in padding bottom, ignore');
+            return null;
+        }
+        // if ((deltaY) > (this.paddingTop + ((strings - 1) * this.stringInterval) + this.stringWidth)) {
+        //     console.log('in padding bottom, ignore');
+        //     return
+        // }
+
+        let nString = Math.floor((deltaY - this.paddingTop - (this.stringWidth / 2)) / this.stringInterval + 0.5);
+        if (nString < 0) nString = 0;
+        if (nString >= strings) nString = strings - 1;
+
+        // console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((deltaY) - this.paddingTop - (this.stringWidth / 2)) / this.stringInterval}; n string = ${nString}`);
+
+        // fret
+
+        let deltaX = dx / scale;
+
+        if (deltaX < (this.paddingLeft - this.fretInterval + (this.fretWidth / 2))) {
+            // console.log('in padding left, ignore');
+            return null;
+        }
+
+        if (deltaX > ((svg.width / scale) - this.paddingRight)) {
+            // console.log('in padding right, ignore');
+            return null;
+        }
+
+        let nFret = Math.floor(((deltaX - this.paddingLeft - this.fretWidth) / this.fretInterval) + 1);
+        if (nFret < 0) nFret = 0;
+        // if (nFret >= frets) nFret = frets;
+        if (nFret > frets) {
+            return null;
+        }
+
+        //console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${(deltaX - this.paddingLeft - (this.fretWidth / 2)) / this.fretInterval}; nFret fret = ${nFret}`);
+        // console.log(strings - nString - 1, nFret);
+
+        // this.addDot(this.state.tuning.length - nString - 1, nFret);
+        return {
+            string: strings - nString - 1,
+            fret: nFret
+        }
+
+    };
+
 }
 
 export default DiagramStyle;
