@@ -1,6 +1,11 @@
 .idea/*
 react-fretboard-diagram.iml
 tmp/
+dist
+compiled
+.awcache
+.rpt2_cache
+docs
 
 # Created by .ignore support plugin (hsz.mobi)
 ### macOS template
