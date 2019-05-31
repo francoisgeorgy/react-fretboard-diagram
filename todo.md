@@ -9,3 +9,8 @@
 - https://www.typescriptlang.org/docs/handbook/react-&-webpack.html
 - https://fettblog.eu/typescript-react/events/
 - https://mattferderer.com/default-props-in-react-with-typescript
+
+# react
+
+- https://react-styleguidist.js.org/
+    - see https://github.com/KaiHotz/react-rollup-boilerplate

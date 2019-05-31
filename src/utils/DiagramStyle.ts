@@ -95,7 +95,7 @@ class DiagramStyle {
     stringLength(frets: number) {
         Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
         // return frets * layout.CONF.fretInterval + ((fretExtra ? layout.CONF.fretInterval  = 0) * CONF.fretExtra) + 1;
-        let tmp = frets * this.fretInterval + this.fretWidth;
+        // let tmp = frets * this.fretInterval + this.fretWidth;
         // console.log(`stringLength = ${frets} * ${this.fretInterval} + ${this.fretWidth} = ${tmp}`);
         return frets * this.fretInterval + this.fretWidth - this.fretWidth / 2;
     }

@@ -143,7 +143,7 @@ const LAYOUTS = {
 
 export var currentLayout = LAYOUTS['def'];
 
-export function getLayout(layout) {
+export function getLayout(layout: string|object): object {
     if (typeof layout === 'string') {
         console.log("string layout");
         Assert.true(LAYOUTS.hasOwnProperty(layout));
@@ -156,7 +156,7 @@ export function getLayout(layout) {
 }
 
 
-export function setLayout(layout) {
+export function setLayout(layout: string|object): void {
     if (typeof layout === 'string') {
         console.log("string layout");
         Assert.true(LAYOUTS.hasOwnProperty(layout));
@@ -168,7 +168,7 @@ export function setLayout(layout) {
     console.log('setLayout: currentLayout', currentLayout);
 }
 
-export function width(frets) {
+export function width(frets: number): number {
     console.log('width: currentLayout', currentLayout);
     Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
     // console.log(`w = ${CONF.paddingLeft} + (${CONF.fretInterval} * ${frets}) + ${CONF.paddingRight} + ((${fretExtra ? 1 : 0}) * ${CONF.fretExtra})`);
@@ -177,13 +177,13 @@ export function width(frets) {
     return currentLayout.paddingLeft + (currentLayout.fretInterval * frets) + currentLayout.paddingRight + currentLayout.fretWidth;
 }
 
-export function height(strings) {
+export function height(strings: number): number {
     Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
     console.log(`h = ${currentLayout.paddingTop} + (${currentLayout.stringInterval} * (${strings} - 1)) + ${currentLayout.paddingBottom}`);
     return currentLayout.paddingTop + (currentLayout.stringInterval * (strings - 1)) + currentLayout.paddingBottom + currentLayout.stringWidth;
 }
 
-export function stringLength(frets) {
+export function stringLength(frets: number): number {
     Assert.greaterThan(0, frets, "NUmber of frets must be an integer greater than 0");
     // return frets * layout.CONF.fretInterval + ((fretExtra ? layout.CONF.fretInterval : 0) * CONF.fretExtra) + 1;
     let tmp = frets * currentLayout.fretInterval + currentLayout.fretWidth;
@@ -191,7 +191,7 @@ export function stringLength(frets) {
     return frets * currentLayout.fretInterval + currentLayout.fretWidth - currentLayout.fretWidth / 2;
 }
 
-export function fretLength(strings) {
+export function fretLength(strings: number): number {
     Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
     return (strings - 1) * currentLayout.stringInterval + currentLayout.stringWidth;
 }

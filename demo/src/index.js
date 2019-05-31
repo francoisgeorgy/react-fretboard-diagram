@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';  // "* as" syntax needed for typescript
 import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
 import Home from "./Home";
 import GridExamples from "./GridExamples";
@@ -15,7 +15,7 @@ const App = () => (
         <div>
             <h1>react-fretboard-diagram sample app</h1>
             <Link className="header-link" to="/">Home</Link>&nbsp;
-            <Link className="header-link" to="/grid-examples">Grid Exampes</Link>&nbsp;
+            <Link className="header-link" to="/grid-examples">Grid Examples</Link>&nbsp;
             <Link className="header-link" to="/grid-big">Grid Big</Link>&nbsp;
             <Link className="header-link" to="/multiple-shapes">Multiple shapes</Link>&nbsp;
             <Link className="header-link" to="/examples">Examples</Link>&nbsp;
