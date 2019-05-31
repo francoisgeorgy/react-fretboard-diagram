@@ -1,12 +1,22 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import DiagramStyle from "../utils/DiagramStyle";
 // import {arabToRoman} from "roman-numbers";
 
-function arabToRoman(a) {
+function arabToRoman(a: number): string {
     //TODO: implement arabToRoman()
-    return a;
+    return a.toString(10);
 }
 
-export default class FretNumbers extends React.Component {
+export interface FretNumbersProps {
+    frets: number,
+    startAt: number,
+    diagramStyle: DiagramStyle,
+}
+
+export interface FretNumbersState {
+}
+
+export default class FretNumbers extends React.Component<FretNumbersProps, FretNumbersState> {
 
     render() {
 

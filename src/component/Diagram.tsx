@@ -1,11 +1,11 @@
 import React from 'react';
 import Fretboard from "./Fretboard";
 import Shape from "./Shape";
-// import PropTypes from "prop-types";
 import DebugGrid from "./DebugGrid";
 import DiagramStyle from "../utils/DiagramStyle";
-import {Fretboard as F, Shape as S} from "fretboard-api/types/fretboard-api";
+// import {Fretboard as F, Shape as S} from "fretboard-api/types/fretboard-api";
 // import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
+import * as FretboardAPI from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 // import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
 
@@ -62,7 +62,11 @@ export interface DiagramProps {
     debug: any;
 }
 
-export default class Diagram extends React.Component<DiagramProps, {}> {
+export interface DiagramState {
+    style: DiagramStyle
+}
+
+export default class Diagram extends React.Component<DiagramProps, DiagramState> {
 
     static defaultProps = {
         classname: '',
@@ -91,14 +95,14 @@ export default class Diagram extends React.Component<DiagramProps, {}> {
 
     onMouseClick = (e: React.MouseEvent) => {
         if (typeof this.props.mouseClickHandler !== "function") return;
-        let sf = this.s.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
+        let sf = this.state.style.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
         if (!sf) return;
         this.props.mouseClickHandler(sf.string, sf.fret, e);
     };
 
     onMouseMove = (e: React.MouseEvent) => {
         if (typeof this.props.mouseMoveHandler !== "function") return;
-        let sf = this.s.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
+        let sf = this.state.style.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
         if (!sf) return;
         this.props.mouseMoveHandler(sf.string, sf.fret, e);
     };
@@ -121,16 +125,14 @@ export default class Diagram extends React.Component<DiagramProps, {}> {
                     {
                         this.props.shapes &&
                         this.props.shapes.map(
-                            (shape, index) => <Shape key={index} shape={F.play(S.create(shape))} strings={strings} diagramStyle={style} text={this.props.text} />
+                            (shape: any, index: number) => <Shape key={index} shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
+                                                                  strings={strings} diagramStyle={style} text={this.props.text} />
                         )
                     }
-                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.s} />}
+                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.state.style} />}
                 </g>
             </svg>
         )
     }
 
 }
-
-// Diagram.propTypes = propTypes;
-// Diagram.defaultProps = defaultProps;

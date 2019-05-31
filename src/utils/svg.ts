@@ -1,5 +1,5 @@
 
-export function horizontalLine(x, y, length, width) {
+export function horizontalLine(x: number, y: number, length: number, width: number): string {
 
     //add stroke-width/2 to Y coordinate to correct SVG coordinates. See https://codepen.io/fgeorgy/pen/NBjYzP
 
@@ -7,7 +7,7 @@ export function horizontalLine(x, y, length, width) {
     return `M ${x},${y + width/2} h ${length}`;
 }
 
-export function verticalLine(x, y, length, width) {
+export function verticalLine(x: number, y: number, length: number, width: number): string {
 
     //add stroke-width/2 to X coordinate to correct SVG coordinates. See https://codepen.io/fgeorgy/pen/NBjYzP
 

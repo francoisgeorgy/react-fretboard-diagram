@@ -1,23 +1,24 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
-import * as svg from "../utils/svg.js";
+import * as svg from "../utils/svg";
+import DiagramStyle from "../utils/DiagramStyle";
 
+export interface FretboardProps {
+    strings: number;
+    frets: number;
+    diagramStyle: DiagramStyle;
+}
 
-const propTypes = {
-    strings: PropTypes.number.isRequired,
-    frets: PropTypes.number.isRequired,
-    diagramStyle: PropTypes.object
-};
+export interface DiagramState {
+}
 
-const defaultProps = {
-    strings: 6,
-    frets: 5,
-    diagramStyle: {}
-};
+export default class Fretboard extends React.Component<FretboardProps, DiagramState> {
 
-export default class Fretboard extends React.Component {
+    static defaultProps = {
+        strings: 6,
+        frets: 5
+    };
 
-    getStringsPath(strings, frets) {
+    getStringsPath(strings: number, frets: number) {
 
         // console.log(`getStringsPath(${strings}, ${frets})`);
 
@@ -36,7 +37,7 @@ export default class Fretboard extends React.Component {
         return s.join(' ');
     }
 
-    getFretsPath(strings, frets) {
+    getFretsPath(strings: number, frets: number) {
 
         let fretLength = this.props.diagramStyle.fretLength(strings);
 
@@ -63,6 +64,3 @@ export default class Fretboard extends React.Component {
     }
 
 }
-
-Fretboard.propTypes = propTypes;
-Fretboard.defaultProps = defaultProps;

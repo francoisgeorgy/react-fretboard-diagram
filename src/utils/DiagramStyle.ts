@@ -1,6 +1,25 @@
 import Assert from "assert-js";
+import React from "react";
 
 class DiagramStyle {
+
+    paddingTop: number;
+    paddingRight: number;
+    paddingBottom: number;
+    paddingLeft: number;
+    stringInterval: number;
+    stringWidth: number;
+    fretInterval: number;
+    fretWidth: number;
+    dotIn: number;
+    dotOut: number;
+    dotRadius: number;
+    dotStroke: number;
+    fontSize: number;
+    fretNumberDistance: number;
+    fretNumberFontSize: number;
+    fretNumberColor: string;
+    colors: any;    //TODO: describe colors
 
     constructor({
             paddingTop = 70,    // make room for fret numbers
@@ -60,20 +79,20 @@ class DiagramStyle {
 
     }
 
-    width(frets) {
+    width(frets: number) {
         // console.log('width = currentLayout', currentLayout);
         Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
         // console.log(`w = ${this.paddingLeft} + (${this.fretInterval} * ${frets}) + ${this.paddingRight} + 1`);
         return this.paddingLeft + (this.fretInterval * frets) + this.paddingRight + this.fretWidth;
     }
 
-    height(strings) {
+    height(strings: number) {
         Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
         // console.log(`h = ${this.paddingTop} + (${this.stringInterval} * (${strings} - 1)) + ${this.paddingBottom}`);
         return this.paddingTop + (this.stringInterval * (strings - 1)) + this.paddingBottom + this.stringWidth;
     }
 
-    stringLength(frets) {
+    stringLength(frets: number) {
         Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
         // return frets * layout.CONF.fretInterval + ((fretExtra ? layout.CONF.fretInterval  = 0) * CONF.fretExtra) + 1;
         let tmp = frets * this.fretInterval + this.fretWidth;
@@ -81,7 +100,7 @@ class DiagramStyle {
         return frets * this.fretInterval + this.fretWidth - this.fretWidth / 2;
     }
 
-    fretLength(strings) {
+    fretLength(strings: number) {
         Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
         return (strings - 1) * this.stringInterval + this.stringWidth;
     }
@@ -94,7 +113,7 @@ class DiagramStyle {
     //     return this.fretWidth;
     // }
 
-    getStringFretFromMouseEvent(event, strings, frets) {
+    getStringFretFromMouseEvent(event: React.MouseEvent, strings: number, frets: number) {
 
         // console.log(`paddingTop=${this.paddingTop}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingTop + ((this.props.strings - 1) * this.stringInterval)}`);
 

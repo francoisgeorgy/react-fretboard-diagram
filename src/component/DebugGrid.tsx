@@ -1,5 +1,8 @@
 import React, {Fragment} from 'react';
 
+// export interface DebugGridProps {
+// }
+
 const DebugGrid = () => (
     <Fragment>
         <defs>
