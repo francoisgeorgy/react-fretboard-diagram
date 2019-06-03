@@ -20,7 +20,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
     getStringsPath(strings: number, frets: number) {
 
-        // console.log(`getStringsPath(${strings}, ${frets})`);
+        console.log(`getStringsPath(${strings}, ${frets})`);
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
@@ -55,6 +55,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
     }
 
     render() {
+        console.log('Fretboard render', this.props.diagramStyle);
         return (
             <Fragment>
                 <path fill="none" strokeWidth={this.props.diagramStyle.stringWidth} className="fretboard-string" d={this.getStringsPath(this.props.strings, this.props.frets)} />

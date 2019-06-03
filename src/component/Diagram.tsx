@@ -110,7 +110,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
 
     render() {
         const {style} = this.state;
-        // console.log('Diagram render', this.props.shapes);
+        console.log('Diagram render', style, this.props.shapes);
         let strings = this.props.tuning.length;
         let w = style.width(this.props.frets);
         let h = style.height(strings);
