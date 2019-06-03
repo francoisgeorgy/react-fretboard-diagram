@@ -1,10 +1,8 @@
-import React, {Fragment} from 'react';
+import React, {Fragment} from "react";
 import {Note} from "tonal";
 // import {Humanizer} from "fretboard-api";
 import DiagramStyle from "../utils/DiagramStyle";
 import {ShapeType, Utils} from "fretboard-api";
-// import {FretboardTuning, FretboardShape, Fretboard as F} from "fretboard-api";
-// import * as FretboardAPI from "fretboard-api";
 // import './Shape.css';
 
 export interface ShapeProps {

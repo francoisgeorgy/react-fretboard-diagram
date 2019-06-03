@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Fretboard from "./Fretboard";
 import Shape from "./Shape";
 import DebugGrid from "./DebugGrid";
@@ -7,6 +7,7 @@ import DiagramStyle from "../utils/DiagramStyle";
 // import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import * as FretboardAPI from "fretboard-api";
 import FretNumbers from "./FretNumbers";
+// import {Tuning} from "fretboard-api";
 // import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
@@ -78,8 +79,8 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         fretNumbers: 'latin',
         fretNumbersPosition: 'top',
         text: 'note',
-        // tuning: Tunings.guitar.standard,
-        tuning: [],
+        tuning: FretboardAPI.Tuning.guitar.standard,
+        // tuning: [],
         shapes: null,
         debug: false
     };

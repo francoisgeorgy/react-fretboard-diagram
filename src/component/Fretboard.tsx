@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment} from "react";
 import * as svg from "../utils/svg";
 import DiagramStyle from "../utils/DiagramStyle";
 

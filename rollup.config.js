@@ -7,7 +7,7 @@ import json from 'rollup-plugin-json'
 
 import pkg from './package.json'
 
-const LIBRARY_NAME = 'react-fretboard-diagram';
+const LIBRARY_NAME = 'index';
 
 export default {
     input: `src/${LIBRARY_NAME}.ts`,
@@ -45,7 +45,8 @@ export default {
         commonjs({
             include: 'node_modules/**',
             namedExports: {
-                'node_modules/react/index.js': ['Component', 'PureComponent', 'Fragment', 'Children', 'createElement']
+                'node_modules/react/index.js': ['Component', 'PureComponent', 'Fragment', 'Children', 'createElement'],
+                "node_modules/react-dom/index.js": ["render"]
             }
         }),
 
