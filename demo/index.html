@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>react-fretboard-diagram micro demo</title>
+    <link rel="stylesheet" href="main.css">
+    <script>
+        // https://github.com/rollup/rollup/issues/487
+        var process = {env: {NODE_ENV: 'development'}};
+        // try {
+        //     process.env.NODE_ENV;
+        // } catch(e) {
+        //     console.log("define process");
+        //     var process = { env: { NODE_ENV: 'dev' } };
+        // }
+    </script>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- babel is required in order to parse JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="../dist/index.umd.js"></script>
+    <script type="text/babel" src="main.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import sourceMaps from 'rollup-plugin-sourcemaps'
-import camelCase from 'lodash.camelcase'
+// import camelCase from 'lodash.camelcase'
 import typescript from 'rollup-plugin-typescript2'
 import json from 'rollup-plugin-json'
 
@@ -12,16 +12,22 @@ const LIBRARY_NAME = 'index';
 export default {
     input: `src/${LIBRARY_NAME}.ts`,
     output: [
+        // {
+        //     file: pkg.main,
+        //     name: camelCase(LIBRARY_NAME),
+        //     format: 'cjs',
+        //     sourcemap: true
+        // },
         {
             file: pkg.main,
-            name: camelCase(LIBRARY_NAME),
-            format: 'cjs',
+            name: "FD",
+            format: 'iife',
             sourcemap: true
         },
         {
             file: pkg.module,
-            format: 'es',
-            sourcemap: true
+            format: 'esm',      // esm – Keep the bundle as an ES module file, suitable for other bundlers and inclusion as a <script type=module> tag in modern browsers
+            sourcemap: true     // https://rollupjs.org/guide/en/
         },
     ],
     // Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')

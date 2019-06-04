@@ -1,0 +1,118 @@
+#grids {
+  display: flex;
+  flex-wrap: wrap;
+}
+#grids > div {
+  margin-right: 10px;
+  width: 400px;
+}
+#examples {
+  display: grid;
+  grid-template-columns: 260px auto;
+  justify-items: start;
+  align-items: start;
+}
+#examples > div {
+  border: 0;
+  margin: 0;
+}
+#examples div:nth-child(odd) {
+  width: 250px;
+}
+#examples div:nth-child(even) {
+  font-family: monospace;
+}
+.big {
+  width: 1000px!important;
+}
+/*
+        .fret,
+        .string {
+            stroke: black;
+        }
+*/
+.debug .fret {
+  stroke: #000;
+  stroke-opacity: 0.5;
+}
+.debug .string {
+  stroke: blue;
+  stroke-opacity: 0.5;
+}
+.debug .dot {
+  stroke: black;
+  fill-opacity: 0.4;
+}
+/*
+        .fret-number {
+            text-anchor: middle;
+            font-family: sans-serif;
+        }
+        .dot-number {
+            font-family: sans-serif;
+            text-anchor: middle;
+        }
+
+        .editable .dot {
+            stroke: #999;
+        }
+
+        .editable .dot-number {
+            stroke: #999;
+        }
+
+        svg.foo .dot {
+            stroke: darkgreen;
+        }
+*/
+
+
+.fretboard {}
+
+.fretboard-group {}
+
+.fretboard-dot {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 4;
+}
+
+.fretboard-dot-number {
+
+  font-family: sans-serif;
+  text-anchor: middle;
+
+  fill: #000;
+  /*stroke: #fff;*/
+  stroke-width: 0;
+  font-size: 20;
+}
+
+.fretboard-string {
+  stroke: #000;
+}
+
+.fretboard-fret {
+  stroke: #000;
+}
+
+.fretboard-fret-number-group {}
+
+.fretboard-fret-number {
+  text-anchor: middle;
+  font-family: sans-serif;
+
+  fill: #000;
+  /*stroke: #000;*/
+  stroke-width: 0;
+  font-size: 20;
+}
+
+.over.fretboard-dot {
+  fill: #eee;
+  stroke: #999;
+}
+
+.over.fretboard-dot-number {
+  fill: #999;
+}
