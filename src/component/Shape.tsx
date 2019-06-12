@@ -141,12 +141,15 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
     }
 
     cross(string: number) {
+        const x = this.x(0);
+        const y = this.y(string);
+        const w = this.props.diagramStyle.dotRadius * 0.75;
         return (
             <Fragment key={`${string}.X`}>
-                <text x={this.x(0)} y={this.y(string)}
-                      alignmentBaseline="central"
-                      className="fretboard-dot-number"
-                      fontSize={this.props.diagramStyle.fontSize * 1.5} >&#x2715;</text>
+                <path fill="#4a90d6" stroke="#222222" strokeWidth="5" strokeLinecap="round"
+                      d={`M${x-w},${y-w}L${x+w},${y+w}`} />
+                <path fill="#4a90d6" stroke="#222222" strokeWidth="5" strokeLinecap="round"
+                      d={`M${x+w},${y-w}L${x-w},${y+w}`} />
             </Fragment>
         );
     }

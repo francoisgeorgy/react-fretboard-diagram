@@ -1,4 +1,5 @@
 
+/*
     const element = (
         <div style={{display:"flex"}}>
             <div style={{width:"400px"}}>
@@ -11,6 +12,18 @@
             &nbsp;
             <div style={{width:"400px"}}>
                 <FD.Diagram frets={5} shapes={["12345,12345,12345,12345,12345,12345"]} className="foo" />
+            </div>
+        </div>
+    );
+*/
+
+    const element = (
+        <div style={{display:"flex"}}>
+            <div style={{width:"1000px"}}>
+                <FD.Diagram frets={4} shapes={["X0"]} className="foo" />
+            </div>
+            <div style={{width:"1000px"}}>
+                <FD.Diagram frets={4} shapes={["0X"]} className="foo" />
             </div>
         </div>
     );
