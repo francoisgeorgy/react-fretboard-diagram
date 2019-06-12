@@ -41,6 +41,13 @@ Intervals can be displayed in two forms:
 - Allow overriding of the display options per Shape. For example, on the same diagram, one shape could be displayed with
 notes and another shape could be displayed with intervals.
 
+- Font:
+    - Nunito
+    - PT Sans Narrow
+    - Quicksand
+    - Dosis
+    - Varela Round
+
 ----
 
 # Never forget:

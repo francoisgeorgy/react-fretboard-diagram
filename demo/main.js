@@ -19,10 +19,10 @@
 
     const element = (
         <div style={{display:"flex"}}>
-            <div style={{width:"1000px"}}>
+            <div style={{width:"500px"}}>
                 <FD.Diagram frets={4} shapes={["X0"]} className="foo" />
             </div>
-            <div style={{width:"1000px"}}>
+            <div style={{width:"500px"}}>
                 <FD.Diagram frets={4} shapes={["0X"]} className="foo" />
             </div>
         </div>

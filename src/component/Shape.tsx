@@ -134,7 +134,8 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
                         fill={fill} />
                 <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central"
                       className={`${this.props.className} fretboard-dot-number`}
-                      fontSize={this.props.diagramStyle.fontSize * 1.5}
+                      textAnchor="middle"
+                      fontSize={this.props.diagramStyle.fontSize}
                       fill={textColor}>{text}</text>
             </Fragment>
         );
@@ -146,9 +147,9 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
         const w = this.props.diagramStyle.dotRadius * 0.75;
         return (
             <Fragment key={`${string}.X`}>
-                <path fill="#4a90d6" stroke="#222222" strokeWidth="5" strokeLinecap="round"
+                <path stroke={this.props.diagramStyle.colors.cross} strokeWidth={this.props.diagramStyle.crossStroke} strokeLinecap="round"
                       d={`M${x-w},${y-w}L${x+w},${y+w}`} />
-                <path fill="#4a90d6" stroke="#222222" strokeWidth="5" strokeLinecap="round"
+                <path stroke={this.props.diagramStyle.colors.cross} strokeWidth={this.props.diagramStyle.crossStroke} strokeLinecap="round"
                       d={`M${x+w},${y-w}L${x-w},${y+w}`} />
             </Fragment>
         );

@@ -15,6 +15,7 @@ class DiagramStyle {
     dotOut: number;
     dotRadius: number;
     dotStroke: number;
+    crossStroke: number;
     fontSize: number;
     fretNumberDistance: number;
     fretNumberFontSize: number;
@@ -34,7 +35,8 @@ class DiagramStyle {
             dotOut = 30,
             dotRadius = 20,
             dotStroke = 3,
-            fontSize = 17,
+            crossStroke = 5,
+            fontSize = 35,
             fretNumberDistance = 30,
             fretNumberFontSize = 24,
             fretNumberColor = '#999'
@@ -52,12 +54,14 @@ class DiagramStyle {
         this.dotOut = dotOut;
         this.dotRadius = dotRadius;
         this.dotStroke = dotStroke;
+        this.crossStroke = crossStroke;
         this.fontSize = fontSize;
         this.fretNumberDistance = fretNumberDistance;
         this.fretNumberFontSize = fretNumberFontSize;
         this.fretNumberColor = fretNumberColor;
 
         this.colors = {
+            cross: "black",
             interval: {
                 'R': {
                     fill: 'black',
