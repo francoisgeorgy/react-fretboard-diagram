@@ -27,14 +27,14 @@ export default class FretNumbers extends React.Component<FretNumbersProps, FretN
 
         //TODO: allow to choose placement over of below the strings
 
-        let y = this.props.diagramStyle.paddingTop - this.props.diagramStyle.fretNumberDistance;
+        let y = this.props.diagramStyle.paddingHigh - this.props.diagramStyle.fretNumberDistance;
 
         let f = Math.trunc(frets);
 
         let s = [];
         for (let i=0; i<f; i++) {
             s.push(<text key={i}
-                         x={this.props.diagramStyle.paddingLeft + ((i + 0.5) * this.props.diagramStyle.fretInterval) + this.props.diagramStyle.fretWidth / 2}
+                         x={this.props.diagramStyle.paddingHead + ((i + 0.5) * this.props.diagramStyle.fretInterval) + this.props.diagramStyle.fretWidth / 2}
                          y={y}
                          fontSize={this.props.diagramStyle.fretNumberFontSize}
                          stroke={this.props.diagramStyle.fretNumberColor}
@@ -44,8 +44,8 @@ export default class FretNumbers extends React.Component<FretNumbersProps, FretN
         // return <Fragment>{s}</Fragment>;
 
         // let i = 1;
-        // return <text x={currentLayout.paddingLeft + (i * currentLayout.fretInterval)}
-        //       y={currentLayout.paddingTop}
+        // return <text x={currentLayout.paddingHead + (i * currentLayout.fretInterval)}
+        //       y={currentLayout.paddingHigh}
         //       className="small">12</text>
         //
         // var rows = [];

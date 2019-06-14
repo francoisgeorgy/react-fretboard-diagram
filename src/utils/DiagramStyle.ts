@@ -3,10 +3,10 @@ import React from "react";
 
 class DiagramStyle {
 
-    paddingTop: number;
-    paddingRight: number;
-    paddingBottom: number;
-    paddingLeft: number;
+    paddingHigh: number;
+    paddingBody: number;
+    paddingLow: number;
+    paddingHead: number;
     stringInterval: number;
     stringWidth: number;
     fretInterval: number;
@@ -23,10 +23,10 @@ class DiagramStyle {
     colors: any;    //TODO: describe colors
 
     constructor({
-            paddingTop = 70,    // make room for fret numbers
-            paddingRight = 15,
-            paddingBottom = 30,
-            paddingLeft = 70,
+            paddingHigh = 70,    // make room for fret numbers
+            paddingLow = 30,
+            paddingHead = 70,
+            paddingBody = 15,
             stringInterval = 60,
             stringWidth = 4,
             fretInterval = 100,
@@ -42,10 +42,10 @@ class DiagramStyle {
             fretNumberColor = '#999'
         } = {}) {
 
-        this.paddingTop = paddingTop;
-        this.paddingRight = paddingRight;
-        this.paddingBottom = paddingBottom;
-        this.paddingLeft = paddingLeft;
+        this.paddingHigh = paddingHigh;
+        this.paddingBody = paddingBody;
+        this.paddingLow = paddingLow;
+        this.paddingHead = paddingHead;
         this.stringInterval = stringInterval;
         this.stringWidth = stringWidth;
         this.fretInterval = fretInterval;
@@ -86,14 +86,14 @@ class DiagramStyle {
     width(frets: number) {
         // console.log('width = currentLayout', currentLayout);
         Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
-        // console.log(`w = ${this.paddingLeft} + (${this.fretInterval} * ${frets}) + ${this.paddingRight} + 1`);
-        return this.paddingLeft + (this.fretInterval * frets) + this.paddingRight + this.fretWidth;
+        // console.log(`w = ${this.paddingHead} + (${this.fretInterval} * ${frets}) + ${this.paddingBody} + 1`);
+        return this.paddingHead + (this.fretInterval * frets) + this.paddingBody + this.fretWidth;
     }
 
     height(strings: number) {
         Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
-        // console.log(`h = ${this.paddingTop} + (${this.stringInterval} * (${strings} - 1)) + ${this.paddingBottom}`);
-        return this.paddingTop + (this.stringInterval * (strings - 1)) + this.paddingBottom + this.stringWidth;
+        // console.log(`h = ${this.paddingHigh} + (${this.stringInterval} * (${strings} - 1)) + ${this.paddingLow}`);
+        return this.paddingHigh + (this.stringInterval * (strings - 1)) + this.paddingLow + this.stringWidth;
     }
 
     stringLength(frets: number) {
@@ -119,7 +119,7 @@ class DiagramStyle {
 
     getStringFretFromMouseEvent(event: React.MouseEvent, strings: number, frets: number) {
 
-        // console.log(`paddingTop=${this.paddingTop}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingTop + ((this.props.strings - 1) * this.stringInterval)}`);
+        // console.log(`paddingHigh=${this.paddingHigh}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingHigh + ((this.props.strings - 1) * this.stringInterval)}`);
 
         // console.log('event', event.currentTarget, event.nativeEvent);
         // console.log(`(${e.clientX}, ${e.clientY}), (${e.nativeEvent.clientX}, ${e.nativeEvent.clientY})`);
@@ -140,49 +140,49 @@ class DiagramStyle {
 
         let deltaY = dy / scale;
 
-        if (deltaY < (this.paddingTop - (this.stringInterval / 2))) {
+        if (deltaY < (this.paddingHigh - (this.stringInterval / 2))) {
             // console.log('in padding top, ignore');
             return null;
         }
 
-        // console.log(`bottom limit = ${((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))}`);
-        if (deltaY > ((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))) {
+        // console.log(`bottom limit = ${((svg.height / scale) - this.paddingLow + (this.stringInterval / 2))}`);
+        if (deltaY > ((svg.height / scale) - this.paddingLow + (this.stringInterval / 2))) {
             // console.log('in padding bottom, ignore');
             return null;
         }
-        // if ((deltaY) > (this.paddingTop + ((strings - 1) * this.stringInterval) + this.stringWidth)) {
+        // if ((deltaY) > (this.paddingHigh + ((strings - 1) * this.stringInterval) + this.stringWidth)) {
         //     console.log('in padding bottom, ignore');
         //     return
         // }
 
-        let nString = Math.floor((deltaY - this.paddingTop - (this.stringWidth / 2)) / this.stringInterval + 0.5);
+        let nString = Math.floor((deltaY - this.paddingHigh - (this.stringWidth / 2)) / this.stringInterval + 0.5);
         if (nString < 0) nString = 0;
         if (nString >= strings) nString = strings - 1;
 
-        // console.log(`((dy/scale) - paddingTop - stringWidth) / stringInterval = ${((deltaY) - this.paddingTop - (this.stringWidth / 2)) / this.stringInterval}; n string = ${nString}`);
+        // console.log(`((dy/scale) - paddingHigh - stringWidth) / stringInterval = ${((deltaY) - this.paddingHigh - (this.stringWidth / 2)) / this.stringInterval}; n string = ${nString}`);
 
         // fret
 
         let deltaX = dx / scale;
 
-        if (deltaX < (this.paddingLeft - this.fretInterval + (this.fretWidth / 2))) {
+        if (deltaX < (this.paddingHead - this.fretInterval + (this.fretWidth / 2))) {
             // console.log('in padding left, ignore');
             return null;
         }
 
-        if (deltaX > ((svg.width / scale) - this.paddingRight)) {
+        if (deltaX > ((svg.width / scale) - this.paddingBody)) {
             // console.log('in padding right, ignore');
             return null;
         }
 
-        let nFret = Math.floor(((deltaX - this.paddingLeft - this.fretWidth) / this.fretInterval) + 1);
+        let nFret = Math.floor(((deltaX - this.paddingHead - this.fretWidth) / this.fretInterval) + 1);
         if (nFret < 0) nFret = 0;
         // if (nFret >= frets) nFret = frets;
         if (nFret > frets) {
             return null;
         }
 
-        //console.log(`((dx/scale) - paddingLeft - fretWidth) / fretInterval = ${(deltaX - this.paddingLeft - (this.fretWidth / 2)) / this.fretInterval}; nFret fret = ${nFret}`);
+        //console.log(`((dx/scale) - paddingHead - fretWidth) / fretInterval = ${(deltaX - this.paddingHead - (this.fretWidth / 2)) / this.fretInterval}; nFret fret = ${nFret}`);
         // console.log(strings - nString - 1, nFret);
 
         // this.addDot(this.state.tuning.length - nString - 1, nFret);

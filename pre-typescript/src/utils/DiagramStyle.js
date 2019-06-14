@@ -69,7 +69,7 @@ class DiagramStyle {
 
     height(strings) {
         Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
-        // console.log(`h = ${this.paddingTop} + (${this.stringInterval} * (${strings} - 1)) + ${this.paddingBottom}`);
+        // console.log(`h = ${this.paddingTop} + (${this.stringInterval} * (${strings} - 1)) + ${this.paddingLow}`);
         return this.paddingTop + (this.stringInterval * (strings - 1)) + this.paddingBottom + this.stringWidth;
     }
 
@@ -122,7 +122,7 @@ class DiagramStyle {
             return null;
         }
 
-        // console.log(`bottom limit = ${((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))}`);
+        // console.log(`bottom limit = ${((svg.height / scale) - this.paddingLow + (this.stringInterval / 2))}`);
         if (deltaY > ((svg.height / scale) - this.paddingBottom + (this.stringInterval / 2))) {
             // console.log('in padding bottom, ignore');
             return null;

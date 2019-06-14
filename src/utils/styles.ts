@@ -7,10 +7,10 @@ const COLORS_DEFAULT = {
 
 export const STYLES = {
     def : {
-        paddingTop: 40,
-        paddingRight: 15,
-        paddingBottom: 30,
-        paddingLeft: 70,
+        paddingHigh: 40,
+        paddingBody: 15,
+        paddingLow: 30,
+        paddingHead: 70,
         stringInterval: 60,
         stringWidth: 4,
         fretInterval: 100,
@@ -22,10 +22,10 @@ export const STYLES = {
         fontSize: 17
     },
     test1 : {
-        paddingLeft : 2,
-        paddingRight : 1,
-        paddingTop: 2,
-        paddingBottom: 1,
+        paddingHead : 2,
+        paddingBody : 1,
+        paddingHigh: 2,
+        paddingLow: 1,
         stringInterval: 2,
         stringWidth: 1,
         fretInterval: 2,
@@ -36,10 +36,10 @@ export const STYLES = {
         fontSize: 1
     },
     test2 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
         stringInterval: 4,
         stringWidth: 1,
         fretInterval: 4,
@@ -50,10 +50,10 @@ export const STYLES = {
         fontSize: 1
     },
     test3 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
         stringInterval: 4,
         stringWidth: 3,
         fretInterval: 4,
@@ -64,10 +64,10 @@ export const STYLES = {
         fontSize: 1
     },
     test4 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
         stringInterval: 6,
         stringWidth: 3,
         fretInterval: 6,
@@ -78,10 +78,10 @@ export const STYLES = {
         fontSize: 1
     },
     test5 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
 
         stringInterval: 6,
         stringWidth: 2,
@@ -95,10 +95,10 @@ export const STYLES = {
         fontSize: 1
     },
     test6 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
         stringInterval: 6,
         stringWidth: 2,
         fretInterval: 6,
@@ -109,10 +109,10 @@ export const STYLES = {
         fontSize: 1
     },
     test7 : {
-        paddingLeft : 4,
-        paddingRight : 2,
-        paddingTop: 3,
-        paddingBottom: 2,
+        paddingHead : 4,
+        paddingBody : 2,
+        paddingHigh: 3,
+        paddingLow: 2,
         stringInterval: 6,
         stringWidth: 4,
         fretInterval: 6,
@@ -123,10 +123,10 @@ export const STYLES = {
         fontSize: 1
     },
     test8 : {
-        paddingLeft : 10,
-        paddingRight : 5,
-        paddingTop: 5,
-        paddingBottom: 5,
+        paddingHead : 10,
+        paddingBody : 5,
+        paddingHigh: 5,
+        paddingLow: 5,
         stringInterval: 7,
         stringWidth: 2,
         fretInterval: 7,
@@ -170,16 +170,16 @@ export function setLayout(layout) {
 export function width(frets: number): number {
     console.log('width: currentLayout', currentLayout);
     Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
-    // console.log(`w = ${CONF.paddingLeft} + (${CONF.fretInterval} * ${frets}) + ${CONF.paddingRight} + ((${fretExtra ? 1 : 0}) * ${CONF.fretExtra})`);
-    // return CONF.paddingLeft + (CONF.fretInterval * frets) + CONF.paddingRight + ((fretExtra ? 1 : 0) * CONF.fretExtra) + 1;
-    console.log(`w = ${currentLayout.paddingLeft} + (${currentLayout.fretInterval} * ${frets}) + ${currentLayout.paddingRight} + 1`);
-    return currentLayout.paddingLeft + (currentLayout.fretInterval * frets) + currentLayout.paddingRight + currentLayout.fretWidth;
+    // console.log(`w = ${CONF.paddingHead} + (${CONF.fretInterval} * ${frets}) + ${CONF.paddingBody} + ((${fretExtra ? 1 : 0}) * ${CONF.fretExtra})`);
+    // return CONF.paddingHead + (CONF.fretInterval * frets) + CONF.paddingBody + ((fretExtra ? 1 : 0) * CONF.fretExtra) + 1;
+    console.log(`w = ${currentLayout.paddingHead} + (${currentLayout.fretInterval} * ${frets}) + ${currentLayout.paddingBody} + 1`);
+    return currentLayout.paddingHead + (currentLayout.fretInterval * frets) + currentLayout.paddingBody + currentLayout.fretWidth;
 }
 
 export function height(strings: number): number {
     Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
-    console.log(`h = ${currentLayout.paddingTop} + (${currentLayout.stringInterval} * (${strings} - 1)) + ${currentLayout.paddingBottom}`);
-    return currentLayout.paddingTop + (currentLayout.stringInterval * (strings - 1)) + currentLayout.paddingBottom + currentLayout.stringWidth;
+    console.log(`h = ${currentLayout.paddingHigh} + (${currentLayout.stringInterval} * (${strings} - 1)) + ${currentLayout.paddingLow}`);
+    return currentLayout.paddingHigh + (currentLayout.stringInterval * (strings - 1)) + currentLayout.paddingLow + currentLayout.stringWidth;
 }
 
 export function stringLength(frets: number): number {
