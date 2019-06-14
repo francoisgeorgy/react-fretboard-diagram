@@ -1,4 +1,19 @@
 
+# refactor:
+
+- Fretboard, FretNumbers and Shape component must return a SVG <g> element.
+
+# Ideas:
+
+    <Fretboard>
+        <Shape />
+        <Shape />
+        <Connection from="A" to="A5" />
+        <Pattern ... />
+    </Fretboard>
+
+-----
+
 - https://www.fullstackreact.com/p/advanced-component-configuration-with-props-state-and-children/
 - https://medium.com/@franleplant/react-higher-order-components-in-depth-cf9032ee6c3e
 
