@@ -121,7 +121,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'
                  className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
-                <g className="fretboard-group">
+                {/*<g className="fretboard-group">*/}
                     <Fretboard strings={strings} frets={this.props.frets} diagramStyle={style} />
                     {
                         this.props.shapes &&
@@ -131,7 +131,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
                         )
                     }
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.state.style} />}
-                </g>
+                {/*</g>*/}
             </svg>
         )
     }

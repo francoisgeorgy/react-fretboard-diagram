@@ -44,6 +44,8 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
 
     getText(string: number, fretIndex: number): string {
 
+        // return 'A♭';
+
         let t = '';
         let s = this.props.shape;
 
@@ -60,6 +62,7 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
                     return '';
                 }
                 t = Note.pc(notes[fretIndex]) || '';
+                t = t.replace('b', '♭').replace('#', '♯');  //TODO: offer option to use b|# or symbols
                 break;
             // case 'note-octave':
             //     t = s.notes[string][fretIndex];
@@ -124,6 +127,8 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
             case 'finger':
                 break;
         }
+
+        //TODO: if single letter in circle, make x = x-1
 
         return (
             <Fragment key={`${string}.${fret}`}>

@@ -36,7 +36,7 @@ class DiagramStyle {
             dotRadius = 20,
             dotStroke = 3,
             crossStroke = 5,
-            fontSize = 35,
+            fontSize = 25,
             fretNumberDistance = 30,
             fretNumberFontSize = 24,
             fretNumberColor = '#999'
