@@ -18,15 +18,28 @@
 */
 
     const element = (
-        <div style={{display:"flex"}}>
-            <div style={{width:"500px"}}>
-                <FD.Diagram frets={5} shapes={["X0"]} className="foo" />
+        <div>
+            <div style={{display:"flex"}}>
+                <div style={{width:"500px"}}>
+                    <FD.Diagram frets={5} shapes={["X0"]} className="foo" />
+                </div>
+                {/*<div style={{width:"500px"}}>*/}
+                {/*    <FD.Diagram frets={4} shapes={["0X"]} className="foo" />*/}
+                {/*</div>*/}
+                <div style={{width:"500px"}}>
+                    <FD.Diagram frets={5} shapes={["12345,12345,12345,12345,12345,12345"]} className="foo" />
+                </div>
             </div>
-            {/*<div style={{width:"500px"}}>*/}
-            {/*    <FD.Diagram frets={4} shapes={["0X"]} className="foo" />*/}
-            {/*</div>*/}
-            <div style={{width:"500px"}}>
-                <FD.Diagram frets={5} shapes={["12345,12345,12345,12345,12345,12345"]} className="foo" />
+            <div style={{display:"flex"}}>
+                <div style={{width:"500px"}}>
+                    <FD.Diagram frets={5} shapes={["X0"]} className="foo" orientation="vertical" />
+                </div>
+                {/*<div style={{width:"500px"}}>*/}
+                {/*    <FD.Diagram frets={4} shapes={["0X"]} className="foo" />*/}
+                {/*</div>*/}
+                <div style={{width:"500px"}}>
+                    <FD.Diagram frets={5} shapes={["12345,12345,12345,12345,12345,12345"]} className="foo" orientation="vertical" />
+                </div>
             </div>
         </div>
     );

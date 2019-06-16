@@ -5,6 +5,7 @@ import DiagramStyle from "../utils/DiagramStyle";
 export interface FretboardProps {
     strings: number;
     frets: number;
+    orientation: string;
     diagramStyle: DiagramStyle;
 }
 
@@ -97,9 +98,9 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
         return (
             <g>
                 <path fill="none" strokeWidth={this.props.diagramStyle.stringWidth} className="fretboard-string"
-                      d={this.getStringsPath(this.props.strings, this.props.frets, 'horizontal')} />
+                      d={this.getStringsPath(this.props.strings, this.props.frets, this.props.orientation)} />
                 <path fill="none" strokeWidth={this.props.diagramStyle.fretWidth} className="fretboard-fret"
-                      d={this.getFretsPath(this.props.strings, this.props.frets, 'horizontal')} />
+                      d={this.getFretsPath(this.props.strings, this.props.frets, this.props.orientation)} />
             </g>
         );
     }

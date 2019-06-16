@@ -7,6 +7,8 @@ import DiagramStyle from "../utils/DiagramStyle";
 // import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import * as FretboardAPI from "fretboard-api";
 import FretNumbers from "./FretNumbers";
+import ShapeHorizontal from "./ShapeHorizontal";
+import ShapeVertical from "./ShapeVertical";
 // import {Tuning} from "fretboard-api";
 // import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
 
@@ -46,14 +48,14 @@ const defaultProps = {
 };
 */
 
-export interface DiagramProps {
+export interface DiagramProps {     //TODO: define correct types
     tuning: any;
     frets: any;
     diagramStyle: any;
     mouseClickHandler: any;
     mouseMoveHandler: any;
     className: any;
-    orientation: any;
+    orientation: string;
     text: any;
     leftHanded: any;
     stringsProportional: any;
@@ -72,7 +74,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
     static defaultProps = {
         classname: '',
         diagramStyle: {},
-        orientation: 'vertical',
+        orientation: 'horizontal',
         leftHanded: false,
         stringsProportional: false,
         frets: 4,
@@ -112,9 +114,20 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         const {style} = this.state;
         console.log('Diagram render', style, this.props.shapes);
         let strings = this.props.tuning.length;
-        let w = style.width(this.props.frets);
-        let h = style.height(strings);
-        let box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
+
+        const w = style.width(this.props.frets);
+        const h = style.height(strings);
+        let box;
+        switch (this.props.orientation) {
+            case 'horizontal':
+                box = `0 0 ${w} ${h}`;          // viewBox = <min-x> <min-y> <width> <height>
+                break;
+            case 'vertical':
+                box = `0 0 ${h} ${w}`;          // viewBox = <min-x> <min-y> <width> <height>
+                break;
+            default:
+                box = '0 0 0 0';    //TODO: throw an error
+        }
         // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
         // return <h1>Diagram</h1>;
         return (
@@ -122,15 +135,21 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
                  className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
                 {/*<g className="fretboard-group">*/}
-                    <Fretboard strings={strings} frets={this.props.frets} diagramStyle={style} />
+                    <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramStyle={style} />
                     {
                         this.props.shapes &&
                         this.props.shapes.map(
                             (shape: any, index: number) => <Shape key={index} shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
-                                                                  strings={strings} diagramStyle={style} text={this.props.text} />
+                                                                  strings={strings} orientation={this.props.orientation} diagramStyle={style} text={this.props.text} />
                         )
+/*
+                        this.props.shapes.map(
+                        (shape: any, index: number) => <Shape key={index} shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
+                        strings={strings} orientation={this.props.orientation} diagramStyle={style} text={this.props.text} />
+                        )
+*/
                     }
-                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.state.style} />}
+                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} diagramStyle={this.state.style} />}
                 {/*</g>*/}
             </svg>
         )

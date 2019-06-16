@@ -3,6 +3,8 @@ import {Note} from "tonal";
 // import {Humanizer} from "fretboard-api";
 import DiagramStyle from "../utils/DiagramStyle";
 import {ShapeType, Utils} from "fretboard-api";
+import ShapeHorizontal from "./ShapeHorizontal";
+import ShapeVertical from "./ShapeVertical";
 // import './Shape.css';
 
 export interface ShapeProps {
@@ -11,6 +13,7 @@ export interface ShapeProps {
     strings: number,   // number of strings
     string: number,   // shape position
     fret: number,     // shape position
+    orientation: string;
     diagramStyle: DiagramStyle,
     text: 'note' | 'interval' | 'finger' | 'custom';   // TODO: define "custom"
 }
@@ -160,6 +163,17 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
         );
     }
 
+    render () {
+        switch (this.props.orientation) {
+            case 'horizontal':
+                return <ShapeHorizontal {...this.props} />;
+            case 'vertical':
+                return <ShapeVertical {...this.props} />;
+            default:
+                return null;
+        }
+    }
+/*
     render() {
 
         const shape = this.props.shape;
@@ -194,7 +208,6 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
             // TODO: throw error if not an array? invalid format error
         }
         return e;
-
-    }
-
+  }
+*/
 }

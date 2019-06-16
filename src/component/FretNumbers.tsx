@@ -8,9 +8,10 @@ function arabToRoman(a: number): string {
 }
 
 export interface FretNumbersProps {
-    frets: number,
-    startAt: number,
-    diagramStyle: DiagramStyle,
+    frets: number;
+    startAt: number;
+    orientation: string;
+    diagramStyle: DiagramStyle;
 }
 
 export interface FretNumbersState {
