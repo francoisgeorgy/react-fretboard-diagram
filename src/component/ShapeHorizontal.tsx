@@ -116,7 +116,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
                     // console.log(this.props.diagramStyle.colors.interval);
                     fill = this.props.diagramStyle.colors.interval[text].fill;
                     stroke = this.props.diagramStyle.colors.interval[text].stroke;
-                    textColor = this.props.diagramStyle.colors.interval[text].text;
+                    textColor = this.props.diagramStyle.colors.interval[text].rotate;
                 }
                 break;
             // case 'interval-compound':

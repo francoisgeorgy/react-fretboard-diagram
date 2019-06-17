@@ -108,7 +108,7 @@ export default class Diagram extends React.Component {
                     {
                         this.props.shapes &&
                         this.props.shapes.map(
-                            (s, index) => <Shape key={index} shape={F.play(S.create(s))} strings={strings} diagramStyle={this.s} text={this.props.text} />
+                            (s, index) => <Shape key={index} shape={F.play(S.create(s))} strings={strings} diagramStyle={this.s} text={this.props.rotate} />
                         )
                     }
                     {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} diagramStyle={this.s} />}

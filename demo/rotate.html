@@ -1,0 +1,130 @@
+<html>
+<head>
+    <style>
+        .row {
+            display: flex;
+        }
+
+        .diagram {
+            width: 200px;
+            margin-right: 20px;
+        }
+
+        .diagram2 {
+            width: 280px;
+        }
+
+        .fretboard-dot {
+            fill: #fff;
+            stroke: #000;
+        }
+
+        .fretboard-dot-number {
+            font-family: "M PLUS Rounded 1c", sans-serif;
+            font-weight: 500;
+            text-anchor: middle;
+            letter-spacing: -2px;
+            fill: #000;
+            stroke-width: 0;
+        }
+
+        .fretboard-string {
+            stroke: #000;
+        }
+
+        .fretboard-fret {
+            stroke: #000;
+        }
+
+        .fretboard-fret-number-group {}
+
+        .fretboard-fret-number {
+            text-anchor: middle;
+            font-family: "M PLUS Rounded 1c", sans-serif;
+            font-weight: 500;
+            stroke-width: 0;
+            fill: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="diagram">
+            <svg viewBox="0 0 289 404" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"
+                 width="100%" class="foo" style="background-color: rgb(238, 238, 238);">
+                <g>
+                    <path fill="none" stroke-width="4" class="fretboard-string"
+                          d="M 70,72 h 202 M 70,132 h 202 M 70,192 h 202 M 70,252 h 202 M 70,312 h 202 M 70,372 h 202"></path>
+                    <path fill="none" stroke-width="4" class="fretboard-fret"
+                          d="M 72,70 v 304 M 172,70 v 304 M 272,70 v 304"></path>
+                </g>
+                <path stroke="black" stroke-width="5" stroke-linecap="round" d="M27,357L57,387"></path>
+                <path stroke="black" stroke-width="5" stroke-linecap="round" d="M57,357L27,387"></path>
+                <circle cx="122" cy="312" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                        fill="white"></circle>
+                <text x="122" y="312" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle"
+                      font-size="25" fill="black">B♭
+                </text>
+                <circle cx="222" cy="252" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                        fill="white"></circle>
+                <text x="222" y="252" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle"
+                      font-size="25" fill="black">E
+                </text>
+                <circle cx="122" cy="192" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                        fill="white"></circle>
+                <text x="122" y="192" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle"
+                      font-size="25" fill="black">A♭
+                </text>
+                <circle cx="42" cy="132" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                        fill="white"></circle>
+                <text x="42" y="132" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle"
+                      font-size="25" fill="black">B
+                </text>
+                <circle cx="122" cy="72" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                        fill="white"></circle>
+                <text x="122" y="72" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle"
+                      font-size="25" fill="black">F
+                </text>
+                <g class="fretboard-fret-number-group">
+                    <text x="122" y="40" font-size="24" stroke="#999" class="fretboard-fret-number">1</text>
+                    <text x="222" y="40" font-size="24" stroke="#999" class="fretboard-fret-number">2</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="diagram diagram2">
+            <svg viewBox="0 0 404 289" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"
+                 width="100%" class="foo" style="background-color: rgb(238, 238, 238);">
+                <g transform="rotate(90 202 202)">
+                    <g>
+                        <path fill="none" stroke-width="4" class="fretboard-string" d="M 70,72 h 202 M 70,132 h 202 M 70,192 h 202 M 70,252 h 202 M 70,312 h 202 M 70,372 h 202"></path>
+                        <path fill="none" stroke-width="4" class="fretboard-fret" d="M 72,70 v 304 M 172,70 v 304 M 272,70 v 304"></path>
+                    </g>
+                    <path stroke="black" stroke-width="5" stroke-linecap="round" d="M27,357L57,387"></path>
+                    <path stroke="black" stroke-width="5" stroke-linecap="round" d="M57,357L27,387"></path>
+                    <circle cx="122" cy="312" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white"></circle>
+                    <text x="122" y="312" transform="rotate(-90 122 312)" alignment-baseline="central"
+                          class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">B♭
+                    </text>
+                    <circle cx="222" cy="252" r="20" class=" fretboard-dot" stroke-width="3" stroke="black"
+                            fill="white"></circle>
+                    <text x="222" y="252" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">E</text>
+                    <circle cx="122" cy="192" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white"></circle>
+                    <text x="122" y="192" transform="rotate(-90 122 192)" alignment-baseline="central"
+                          class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">A♭
+                    </text>
+                    <circle cx="42" cy="132" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white"></circle>
+                    <text x="42" y="132" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">B</text>
+                    <circle cx="122" cy="72" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white"></circle>
+                    <text x="122" y="72" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">F</text>
+                    <g class="fretboard-fret-number-group">
+                        <text x="122" y="40" font-size="24" stroke="#999" class="fretboard-fret-number">1</text>
+                        <text x="222" y="40" font-size="24" stroke="#999" class="fretboard-fret-number">2</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </div>
+</body>
+</html>

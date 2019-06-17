@@ -43,7 +43,7 @@ export default class Shape extends React.Component {
 
         if ((s.notes[string][fretIndex] === undefined) || (s.notes[string][fretIndex] === null)) return;
 
-        switch (this.props.text) {
+        switch (this.props.rotate) {
             case 'note':
                 t = Note.pc(s.notes[string][fretIndex]);
                 break;
@@ -71,7 +71,7 @@ export default class Shape extends React.Component {
         let dotStrokeColor = 'black';
         let textColor = 'black';
 
-        switch (this.props.text) {
+        switch (this.props.rotate) {
             case 'note':
                 break;
             case 'interval':
@@ -79,7 +79,7 @@ export default class Shape extends React.Component {
                     // console.log(this.props.diagramStyle.colors.interval);
                     fill = this.props.diagramStyle.colors.interval[text].fill;
                     stroke = this.props.diagramStyle.colors.interval[text].stroke;
-                    textColor = this.props.diagramStyle.colors.interval[text].text;
+                    textColor = this.props.diagramStyle.colors.interval[text].rotate;
                 }
                 break;
             case 'interval-compound':
@@ -87,7 +87,7 @@ export default class Shape extends React.Component {
                     // console.log(this.props.diagramStyle.colors.interval);
                     fill = this.props.diagramStyle.colors.interval[text].fill;
                     stroke = this.props.diagramStyle.colors.interval[text].stroke;
-                    textColor = this.props.diagramStyle.colors.interval[text].text;
+                    textColor = this.props.diagramStyle.colors.interval[text].rotate;
                 }
                 break;
             case 'finger':

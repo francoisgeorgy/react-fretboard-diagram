@@ -41,6 +41,13 @@
                     <FD.Diagram frets={5} shapes={["12345,12345,12345,12345,12345,12345"]} className="foo" orientation="vertical" />
                 </div>
             </div>
+
+            <div style={{display:"flex"}}>
+                <div style={{width:"200px"}}>
+                    <FD.Diagram frets={2} shapes={["X12101"]} className="foo" />
+                </div>
+            </div>
+
         </div>
     );
 
