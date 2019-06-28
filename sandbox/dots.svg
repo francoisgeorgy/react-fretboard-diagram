@@ -1,0 +1,17 @@
+<svg viewBox="-20 -20 289 404" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" width="100%"
+     class="foo" style="background-color: rgb(238, 238, 238);">
+    <circle cx="122" cy="312" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white" />
+    <text x="122" y="312" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">B♭</text>
+
+    <circle cx="222" cy="252" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white" />
+    <text x="222" y="252" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">E</text>
+
+    <circle cx="122" cy="192" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white" />
+    <text x="122" y="192" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">A♭</text>
+
+    <circle cx="42" cy="132" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white" />
+    <text x="42" y="132" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">B</text>
+
+    <circle cx="122" cy="72" r="20" class=" fretboard-dot" stroke-width="3" stroke="black" fill="white" />
+    <text x="122" y="72" alignment-baseline="central" class=" fretboard-dot-number" text-anchor="middle" font-size="25" fill="black">F</text>
+</svg>

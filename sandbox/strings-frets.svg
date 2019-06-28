@@ -1,0 +1,9 @@
+<svg viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet"
+     width="100%" style="background-color: rgb(238, 238, 238);">
+    <g>
+        <path fill="none" stroke-width="4" class="fretboard-string"
+              d="M 70,72 h 202 M 70,132 h 202 M 70,192 h 202 M 70,252 h 202 M 70,312 h 202 M 70,372 h 202"/>
+        <path fill="none" stroke-width="4" class="fretboard-fret"
+              d="M 72,70 v 304 M 172,70 v 304 M 272,70 v 304"/>
+    </g>
+</svg>

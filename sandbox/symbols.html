@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name="robots" content="noindex">
+    <style class="cp-pen-styles">
+    .diagram {
+        width: 400px;
+        /*margin-right: 20px;*/
+        background-color: red;  /* debug color; set line-height > 0 to view it*/
+        line-height: 0;
+    }
+    svg circle {
+        fill: yellow;
+        stroke: blue;
+        stroke-width: 3;
+    }
+    svg text {
+        alignment-baseline: central;
+        text-anchor: middle;
+        font-size: 18px;
+        fill: black;
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        font-weight: 500;
+        letter-spacing: -2px;
+        stroke-width: 0;
+    }
+    svg path {
+        stroke: black;
+    }
+    </style>
+</head>
+<body>
+    <a href="https://codepen.io/fgeorgy/pen/mZpRpL?editors=1100">https://codepen.io/fgeorgy/pen/mZpRpL?editors=1100</a>
+    <div class="xrow">
+        <!--  viewBox="0 0 200 300" is not necessary for the symbols -->
+        <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" style="display:none;">
+            <symbol id="grid">
+                <path fill="none" stroke-width="4" d="M 20,42 h 102 M 20,82 h 102 M 20,122 h 102 M 20,162 h 102 M 20,202 h 102 M 20,242 h 102"/>
+                <path fill="none" stroke-width="4" d="M 22,40 v 200 M 72,40 v 200 M 122,40 v 204" />
+            </symbol>
+            <symbol id="dots">
+                <circle cx="97" cy="202" r="15"/> <text x="97" y="202">A♭</text>
+                <circle cx="47" cy="122" r="15"/> <text x="47" y="122">B</text>
+                <circle cx="97" cy="42" r="15"/>  <text x="97" y="42">F</text>
+            </symbol>
+        </svg>
+        <div class="diagram">
+            <svg viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" width="100%" style="background-color: rgb(238, 238, 238);">
+                <use xlink:href="#grid" x="0"  y="0" />
+                <use xlink:href="#dots" x="0"  y="0" />
+                <g style="opacity:0.7">
+                    <use xlink:href="#grid" x="200"  y="0" />
+                    <use xlink:href="#dots" x="200"  y="0" />
+                </g>
+                <g style="opacity:0.3" >
+                    <use xlink:href="#grid" x="400"  y="0" />
+                    <use xlink:href="#dots" x="400"  y="0" />
+                </g>
+            </svg>
+        </div>
+    </div>
+</body>
+</html>
