@@ -171,6 +171,9 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
             const frets = shape.frets[s];
             if (frets == null) {
+
+                //TODO: add option to display non played string as 'X' or nothing at all
+
                 // non-played string
                 e.push(this.cross(this.props.strings - 1 - s));     // strings numbering [0] is lowest pitched
             } else {

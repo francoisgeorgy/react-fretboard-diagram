@@ -7,6 +7,8 @@ import ShapeHorizontal from "./ShapeHorizontal";
 import ShapeVertical from "./ShapeVertical";
 // import './Shape.css';
 
+//TODO: add option to display non played string as 'X' or nothing at all
+
 export interface ShapeProps {
     className: string,
     shape: ShapeType,

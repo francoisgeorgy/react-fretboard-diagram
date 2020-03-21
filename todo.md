@@ -1,4 +1,32 @@
 
+- automatically colorize each shape
+    - --> CAGED colors? 
+        - Cyan, grAy, Green, bluE, reD 
+- shadow dots
+    - in compact notation, add a '-' to the position: "X,3-,2-,0,1,0"
+    - uppercase X : display 'X'
+    - lowercase x : display nothing
+- css class per interval, per note name, per string, per fret    
+    --> .i-X .n-X, .s-X .f-X
+    --> for root: .r
+    --> for non-played string: .x
+    
+- layout:
+    - standard
+    - compact
+    - real (smae spacing as in a real fretboard)
+    - right-hand
+    - left-hand
+    - mirror horizontal
+    - mirror vertical
+
+- intervals
+    - roman: I, II, III, ...
+    - arab: 1, 2, 3, ...
+- minor intervals:
+    - 3m
+    - iii (lowercase)        
+    
 # refactor:
 
 - Fretboard, FretNumbers and Shape component must return a SVG <g> element.
