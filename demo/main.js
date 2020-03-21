@@ -31,6 +31,11 @@
                 </div>
             </div>
             <div style={{display:"flex"}}>
+                <div style={{width:"1000px"}}>
+                    <FD.Diagram frets={15} shapes={["XXX010","XXX553","XXX988",[null,null,null,12,13,12]]} text='note' className="foo" />
+                </div>
+            </div>
+            <div style={{display:"flex"}}>
                 <div style={{width:"500px"}}>
                     <FD.Diagram frets={5} shapes={["X0"]} className="foo" orientation="vertical" />
                 </div>
