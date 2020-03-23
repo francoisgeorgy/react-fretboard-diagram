@@ -33,7 +33,13 @@
             <div className="row">
                 <div className="h">C</div>
                 <div style={{width:"1000px"}}>
-                    <FD.Diagram frets={15} shapes={["XXX010","XXX553","XXX988",[null,null,null,12,13,12]]} text='note' className="f" />
+                    <FD.Diagram frets={15} shapes={["X32010","X35553","8 10 10 9 8 8",[null,15,14,12,13,12]]} text='note' className="f g1" />
+                </div>
+            </div>
+            <div className="row">
+                <div className="h">C</div>
+                <div style={{width:"1000px"}}>
+                    <FD.Diagram frets={15} shapes={["XXX010","XXX553","XXX988",[null,null,null,12,13,12]]} text='note' className="f g1b" />
                 </div>
             </div>
             <div className="row">

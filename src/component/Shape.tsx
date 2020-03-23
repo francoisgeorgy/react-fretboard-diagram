@@ -37,6 +37,7 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
     // TODO: check that 'frets', 'intervals', 'fingers', ... arrays have the same structure and lengths.
     // --> should be done by the fretboard-api.
 
+/*
     x(fret: number) {
         return fret === 0
             ? this.props.diagramStyle.paddingHead - this.props.diagramStyle.dotOut + this.props.diagramStyle.fretWidth / 2
@@ -46,7 +47,9 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
     y(string: number) {
         return this.props.diagramStyle.paddingHigh + (string * this.props.diagramStyle.stringInterval) + this.props.diagramStyle.stringWidth / 2;
     }
+*/
 
+/*
     getText(string: number, fretIndex: number): string {
 
         // return 'A♭';
@@ -102,7 +105,9 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
 
         return t;
     }
+*/
 
+/*
     dot(string: number, fret: number, text: string) {
 
         let fill = 'white';
@@ -150,7 +155,9 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
             </Fragment>
         );
     }
+*/
 
+/*
     cross(string: number) {
         const x = this.x(0);
         const y = this.y(string);
@@ -164,6 +171,7 @@ export default class Shape extends React.Component<ShapeProps, ShapeState> {
             </Fragment>
         );
     }
+*/
 
     render () {
         switch (this.props.orientation) {

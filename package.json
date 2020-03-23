@@ -124,7 +124,7 @@
     },
     "dependencies": {
         "assert-js": "^1.0.0",
-        "fretboard-api": "^0.5.3",
+        "fretboard-api": "^0.6.0",
         "immer": "^6.0.2",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",

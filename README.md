@@ -24,6 +24,30 @@ Intervals can be displayed in two forms:
 
 "P" and "M" are omitted. 
 
+### CSS class
+
+Dot `circle`:
+
+    .d              dot                     was:  fretboard-dot
+    .n              fretted note
+    .f-<number>     fret number
+    .s-<number>     string number
+    .r              root note
+    .d-<number>     scale degree N                  only if played
+    .nm-<number>    midi note number                only if played
+    .nn-<string>    note name without octave        only if played
+    .no-<string>    note name with octave           only if played
+    .o-<number>     octave (octave -2 is .o--2)     only if played
+    
+Dot `text`:    
+    
+    .dt             dot-text                was: fretboard-dot-number
+
+Cross:
+
+    .x              non played string (cross)
+    .s-<number>     string number
+ 
 ----
 
 # TODO

@@ -19,8 +19,8 @@ class DiagramStyle {
     fontSize: number;
     fretNumberDistance: number;
     fretNumberFontSize: number;
-    fretNumberColor: string;
-    colors: any;    //TODO: describe colors
+    // fretNumberColor: string;
+    // colors: any;    //TODO: describe colors
 
     constructor({
             paddingHigh = 70,    // make room for fret numbers
@@ -39,7 +39,7 @@ class DiagramStyle {
             fontSize = 25,
             fretNumberDistance = 30,
             fretNumberFontSize = 24,
-            fretNumberColor = '#999'
+            // fretNumberColor = '#999'
         } = {}) {
 
         this.paddingHigh = paddingHigh;
@@ -58,8 +58,9 @@ class DiagramStyle {
         this.fontSize = fontSize;
         this.fretNumberDistance = fretNumberDistance;
         this.fretNumberFontSize = fretNumberFontSize;
-        this.fretNumberColor = fretNumberColor;
+        // this.fretNumberColor = fretNumberColor;
 
+/*
         this.colors = {
             cross: "black",
             interval: {
@@ -80,6 +81,7 @@ class DiagramStyle {
                 }
             }
         }
+*/
 
     }
 

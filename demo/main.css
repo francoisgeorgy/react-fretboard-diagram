@@ -13,6 +13,28 @@
   background-color: #f0f0fa!important;
 }
 
+.g1 .s-3,
+.g1 .s-4,
+.g1 .s-5 {
+  /*opacity: 0.3;   // dim the dots*/
+  fill: #f0f0fa;
+  stroke: #a0a0aa;
+  /*opacity: 0.6;*/
+}
+
+.g1 .x.s-3,
+.g1 .x.s-4,
+.g1 .x.s-5 {
+  opacity: 0.1;   // dim the cross
+}
+
+.g1 .dt.s-3,
+.g1 .dt.s-4,
+.g1 .dt.s-5 {
+  display: none;  // hide the text in the dimmed dots
+}
+
+
 /*
 #grids {
   display: flex;

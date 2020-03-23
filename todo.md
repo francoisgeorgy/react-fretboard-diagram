@@ -3,13 +3,16 @@
     - --> CAGED colors? 
         - Cyan, grAy, Green, bluE, reD 
 - shadow dots
-    - in compact notation, add a '-' to the position: "X,3-,2-,0,1,0"
-    - uppercase X : display 'X'
-    - lowercase x : display nothing
+    - ~~in compact notation, add a '-' to the position: "X,3-,2-,0,1,0"~~
+    - ~~uppercase X : display 'X'~~
+    - ~~lowercase x : display nothing~~
+    - specify which strings to show    
 - css class per interval, per note name, per string, per fret    
     --> .i-X .n-X, .s-X .f-X
     --> for root: .r
     --> for non-played string: .x
+    
+- force string color    
     
 - layout:
     - standard

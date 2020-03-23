@@ -1,5 +1,5 @@
 import React, {Fragment} from "react";
-import {Note} from "tonal";
+import {Interval, Note} from "tonal";
 // import {Humanizer} from "fretboard-api";
 import DiagramStyle from "../utils/DiagramStyle";
 import {ShapeType, Utils} from "fretboard-api";
@@ -101,7 +101,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
         return t;
     }
 
-    dot(string: number, fret: number, text: string) {
+    dot(string: number, fret: number, text: string, interval: string|null, note: string|null) {
 
         let fill = 'white';
         let stroke = 'black';
@@ -112,12 +112,14 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
             case 'note':
                 break;
             case 'interval':
+/*
                 if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
                     // console.log(this.props.diagramStyle.colors.interval);
                     fill = this.props.diagramStyle.colors.interval[text].fill;
                     stroke = this.props.diagramStyle.colors.interval[text].stroke;
                     textColor = this.props.diagramStyle.colors.interval[text].rotate;
                 }
+*/
                 break;
             // case 'interval-compound':
             //     if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
@@ -133,31 +135,48 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
         //TODO: if single letter in circle, make x = x-1
 
+        const nm = note ? `nm-${Note.midi(note)}` : '';     // .nm-<number>    midi note number
+        const o = note ? `o-${Note.oct(note)}` : '';        // .o-<number>     octave (octave -2 is .o--2)
+        const nn = note ? `nn-${Note.pc(note)}` : '';       // .nn-<string>    note name without octave
+        const r = interval ? (Interval.ic(interval) === 0 ? 'r' : '') : '';     // .r   root note
+        const css = `f-${fret} s-${string} ${interval ? `i-${interval}` : ''} ${note ? `no-${note}` : ''} ${nn} ${o} ${nm} ${r} ${this.props.className}`;
+
         return (
             <Fragment key={`${string}.${fret}`}>
                 <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.diagramStyle.dotRadius}
-                        className={`${this.props.className} fretboard-dot`}
+                        className={`d n ${css}`}
                         strokeWidth={this.props.diagramStyle.dotStroke}
                         stroke={dotStrokeColor}
                         fill={fill} />
-                <text x={this.x(fret)} y={this.y(string)} alignmentBaseline="central"
-                      className={`${this.props.className} fretboard-dot-number`}
+                <text x={this.x(fret)} y={this.y(string)}
+                      alignmentBaseline="central"
+                      className={`dt ${css}`}
                       textAnchor="middle"
                       fontSize={this.props.diagramStyle.fontSize}
-                      fill={textColor}>{text}</text>
+                      fill={textColor}
+                        >{text}</text>
             </Fragment>
         );
     }
 
     cross(string: number) {
+
+        let stroke = 'black';
+
         const x = this.x(0);
         const y = this.y(string);
         const w = this.props.diagramStyle.dotRadius * 0.75;
         return (
             <Fragment key={`${string}.X`}>
-                <path stroke={this.props.diagramStyle.colors.cross} strokeWidth={this.props.diagramStyle.crossStroke} strokeLinecap="round"
+                <path className={`x s-${string} ${this.props.className}`}
+                      stroke={stroke}
+                      strokeWidth={this.props.diagramStyle.crossStroke}
+                      strokeLinecap="round"
                       d={`M${x-w},${y-w}L${x+w},${y+w}`} />
-                <path stroke={this.props.diagramStyle.colors.cross} strokeWidth={this.props.diagramStyle.crossStroke} strokeLinecap="round"
+                <path className={`x s-${string} ${this.props.className}`}
+                      stroke={stroke}
+                      strokeWidth={this.props.diagramStyle.crossStroke}
+                      strokeLinecap="round"
                       d={`M${x+w},${y-w}L${x-w},${y+w}`} />
             </Fragment>
         );
@@ -169,6 +188,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
+
             const frets = shape.frets[s];
             if (frets == null) {
 
@@ -178,7 +198,13 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
                 e.push(this.cross(this.props.strings - 1 - s));     // strings numbering [0] is lowest pitched
             } else {
                 for (let f = 0; f < frets.length; f++) {
-                    e.push(this.dot(this.props.strings - 1 - s, frets[f], this.getText(s, f)));
+
+                    let i = shape.intervals[s] ? shape.intervals[s] : null;
+                    let n = shape.notes[s] ? shape.notes[s] : null;
+
+                    e.push(this.dot(this.props.strings - 1 - s, frets[f], this.getText(s, f),
+                        i ? i[f] : '',
+                        n ? n[f] : ''));
                 }
             }
             // if (Array.isArray(shape.frets[i])) {
