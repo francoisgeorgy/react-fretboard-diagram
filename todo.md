@@ -30,6 +30,51 @@
     - 3m
     - iii (lowercase)        
     
+# UI
+
+- notes on/off
+- intervals on/off
+- default color
+- color by note
+- color by interval
+- color by octave
+- color by string
+- color by fret
+
+Pass a single `options` property:
+
+    options = {
+        show: 'note' | 'interval' | 'interval-simple',
+        cross: true|false,              // show X for non-played strings
+        root: '#434248',        // the root (shortcut for the root note color)
+        fill: ...               // default fill color
+        colors: {
+        // priority 1:
+            '[3,1]': ...        // the dot at position string 3, fret 1 in the shape (not the played position but the shape's definition position)
+        // priority 2:
+            root: '#434248',    // all "root" (1P, 8P, ...)
+        // priority 3:         
+            '5':  ...           // starts with a digit --> interval; all 5th notes
+            '3m,7m':  ...       // starts with a digit --> interval; all 3m and 7m intervals
+            'C4': ...           // starts with a letter --> note; all C4 notes
+        // priority 4:            
+            'C': ...            // all C, any octave                    
+            'C,E,G': ...        // all C, E, G, any octave
+        // priority 5:            
+            'o4' : ...          // octave 4 (all notes in ...)
+        // priority 6:                                
+            's1: ...            // string 1 : define color for all dots on the sepcified string
+            's3,4,5: ...        // string 3, 4, 5
+        // priority 7:            
+            'f1: ...            // fret 1 : define color for all dots on the specified fret
+            'f1,2,3: ...        // frets 1, 2, 3
+        }
+        css: 'none' | 'all' | 'r f s i no o nm nn'  // css classes to add
+    }
+    
+`options` can be passed at the `Fretboard` or `Shape` level. The `Shape` level overrides the `Fretboard` level.    
+        
+    
 # refactor:
 
 - Fretboard, FretNumbers and Shape component must return a SVG <g> element.

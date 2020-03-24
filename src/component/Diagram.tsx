@@ -112,7 +112,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
 
     render() {
         const {style} = this.state;
-        console.log('Diagram render', style, this.props.shapes);
+        // console.log('Diagram render', style, this.props.shapes);
         let strings = this.props.tuning.length;
 
         const w = style.width(this.props.frets);
@@ -134,23 +134,19 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
             <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'
                  className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
-                {/*<g className="fretboard-group">*/}
-                    <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramStyle={style} />
-                    {
-                        this.props.shapes &&
-                        this.props.shapes.map(
-                            (shape: any, index: number) => <Shape key={index} shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
-                                                                  strings={strings} orientation={this.props.orientation} diagramStyle={style} text={this.props.text} />
-                        )
-/*
-                        this.props.shapes.map(
-                        (shape: any, index: number) => <Shape key={index} shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
-                        strings={strings} orientation={this.props.orientation} diagramStyle={style} text={this.props.text} />
-                        )
-*/
-                    }
-                    {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} diagramStyle={this.state.style} />}
-                {/*</g>*/}
+                <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramStyle={style} />
+                {
+                    this.props.shapes &&
+                    this.props.shapes.map((shape: any, index: number) =>
+                        <Shape key={index}
+                               shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
+                               strings={strings}
+                               orientation={this.props.orientation}
+                               diagramStyle={style}
+                               text={this.props.text} />
+                    )
+                }
+                {(this.props.fretNumbers !== 'none') && <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} diagramStyle={this.state.style} />}
             </svg>
         )
     }
