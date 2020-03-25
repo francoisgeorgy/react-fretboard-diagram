@@ -103,6 +103,7 @@ parsed options:
 */
 
 export function parseDiagramOptions(options: DiagramOptions): ParsedDiagramOptions {
+
     const p : ParsedDiagramOptions = {
         cross: true, css: "", fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, root: "", roots: "", sc: {}, show: null
     };
@@ -148,12 +149,37 @@ export function parseDiagramOptions(options: DiagramOptions): ParsedDiagramOptio
         for (let k of Object.keys(c)) {
             const v = c[k];
             if (!v) continue;
-            for (let e of v.split(',')) {
-                if (e.match(/^[0-9]/)) {
-                    //
+            console.log(k);
+            for (let e of k.split(',')) {
+                if (e.indexOf('.') > 0) {                       console.log(">> position", e);
+                    p.pc[e] = v;
+                } else if (e.match(/^[0-9]/)) {                 console.log(">> interval", e);
+                    p.ic[e] = v;
+                } else if (e.match(/^[A-G][#b]?-?[0-9]/)) {     console.log(">> note+octave", e);
+                    p.noc[e] = v;
+                } else if (e.match(/^[A-G]/)) {                 console.log(">> note", e);
+                    p.nc[e] = v;
+                } else if (e.startsWith('o')) {                 console.log(">> octave", e);
+                    p.oc[e] = v;
+                } else if (e.startsWith('s')) {
+                    const n = parseInt(e.substr(1), 10);
+                    if (isNaN(n)) {
+                        console.error("!! invalid string", e.substr(1))
+                    } else {                                   console.log(">> string", n);
+                        p.sc[e] = v;
+                    }
+                } else if (e.startsWith('f')) {
+                    const n = parseInt(e.substr(1), 10);
+                    if (isNaN(n)) {
+                        console.error("!! invalid fret", e.substr(1))
+                    } else {                                    console.log(">> fret", n);
+                        p.fc[e] = v;
+                    }
                 }
             }
         }
     }
+
+    return p;
 
 }
