@@ -47,6 +47,7 @@ Pass a single `options` property:
         show: 'note' | 'interval' | 'interval-simple',
         cross: true|false,              // show X for non-played strings
         root: '#434248',        // the root (shortcut for the root note color)
+        roots: '#434248',       // all roots (interval class (ic) = 0)
         fill: ...               // default fill color
         colors: {
         // priority 1:
@@ -74,6 +75,42 @@ Pass a single `options` property:
     
 `options` can be passed at the `Fretboard` or `Shape` level. The `Shape` level overrides the `Fretboard` level.    
         
+parsed options:
+
+    parsed_options = {
+        show: 'note',
+        cross: true,
+        fill: <color>           // default fill color
+        root: <color>,          // default color for the first root (interval = 1P)
+        roots: <color>,         // default color for all roots (interval chroma = 0)
+        pc: {           // position color
+            '[3,1]' : <color>
+        },        
+        ic: {           // interval color
+            '5' : <color>,
+            '3m' : <color>,
+            '7m' : <color>
+        },        
+        nc: {           // note color
+            'C4' : <color>,
+            'C' : <color>,
+            'E' : <color>
+        },        
+        oc: {           // octave color
+            '-2' : <color>
+        },        
+        fc: {           // fret color
+            1 : <color>,
+            3 : <color>
+        },        
+        sc: {           // string color
+            1 : <color>,
+            2 : <color>,
+            3 : <color>
+        },        
+        css: 'r f s i' 
+    }      
+    
     
 # refactor:
 
