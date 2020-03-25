@@ -51,7 +51,7 @@ Pass a single `options` property:
         fill: ...               // default fill color
         colors: {
         // priority 1:
-            '[3,1]': ...        // the dot at position string 3, fret 1 in the shape (not the played position but the shape's definition position)
+            '3.1': ...        // the dot at position string 3, fret 1 in the shape (not the played position but the shape's definition position)
         // priority 2:
             root: '#434248',    // all "root" (1P, 8P, ...)
         // priority 3:         
@@ -84,7 +84,7 @@ parsed options:
         root: <color>,          // default color for the first root (interval = 1P)
         roots: <color>,         // default color for all roots (interval chroma = 0)
         pc: {           // position color
-            '[3,1]' : <color>
+            '3.1' : <color>
         },        
         ic: {           // interval color
             '5' : <color>,
