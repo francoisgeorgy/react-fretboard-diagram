@@ -16,49 +16,8 @@ import {
     DotOptions, width,
     xMappingFunction, yMappingFunction
 } from "../utils/options";
-import Assert from "assert-js";
-// import {Tuning} from "fretboard-api";
-// import {DOT_TEXT, FRET_NUMBER_FORMAT, FRET_NUMBER_POSITION, ORIENTATION} from "../options";
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
-
-/*
-const propTypes = {
-    classname: PropTypes.string,
-    diagramOptions: PropTypes.object,
-    orientation: PropTypes.oneOf(ORIENTATION),   // TODO: make bool instead?
-    text: PropTypes.oneOf(DOT_TEXT),   // TODO: define "custom"
-    leftHanded: PropTypes.bool,
-    stringsProportional: PropTypes.bool,        // if true will draw strings with prop widths
-    frets: PropTypes.number.isRequired,
-    fretNumbers: PropTypes.oneOf(FRET_NUMBER_FORMAT),
-    fretNumbersPosition: PropTypes.oneOf(FRET_NUMBER_POSITION),   // left, right only when vertical orientation
-    tuning: PropTypes.array,
-    shapes: PropTypes.array,
-    debug: PropTypes.bool,
-    mouseClickHandler: PropTypes.func,
-    mouseMoveHandler: PropTypes.func
-};
-
-const defaultProps = {
-    classname: '',
-    diagramOptions: {},
-    orientation: 'vertical',
-    leftHanded: false,
-    stringsProportional: false,
-    frets: 4,
-    fretNumbers: 'latin',
-    fretNumbersPosition: 'top',
-    text: 'note',
-    tuning: Tuning.guitar.standard,
-    shapes: null,
-    debug: false
-};
-*/
-
-// export interface DiagramOptions {
-//
-// }
 
 export interface DiagramProps {     //TODO: define correct types
     tuning: any;
@@ -75,7 +34,7 @@ export interface DiagramProps {     //TODO: define correct types
     shapes: any;
     debug: any;
     diagramOptions: DiagramOptions;
-    // shapeOptions: ShapeOptions;
+    dotOptions: DotOptions; // will be passed to the Shapes; will not be used by the Diagram itself.
 }
 
 export interface DiagramState {
@@ -97,8 +56,8 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         // tuning: [],
         shapes: null,
         debug: false,
-        diagramOptions: DEFAULT_DIAGRAM_OPTIONS
-        // shapeOptions: null
+        diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
+        dotOptions: null
     };
 
     // constructor(props: DiagramProps) {
@@ -119,19 +78,6 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
     y: yMappingFunction = (string: number): number => {
         return this.props.diagramOptions.paddingHigh + (string * this.props.diagramOptions.stringInterval) + this.props.diagramOptions.stringWidth / 2;
     };
-
-    // dot radius
-    // r = (): number => {
-    //     return this.props.diagramOptions.dotRadius;
-    // };
-
-/*
-    xy: xyMappingFunction = (string: number, fret: number): [number, number] => {
-        const c: [number, number] = [0, 0];
-        return c;
-    };
-*/
-
 
     getStringFretFromMouseEvent = (event: React.MouseEvent, strings: number, frets: number) => {
 
@@ -211,7 +157,6 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
 
     };
 
-
     onMouseClick = (e: React.MouseEvent) => {
         if (typeof this.props.mouseClickHandler !== "function") return;
         let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
@@ -227,8 +172,9 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
     };
 
     render() {
-        // const {style} = this.state;
+
         // console.log('Diagram render', style, this.props.shapes);
+
         let strings = this.props.tuning.length;
 
         const w = width(this.props.frets, this.props.diagramOptions);
@@ -244,8 +190,6 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
             default:
                 box = '0 0 0 0';    //TODO: throw an error
         }
-        // let {shapes, ...p} = this.props;    // !! ES7 stage-2 syntax
-        // return <h1>Diagram</h1>;
 
         //FIXME: pass dotOptions to Shape
 
@@ -257,13 +201,13 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
                 {
                     this.props.shapes &&
                     this.props.shapes.map((shape: any, index: number) =>
-                        <Shape key={index}
+                        <ShapeHorizontal key={index}
                                shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
                                strings={strings}
                                orientation={this.props.orientation}
                                text={this.props.text}
                                options={this.props.diagramOptions}
-                               // dotOptions={}
+                               dotOptions={this.props.dotOptions}
                                fretToX={this.x} stringToY={this.y} />
                     )
                 }

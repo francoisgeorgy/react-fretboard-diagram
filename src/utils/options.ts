@@ -88,6 +88,7 @@ export interface DotOptions {
 
 //TODO: add cross color
 
+// TODO: find a way to make a specific color option top-priority
 export interface ParsedDotOptions {
     show: null | 'note' | 'interval' | 'interval-simple';
     cross: boolean;
@@ -95,19 +96,20 @@ export interface ParsedDotOptions {
     roots: string;
     fill: string;
     css: string;
-    pc: {[key: string]: string;}
-    ic: {[key: string]: string;}
-    nc: {[key: string]: string;}    //note without octave color
-    noc: {[key: string]: string;}   //note with octave color
-    oc: {[key: string]: string;}
-    fc: {[key: string]: string;}
-    sc: {[key: string]: string;}
+    pc: {[key: string]: string;}    // P1: position
+    ic: {[key: string]: string;}    // P2: interval
+    nc: {[key: string]: string;}    // P3: note without octave color
+    noc: {[key: string]: string;}   // P4: note with octave color
+    oc: {[key: string]: string;}    // P5: octave
+    fc: {[key: string]: string;}    // P6: fret
+    sc: {[key: string]: string;}    // P7: string
 }
 
 export function parseDotOptions(options: DotOptions): ParsedDotOptions {
 
+    //TODO: define defaults dot colors
     const p : ParsedDotOptions = {
-        fill: "",
+        fill: "white",  // DEFAULT FILL COLOR
         cross: true, css: "", fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, root: "", roots: "", sc: {}, show: null
     };
 

@@ -30,6 +30,8 @@
     - 3m
     - iii (lowercase)        
     
+- display the tuning    
+    
 # UI
 
 - notes on/off

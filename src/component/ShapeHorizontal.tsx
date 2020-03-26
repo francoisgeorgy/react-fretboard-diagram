@@ -103,9 +103,9 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         return t;
     }
 
-    dot(string: number, fret: number, text: string, interval: string|null, note: string|null) {
+    dot(string: number, fret: number, text: string, interval: string|null, note: string|null, fillcolor: string) {
 
-        let fill = 'white';     //TODO: configure this color
+        // let fill = 'white';     //TODO: configure this color
         let stroke = 'black';   //TODO: configure this color
         let dotStrokeColor = 'black';
         let textColor = 'black';    //TODO: configure this color
@@ -149,7 +149,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                         className={`d n ${css}`}
                         // strokeWidth={this.props.dotStroke()}
                         stroke={dotStrokeColor}
-                        fill={fill} />
+                        fill={fillcolor} />
                 <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
                       alignmentBaseline="central"
                       className={`dt ${css}`}
@@ -186,11 +186,15 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
     render() {
 
+        console.log("ShapeHorizontal.render");
+
         const shape = this.props.shape;
 
         if (!shape) return null;
 
         const opt = parseDotOptions(this.props.dotOptions);
+
+        console.log("ShapeHorizontal.render opt", opt);
 
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
@@ -202,14 +206,36 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     e.push(this.cross(this.props.strings - 1 - s));     // strings numbering [0] is lowest pitched
                 }
             } else {
+
+                let i = shape.intervals[s]; // ? shape.intervals[s] : null;     // ["1P"]
+                let n = shape.notes[s]; // ? shape.notes[s] : null;             // ["C3"]
+
+                //TODO: check this: i and n should never be null
+
                 for (let f = 0; f < frets.length; f++) {
 
-                    let i = shape.intervals[s] ? shape.intervals[s] : null;
-                    let n = shape.notes[s] ? shape.notes[s] : null;
+                    const interval = i[f] || '';    //TODO: remove the empty string default when i is garanted to be not null
+                    const note = n[f] || '';
 
-                    e.push(this.dot(this.props.strings - 1 - s, frets[f], this.getText(s, f),
-                        i ? i[f] : '',
-                        n ? n[f] : ''));
+                    console.log('i, n:', i[0], n[0]);
+
+                    let fillColor = opt.fill;
+                    if (opt.ic[i[0]]) {
+                        fillColor = opt.ic[i[0]];
+                    } else if (opt.noc[n[0]]) {
+                        fillColor = opt.noc[n[0]];
+                    }
+
+                    e.push(
+                        this.dot(
+                            this.props.strings - 1 - s,
+                            frets[f],
+                            this.getText(s, f),
+                            i ? i[f] : '',
+                            n ? n[f] : '',
+                            fillColor
+                        )
+                    );
                 }
             }
             // if (Array.isArray(shape.frets[i])) {
