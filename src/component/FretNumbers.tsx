@@ -1,5 +1,5 @@
 import React from "react";
-import DiagramStyle from "../utils/DiagramStyle";
+import {DiagramOptions} from "../utils/options";
 // import {arabToRoman} from "roman-numbers";
 
 function arabToRoman(a: number): string {
@@ -11,15 +11,17 @@ export interface FretNumbersProps {
     frets: number;
     startAt: number;
     orientation: string;
-    diagramStyle: DiagramStyle;
+    options: DiagramOptions;
 }
 
-export interface FretNumbersState {
-}
+// export interface FretNumbersState {
+// }
 
-export default class FretNumbers extends React.Component<FretNumbersProps, FretNumbersState> {
+export default class FretNumbers extends React.Component<FretNumbersProps> {
 
     render() {
+
+        const opts = this.props.options;
 
         let frets = this.props.frets;
         let startAt = this.props.startAt;
@@ -28,17 +30,15 @@ export default class FretNumbers extends React.Component<FretNumbersProps, FretN
 
         //TODO: allow to choose placement over of below the strings
 
-        let y = this.props.diagramStyle.paddingHigh - this.props.diagramStyle.fretNumberDistance;
-
-        let f = Math.trunc(frets);
+        //FIXME: fret's text class
 
         let s = [];
-        for (let i=0; i<f; i++) {
+        for (let i=0; i < Math.trunc(frets); i++) {
             s.push(<text key={i}
-                         x={this.props.diagramStyle.paddingHead + ((i + 0.5) * this.props.diagramStyle.fretInterval) + this.props.diagramStyle.fretWidth / 2}
-                         y={y}
-                         fontSize={this.props.diagramStyle.fretNumberFontSize}
-                         stroke={this.props.diagramStyle.fretNumberColor}
+                         x={opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2}
+                         y={opts.paddingHigh - opts.fretNumberDistance}
+                         fontSize={opts.fretNumberFontSize}
+                         // stroke={this.props.options.fretNumberColor}
                          className="fretboard-fret-number">{arabToRoman(startAt + i)}</text>);
         }
         return <g className="fretboard-fret-number-group">{s}</g>;

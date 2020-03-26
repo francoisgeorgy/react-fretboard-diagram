@@ -22,7 +22,7 @@ export interface ShapeState {
 */
 
 export default class ShapeVertical extends React.Component<ShapeProps, ShapeState> {
-
+/*
     static defaultProps = {
         className: '',
         strings: 6,
@@ -198,6 +198,11 @@ export default class ShapeVertical extends React.Component<ShapeProps, ShapeStat
         }
         return e;
 
+    }
+*/
+
+    render() {
+        return null;
     }
 
 }

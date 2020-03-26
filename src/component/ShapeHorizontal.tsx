@@ -1,10 +1,8 @@
 import React, {Fragment} from "react";
 import {Interval, Note} from "tonal";
-// import {Humanizer} from "fretboard-api";
-import DiagramStyle from "../utils/DiagramStyle";
-import {ShapeType, Utils} from "fretboard-api";
+import {Utils} from "fretboard-api";
 import {ShapeProps, ShapeState} from "./Shape";
-// import './Shape.css';
+import {DEFAULT_DIAGRAM_OPTIONS, parseDotOptions} from "../utils/options";
 
 /*
 export interface ShapeProps {
@@ -28,13 +26,16 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
         strings: 6,
         string: -1,
         fret: -1,
-        diagramStyle: {},
-        text: 'note'
+        // diagramStyle: {},
+        text: 'note',
+        options: DEFAULT_DIAGRAM_OPTIONS,
+        dotOptions: null
     };
 
     // TODO: check that 'frets', 'intervals', 'fingers', ... arrays have the same structure and lengths.
     // --> should be done by the fretboard-api.
 
+/*
     x(fret: number) {
         return fret === 0
             ? this.props.diagramStyle.paddingHead - this.props.diagramStyle.dotOut + this.props.diagramStyle.fretWidth / 2
@@ -44,6 +45,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
     y(string: number) {
         return this.props.diagramStyle.paddingHigh + (string * this.props.diagramStyle.stringInterval) + this.props.diagramStyle.stringWidth / 2;
     }
+*/
 
     getText(string: number, fretIndex: number): string {
 
@@ -103,10 +105,10 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
     dot(string: number, fret: number, text: string, interval: string|null, note: string|null) {
 
-        let fill = 'white';
-        let stroke = 'black';
+        let fill = 'white';     //TODO: configure this color
+        let stroke = 'black';   //TODO: configure this color
         let dotStrokeColor = 'black';
-        let textColor = 'black';
+        let textColor = 'black';    //TODO: configure this color
 
         switch (this.props.text) {
             case 'note':
@@ -143,40 +145,40 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
         return (
             <Fragment key={`${string}.${fret}`}>
-                <circle cx={this.x(fret)} cy={this.y(string)} r={this.props.diagramStyle.dotRadius}
+                <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.dotRadius()}
                         className={`d n ${css}`}
-                        strokeWidth={this.props.diagramStyle.dotStroke}
+                        // strokeWidth={this.props.dotStroke()}
                         stroke={dotStrokeColor}
                         fill={fill} />
-                <text x={this.x(fret)} y={this.y(string)}
+                <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
                       alignmentBaseline="central"
                       className={`dt ${css}`}
                       textAnchor="middle"
-                      fontSize={this.props.diagramStyle.fontSize}
+                      fontSize={this.props.svgOptions.fontSize}
                       fill={textColor}
-                        >{text}</text>
+                      >{text}</text>
             </Fragment>
         );
     }
 
     cross(string: number) {
 
-        let stroke = 'black';
+        let stroke = 'black';   //TODO: configure this color
 
-        const x = this.x(0);
-        const y = this.y(string);
-        const w = this.props.diagramStyle.dotRadius * 0.75;
+        const x = this.props.fretToX(0);
+        const y = this.props.stringToY(string);
+        const w = this.props.options.dotRadius * 0.75;
         return (
             <Fragment key={`${string}.X`}>
                 <path className={`x s-${string} ${this.props.className}`}
                       stroke={stroke}
-                      strokeWidth={this.props.diagramStyle.crossStroke}
-                      strokeLinecap="round"
+                      strokeWidth={this.props.options.crossStroke}
+                      strokeLinecap={this.props.options.crossLinecap}
                       d={`M${x-w},${y-w}L${x+w},${y+w}`} />
                 <path className={`x s-${string} ${this.props.className}`}
                       stroke={stroke}
-                      strokeWidth={this.props.diagramStyle.crossStroke}
-                      strokeLinecap="round"
+                      strokeWidth={this.props.options.crossStroke}
+                      strokeLinecap={this.props.options.crossLinecap}
                       d={`M${x+w},${y-w}L${x-w},${y+w}`} />
             </Fragment>
         );
@@ -186,16 +188,19 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
         const shape = this.props.shape;
 
+        if (!shape) return null;
+
+        const opt = parseDotOptions(this.props.dotOptions);
+
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
 
             const frets = shape.frets[s];
             if (frets == null) {
-
-                //TODO: add option to display non played string as 'X' or nothing at all
-
                 // non-played string
-                e.push(this.cross(this.props.strings - 1 - s));     // strings numbering [0] is lowest pitched
+                if (opt.cross) {
+                    e.push(this.cross(this.props.strings - 1 - s));     // strings numbering [0] is lowest pitched
+                }
             } else {
                 for (let f = 0; f < frets.length; f++) {
 

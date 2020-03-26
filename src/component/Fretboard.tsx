@@ -1,12 +1,12 @@
-import React, {Fragment} from "react";
+import React from "react";
 import * as svg from "../utils/svg";
-import DiagramStyle from "../utils/DiagramStyle";
+import {DiagramOptions, fretLength, stringLength} from "../utils/options";
 
 export interface FretboardProps {
     strings: number;
     frets: number;
     orientation: string;
-    diagramStyle: DiagramStyle;
+    diagramOptions: DiagramOptions;
 }
 
 export interface DiagramState {
@@ -25,9 +25,9 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
-        const S = this.props.diagramStyle;
+        const S = this.props.diagramOptions;
 
-        let stringLength = S.stringLength(frets);
+        let stringLen = stringLength(frets, this.props.diagramOptions);
 
         let s = new Array(strings);
         switch (orientation.toLowerCase()) {
@@ -36,7 +36,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
                     s[i] = svg.horizontalLine(
                         S.paddingHead,                                // X
                         S.paddingHigh + (i * S.stringInterval),    // Y
-                        stringLength,
+                        stringLen,
                         S.stringWidth);  // FIXME: stringWidth or fretWidth ???
                 }
                 break;
@@ -45,7 +45,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
                     s[i] = svg.verticalLine(
                         S.paddingLow + (i * S.stringInterval),                                           // X
                         S.paddingHead,    // Y
-                        stringLength,
+                        stringLen,
                         S.stringWidth);  // FIXME: stringWidth or fretWidth ???
                 }
                 break;
@@ -58,9 +58,9 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
     getFretsPath(strings: number, frets: number, orientation: string) {
 
-        const S = this.props.diagramStyle;
+        const opts = this.props.diagramOptions;
 
-        let fretLength = S.fretLength(strings);
+        let fLen = fretLength(strings, this.props.diagramOptions);
 
         let f = Math.trunc(frets) + 1;  // +1 because we draw the fret 0
 
@@ -70,19 +70,19 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
             case 'horizontal':
                 for (let i=0; i<f; i++) {
                     s[i] = svg.verticalLine(
-                        S.paddingHead + (i * S.fretInterval), // X
-                        S.paddingHigh,                                        // Y
-                        fretLength,
-                        S.fretWidth);    // FIXME: stringWidth or fretWidth ???
+                        opts.paddingHead + (i * opts.fretInterval), // X
+                        opts.paddingHigh,                                        // Y
+                        fLen,
+                        opts.fretWidth);    // FIXME: stringWidth or fretWidth ???
                 }
                 break;
             case 'vertical':
                 for (let i=0; i<f; i++) {
                     s[i] = svg.horizontalLine(
-                        S.paddingLow, // X
-                        S.paddingHead + (i * S.fretInterval),   // Y
-                        fretLength,
-                        S.fretWidth);    // FIXME: stringWidth or fretWidth ???
+                        opts.paddingLow, // X
+                        opts.paddingHead + (i * opts.fretInterval),   // Y
+                        fLen,
+                        opts.fretWidth);    // FIXME: stringWidth or fretWidth ???
                 }
                 break;
             default:
@@ -94,12 +94,12 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
     }
 
     render() {
-        console.log('Fretboard render', this.props.diagramStyle);
+        console.log('Fretboard render', this.props.diagramOptions);
         return (
             <g>
-                <path fill="none" strokeWidth={this.props.diagramStyle.stringWidth} className="fretboard-string"
+                <path fill="none" strokeWidth={this.props.diagramOptions.stringWidth} className="fretboard-string"
                       d={this.getStringsPath(this.props.strings, this.props.frets, this.props.orientation)} />
-                <path fill="none" strokeWidth={this.props.diagramStyle.fretWidth} className="fretboard-fret"
+                <path fill="none" strokeWidth={this.props.diagramOptions.fretWidth} className="fretboard-fret"
                       d={this.getFretsPath(this.props.strings, this.props.frets, this.props.orientation)} />
             </g>
         );

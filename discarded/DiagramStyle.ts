@@ -13,10 +13,10 @@ class DiagramStyle {
     fretWidth: number;
     dotIn: number;
     dotOut: number;
-    dotRadius: number;
+    // dotRadius: number;
     dotStroke: number;
-    crossStroke: number;
-    fontSize: number;
+    // crossStroke: number;
+    // fontSize: number;
     fretNumberDistance: number;
     fretNumberFontSize: number;
     // fretNumberColor: string;
@@ -33,10 +33,10 @@ class DiagramStyle {
             fretWidth = 4,
             dotIn = 50,
             dotOut = 30,
-            dotRadius = 20,
-            dotStroke = 3,
-            crossStroke = 5,
-            fontSize = 25,
+            // dotRadius = 20,
+            // dotStroke = 3,
+            // crossStroke = 5,
+            // fontSize = 25,
             fretNumberDistance = 30,
             fretNumberFontSize = 24,
             // fretNumberColor = '#999'
@@ -85,6 +85,7 @@ class DiagramStyle {
 
     }
 
+/*
     width(frets: number) {
         // console.log('width = currentLayout', currentLayout);
         Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
@@ -110,6 +111,7 @@ class DiagramStyle {
         Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
         return (strings - 1) * this.stringInterval + this.stringWidth;
     }
+*/
 
     // stringWidth() {
     //     return this.stringWidth;
@@ -119,6 +121,7 @@ class DiagramStyle {
     //     return this.fretWidth;
     // }
 
+/*
     getStringFretFromMouseEvent(event: React.MouseEvent, strings: number, frets: number) {
 
         // console.log(`paddingHigh=${this.paddingHigh}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingHigh + ((this.props.strings - 1) * this.stringInterval)}`);
@@ -194,6 +197,7 @@ class DiagramStyle {
         }
 
     };
+*/
 
 }
 

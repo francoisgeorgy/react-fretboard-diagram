@@ -1,14 +1,19 @@
-//TODO: delete me
-
 import Assert from "assert-js";
-// import * as layout from "./index";
+
+
+
+
+
+
+//--- code below must not be used anymore ---
+
 
 const COLORS_DEFAULT = {
     fretColor: '',
     fretOpacity: ''
 };
 
-const LAYOUTS = {
+export const STYLES = {
     def : {
         paddingHigh: 40,
         paddingBody: 15,
@@ -126,7 +131,7 @@ const LAYOUTS = {
         fontSize: 1
     },
     test8 : {
-        paddingHead : 5,
+        paddingHead : 10,
         paddingBody : 5,
         paddingHigh: 5,
         paddingLow: 5,
@@ -141,33 +146,38 @@ const LAYOUTS = {
     }
 };
 
-export var currentLayout = LAYOUTS['def'];
+// export var currentLayout = STYLES['def'];
 
-export function getLayout(layout: string|object): object {
+/*
+export function getStyle(layout) {
     if (typeof layout === 'string') {
         console.log("string layout");
-        Assert.true(LAYOUTS.hasOwnProperty(layout));
-        return LAYOUTS[layout];
+        Assert.true(STYLES.hasOwnProperty(layout));
+        return STYLES[layout];
     } else {
-        return Object.assign(LAYOUTS['def'], layout);
+        return Object.assign(STYLES['def'], layout);
     }
-    // currentLayout = LAYOUTS[name];
+    // currentLayout = STYLES[name];
     // console.log('setLayout: currentLayout', currentLayout);
 }
+*/
 
 
-export function setLayout(layout: string|object): void {
+/*
+export function setLayout(layout) {
     if (typeof layout === 'string') {
         console.log("string layout");
-        Assert.true(LAYOUTS.hasOwnProperty(layout));
-        currentLayout = LAYOUTS[layout];
+        Assert.true(STYLES.hasOwnProperty(layout));
+        currentLayout = STYLES[layout];
     } else {
-        currentLayout = Object.assign(LAYOUTS['def'], layout);
+        currentLayout = Object.assign(STYLES['def'], layout);
     }
-    // currentLayout = LAYOUTS[name];
+    // currentLayout = STYLES[name];
     console.log('setLayout: currentLayout', currentLayout);
 }
+*/
 
+/*
 export function width(frets: number): number {
     console.log('width: currentLayout', currentLayout);
     Assert.greaterThan(0, frets, "Number of frets must be an integer greater than 0");
@@ -176,7 +186,9 @@ export function width(frets: number): number {
     console.log(`w = ${currentLayout.paddingHead} + (${currentLayout.fretInterval} * ${frets}) + ${currentLayout.paddingBody} + 1`);
     return currentLayout.paddingHead + (currentLayout.fretInterval * frets) + currentLayout.paddingBody + currentLayout.fretWidth;
 }
+*/
 
+/*
 export function height(strings: number): number {
     Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
     console.log(`h = ${currentLayout.paddingHigh} + (${currentLayout.stringInterval} * (${strings} - 1)) + ${currentLayout.paddingLow}`);
@@ -195,3 +207,4 @@ export function fretLength(strings: number): number {
     Assert.greaterThan(0, strings, "Number of string must be an integer greater than 0");
     return (strings - 1) * currentLayout.stringInterval + currentLayout.stringWidth;
 }
+*/

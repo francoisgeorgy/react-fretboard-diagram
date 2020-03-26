@@ -24,6 +24,17 @@ Intervals can be displayed in two forms:
 
 "P" and "M" are omitted. 
 
+## Composition
+
+    Diagram
+        Fretboard
+            Shape
+                Dot
+                Dot...
+            Shape...
+
+## Options
+
 ### CSS class
 
 Dot `circle`:

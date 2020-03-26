@@ -23,7 +23,7 @@ export default class Fretboard extends React.Component {
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 
-        let stringLength = this.props.diagramStyle.stringLength(frets);
+        let stringLength = stringLength(frets);
 
         let s = new Array(strings);
         for (let i=0; i<strings; i++) {
@@ -38,7 +38,7 @@ export default class Fretboard extends React.Component {
 
     getFretsPath(strings, frets) {
 
-        let fretLength = this.props.diagramStyle.fretLength(strings);
+        let fretLength = fretLength(strings);
 
         let f = Math.trunc(frets) + 1;  // +1 because we draw the fret 0
 
