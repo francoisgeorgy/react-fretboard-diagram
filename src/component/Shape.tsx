@@ -39,7 +39,7 @@ export default class Shape extends React.Component<ShapeProps/*, ShapeState*/> {
         fret: -1,
         // diagramStyle: {},
         text: 'note',
-        // dotOptions: DEFAULT_DOT_OPTIONS,
+        dotOptions: null,
         options: DEFAULT_DIAGRAM_OPTIONS
     };
 

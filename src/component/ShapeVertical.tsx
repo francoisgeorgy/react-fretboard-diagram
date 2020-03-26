@@ -3,7 +3,7 @@ import {Note} from "tonal";
 // import {Humanizer} from "fretboard-api";
 import DiagramStyle from "../utils/DiagramStyle";
 import {ShapeType, Utils} from "fretboard-api";
-import {ShapeProps, ShapeState} from "./Shape";
+import {ShapeProps} from "./Shape";
 // import './Shape.css';
 
 /*
@@ -21,7 +21,7 @@ export interface ShapeState {
 }
 */
 
-export default class ShapeVertical extends React.Component<ShapeProps, ShapeState> {
+export default class ShapeVertical extends React.Component<ShapeProps> {
 /*
     static defaultProps = {
         className: '',

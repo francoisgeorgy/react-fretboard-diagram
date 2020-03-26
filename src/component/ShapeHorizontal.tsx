@@ -1,7 +1,7 @@
 import React, {Fragment} from "react";
 import {Interval, Note} from "tonal";
 import {Utils} from "fretboard-api";
-import {ShapeProps, ShapeState} from "./Shape";
+import {ShapeProps} from "./Shape";
 import {DEFAULT_DIAGRAM_OPTIONS, parseDotOptions} from "../utils/options";
 
 /*
@@ -19,7 +19,7 @@ export interface ShapeState {
 }
 */
 
-export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeState> {
+export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
     static defaultProps = {
         className: '',
@@ -145,7 +145,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
 
         return (
             <Fragment key={`${string}.${fret}`}>
-                <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.dotRadius()}
+                <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.options.dotRadius}
                         className={`d n ${css}`}
                         // strokeWidth={this.props.dotStroke()}
                         stroke={dotStrokeColor}
@@ -154,7 +154,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps, ShapeSt
                       alignmentBaseline="central"
                       className={`dt ${css}`}
                       textAnchor="middle"
-                      fontSize={this.props.svgOptions.fontSize}
+                      fontSize={this.props.options.fontSize}
                       fill={textColor}
                       >{text}</text>
             </Fragment>
