@@ -100,9 +100,9 @@ export interface ParsedDotOptions {
     ic: {[key: string]: string;}    // P2: interval
     nc: {[key: string]: string;}    // P3: note without octave color
     noc: {[key: string]: string;}   // P4: note with octave color
-    oc: {[key: string]: string;}    // P5: octave
-    fc: {[key: string]: string;}    // P6: fret
-    sc: {[key: string]: string;}    // P7: string
+    oc: {[key: number]: string;}    // P5: octave
+    fc: {[key: number]: string;}    // P6: fret
+    sc: {[key: number]: string;}    // P7: string
 }
 
 export function parseDotOptions(options: DotOptions): ParsedDotOptions {
@@ -167,21 +167,26 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
                     p.noc[e] = v;
                 } else if (e.match(/^[A-G]/)) {                 console.log(">> note", e);
                     p.nc[e] = v;
-                } else if (e.startsWith('o')) {                 console.log(">> octave", e);
-                    p.oc[e] = v;
+                } else if (e.startsWith('o')) {
+                    const n = parseInt(e.substr(1), 10);
+                    if (isNaN(n)) {
+                        console.error("!! invalid octave", e.substr(1))
+                    } else {                                   console.log(">> octave", n);
+                        p.oc[n] = v;
+                    }
                 } else if (e.startsWith('s')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
                         console.error("!! invalid string", e.substr(1))
                     } else {                                   console.log(">> string", n);
-                        p.sc[e] = v;
+                        p.sc[n] = v;
                     }
                 } else if (e.startsWith('f')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
                         console.error("!! invalid fret", e.substr(1))
                     } else {                                    console.log(">> fret", n);
-                        p.fc[e] = v;
+                        p.fc[n] = v;
                     }
                 }
             }

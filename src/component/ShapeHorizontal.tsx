@@ -212,18 +212,38 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
                 //TODO: check this: i and n should never be null
 
-                for (let f = 0; f < frets.length; f++) {
+                for (let f = 0; f < frets.length; f++) {    // for each fret
 
                     const interval = i[f] || '';    //TODO: remove the empty string default when i is garanted to be not null
                     const note = n[f] || '';
+                    const pc = Note.pc(note) || '';   // pitch class: C4 --> C
+                    const oct = Note.oct(note) || Number.NaN;   // pitch class: C4 --> C
+                    const pos = `[${s}.${f}]`;
+                    console.log('i, n:', interval, note);
 
-                    console.log('i, n:', i[0], n[0]);
+                    // pc: {[key: string]: string;}    // P1: position
+                    // ic: {[key: string]: string;}    // P2: interval
+                    // nc: {[key: string]: string;}    // P3: note without octave color
+                    // noc: {[key: string]: string;}   // P4: note with octave color
+                    // oc: {[key: string]: string;}    // P5: octave
+                    // fc: {[key: string]: string;}    // P6: fret
+                    // sc: {[key: string]: string;}    // P7: string
 
                     let fillColor = opt.fill;
-                    if (opt.ic[i[0]]) {
-                        fillColor = opt.ic[i[0]];
-                    } else if (opt.noc[n[0]]) {
-                        fillColor = opt.noc[n[0]];
+                    if (opt.pc[pos]) {             // P1: position
+                        fillColor = opt.pc[pos];
+                    } else if (opt.ic[interval]) {             // P2: interval
+                        fillColor = opt.ic[interval];
+                    } else if (opt.nc[pc]) {            // P3: note without octave (pitch class) color
+                        fillColor = opt.nc[pc];
+                    } else if (opt.noc[note]) {         // P4: note with octave color
+                        fillColor = opt.noc[note];
+                    } else if (!isNaN(oct) && opt.oc[oct]) {         // P5: octave
+                        fillColor = opt.oc[oct];
+                    } else if (opt.fc[f]) {         // P6: fret
+                        fillColor = opt.fc[f];
+                    } else if (opt.sc[s]) {         // P7: string
+                        fillColor = opt.sc[s];
                     }
 
                     e.push(
