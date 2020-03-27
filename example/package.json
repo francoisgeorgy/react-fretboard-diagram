@@ -8,7 +8,9 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "react-app-polyfill": "^1.0.0"
+    "react-app-polyfill": "^1.0.0",
+    "react-color": "^2.18.0",
+    "use-immer": "^0.3.5"
   },
   "alias": {
     "react": "../node_modules/react",

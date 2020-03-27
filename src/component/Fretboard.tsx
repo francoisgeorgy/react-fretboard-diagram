@@ -21,7 +21,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
     getStringsPath(strings: number, frets: number, orientation: string) {   //TODO: add orientation left handed, mirror, etc...
 
-        console.log(`getStringsPath(${strings}, ${frets})`);
+        // console.log(`getStringsPath(${strings}, ${frets})`);
 
         // could be simplified with the syntax Array.apply(null, Array(N)).map(...)
 

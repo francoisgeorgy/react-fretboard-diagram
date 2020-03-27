@@ -194,7 +194,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
         const opt = parseDotOptions(this.props.dotOptions);
 
-        console.log("ShapeHorizontal.render opt", opt);
+        // console.log("ShapeHorizontal.render opt", opt);
 
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
@@ -219,7 +219,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     const pc = Note.pc(note) || '';   // pitch class: C4 --> C
                     const oct = Note.oct(note) || Number.NaN;   // pitch class: C4 --> C
                     const pos = `[${s}.${f}]`;
-                    console.log('i, n:', interval, note);
+                    // console.log('i, n:', interval, note);
 
                     // pc: {[key: string]: string;}    // P1: position
                     // ic: {[key: string]: string;}    // P2: interval

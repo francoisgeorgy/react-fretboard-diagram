@@ -2,8 +2,13 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Diagram from "../src/component/Diagram";
-import {DotOptions} from "../src/utils/options";
+import {DotOptions, parseDotOptions} from "../src/utils/options";
 import {useCallback, useState} from "react";
+import {useImmer} from "use-immer";
+import {TwitterPicker} from 'react-color';
+
+
+import "./main.css";
 
 function getDefaultDotOptions(): DotOptions {
     return {
@@ -35,44 +40,70 @@ const App = () => {
     //     show: undefined
     // };
 
-    // const [count, setCount] = useState(0);
-    //
-    // const increment = useCallback(() => {
-    //     setCount(count + 1)
-    // }, [count]);
-
     const [dotOptions, updateDotOptions] = useImmer(() => getDefaultDotOptions());
 
-    updateCells((draft) => {
-        draft[r][c].color = Math.floor(Math.random() * 11 + 1);
-    });
+    // const [count, setCount] = useState(0);
+    //
+    const [showPicker, togglePicker] = useState<[string, string]|null>(null); // use an object that tells which color we are choosing
+
+    const handleChangeComplete = (color, event) => {
+        //this.setState({ background: color.hex });
+        console.log("handleChangeComplete", color);
+
+        updateDotOptions(draft => {
+            if (!showPicker) return;
+            if (!draft.colors) draft['colors'] = {};
+            draft.colors[showPicker[1]] = color.hex;
+        });
+
+        togglePicker(null);
+    };
+
+    // const pick = useCallback(() => {
+    //     togglePicker(!showPicker);
+    // }, [showPicker]);
+
+    const pick = (what: string, which: string): void => {
+        if (showPicker) {
+            togglePicker(null);
+        } else {
+            togglePicker([what, which]);
+        }
+    };
+
+    // updateCells((draft) => {
+    //     draft[r][c].color = Math.floor(Math.random() * 11 + 1);
+    // });
+
+    const opt = parseDotOptions(dotOptions);
 
     return (
         <div>
             <div className="row">
                 <div>Interval</div>
                 {"C C# Db D D# Eb E F F# Gb G G# Ab A A# Bb B".split(' ').map((n,i) =>
-                    <div key={i}>{n}</div>
+                    <button key={i} onClick={() => pick('note', n)}>{n}</button>
                 )}
             </div>
             <div className="row">
                 <div>Note</div>
                 {"1P 2m 2M 3m 3M 4P 5P 6m 6M 7m 7M 8P".split(' ').map((n,i) =>
-                    <div key={i}>{n}</div>
+                    <button key={i} onClick={() => pick('interval', n)}>{n}</button>
                 )}
             </div>
             <div className="row">
                 <div>String</div>
                 {"1 2 3 4 5 6".split(' ').map((n,i) =>
-                    <div key={i}>{n}</div>
+                    <button key={i}>{n}</button>
                 )}
             </div>
             <div className="row">
                 <div>Frets</div>
                 {"1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24".split(' ').map((n,i) =>
-                    <div key={i}>{n}</div>
+                    <button key={i}>{n}</button>
                 )}
             </div>
+            {showPicker && <TwitterPicker onChangeComplete={handleChangeComplete} />}
             <div className="row">
                 <div className="h">C</div>
                 <div style={{width: "1000px"}}>
@@ -90,6 +121,13 @@ const App = () => {
 */}
                 </div>
             </div>
+            <pre>
+                {JSON.stringify(showPicker)}
+                <br />
+                {JSON.stringify(dotOptions['colors'])}
+                <br />
+                {JSON.stringify(opt)}
+            </pre>
         </div>
     );
 };
