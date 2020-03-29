@@ -45,20 +45,20 @@ export interface DiagramOptions extends FretboardOptions, SVGOptions {
 export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     paddingHigh: 70,    // make room for fret numbers
     paddingLow: 30,
-    paddingHead: 70,
+    paddingHead: 80,
     paddingBody: 15,
     stringInterval: 60,
-    stringWidth: 4,
+    stringWidth: 6,
     fretInterval: 100,
     fretWidth: 4,
     fretNumberDistance: 30,
     fretNumberFontSize: 24,
     dotIn: 50,
-    dotOut: 30,
-    dotStroke: 3,
+    dotOut: 40,
+    dotRadius: 24,
+    dotStroke: 6,
     crossLinecap: "round",
-    crossStroke: 5,
-    dotRadius: 20,
+    crossStroke: 8,
     fontSize: 25
 };
 
@@ -80,9 +80,10 @@ export interface DotOptions {
     root?: string;
     roots?: string;
     fill?: string;
+    text?: string;      // default text color
     css?: string;
     colors?: {
-        [key: string]: string;
+        [key: string]: string;  // value is one or two colors: "<fill-color>[,<text-color>]"
     }
 }
 
@@ -92,10 +93,12 @@ export interface DotOptions {
 export interface ParsedDotOptions {
     show: null | 'note' | 'interval' | 'interval-simple';
     cross: boolean;
-    root: string;
-    roots: string;
-    fill: string;
+    root: string;       // color of the strings
+    roots: string;      // color of the frets
+    fill: string;       // default fill color
+    text: string|null;       // default text color  if null text is not displayed
     css: string;
+    // fill color:
     pc: {[key: string]: string;}    // P1: position
     ic: {[key: string]: string;}    // P2: interval
     nc: {[key: string]: string;}    // P3: note without octave color
@@ -103,14 +106,38 @@ export interface ParsedDotOptions {
     oc: {[key: number]: string;}    // P5: octave
     fc: {[key: number]: string;}    // P6: fret
     sc: {[key: number]: string;}    // P7: string
+    // text color:
+    pct: {[key: string]: string;}    // P1: position
+    ict: {[key: string]: string;}    // P2: interval
+    nct: {[key: string]: string;}    // P3: note without octave color
+    noct: {[key: string]: string;}   // P4: note with octave color
+    oct: {[key: number]: string;}    // P5: octave
+    fct: {[key: number]: string;}    // P6: fret
+    sct: {[key: number]: string;}    // P7: string
 }
+
+//
+// defaults:
+//
+// - fill white for root
+// - fill black for non-root
+// - stroke black
+// - no text
+//
 
 export function parseDotOptions(options: DotOptions): ParsedDotOptions {
 
     //TODO: define defaults dot colors
     const p : ParsedDotOptions = {
-        fill: "white",  // DEFAULT FILL COLOR
-        cross: true, css: "", fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, root: "", roots: "", sc: {}, show: null
+        show: null,
+        fill: "black",  // DEFAULT FILL COLOR
+        text: null,
+        root: "white",
+        roots: "",
+        cross: true,
+        css: "",
+        fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, sc: {},
+        fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {}
     };
 
     if (!options || (Object.keys(options).length === 0)) return p;
@@ -125,6 +152,9 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
     }
     if (options['fill']) {
         p.fill = options.fill;    //TODO: validate value
+    }
+    if (options['text']) {
+        p.text = options.text;    //TODO: validate value
     }
     if (options['css']) {
         p.css = options.css;    //TODO: validate value
@@ -157,36 +187,44 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
         for (let k of Object.keys(c)) {
             const v = c[k];
             if (!v) continue;
+            const [fillColor, textColor] = v.split(",");
             // console.log(k);
             for (let e of k.split(',')) {
                 if (e.indexOf('.') > 0) {                       //console.log(">> position", e);
-                    p.pc[e] = v;
+                    if (fillColor) p.pc[e] = fillColor;
+                    if (textColor) p.pct[e] = textColor;
                 } else if (e.match(/^[0-9]/)) {                 //console.log(">> interval", e);
-                    p.ic[e] = v;
+                    if (fillColor) p.ic[e] = fillColor;
+                    if (textColor) p.ict[e] = textColor;
                 } else if (e.match(/^[A-G][#b]?-?[0-9]/)) {     //console.log(">> note+octave", e);
-                    p.noc[e] = v;
+                    if (fillColor) p.noc[e] = fillColor;
+                    if (textColor) p.noct[e] = textColor;
                 } else if (e.match(/^[A-G]/)) {                 //console.log(">> note", e);
-                    p.nc[e] = v;
+                    if (fillColor) p.nc[e] = fillColor;
+                    if (textColor) p.nct[e] = textColor;
                 } else if (e.startsWith('o')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
                         console.error("!! invalid octave", e.substr(1))
                     } else {                                   //console.log(">> octave", n);
-                        p.oc[n] = v;
+                        if (fillColor) p.oc[e] = fillColor;
+                        if (textColor) p.oct[e] = textColor;
                     }
                 } else if (e.startsWith('s')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
                         console.error("!! invalid string", e.substr(1))
                     } else {                                   //console.log(">> string", n);
-                        p.sc[n] = v;
+                        if (fillColor) p.sc[e] = fillColor;
+                        if (textColor) p.sct[e] = textColor;
                     }
                 } else if (e.startsWith('f')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
                         console.error("!! invalid fret", e.substr(1))
                     } else {                                    //console.log(">> fret", n);
-                        p.fc[n] = v;
+                        if (fillColor) p.fc[e] = fillColor;
+                        if (textColor) p.fct[e] = textColor;
                     }
                 }
             }

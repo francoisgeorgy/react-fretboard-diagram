@@ -103,12 +103,12 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         return t;
     }
 
-    dot(string: number, fret: number, text: string, interval: string|null, note: string|null, fillcolor: string) {
+    dot(string: number, fret: number, text: string, interval: string|null, note: string|null, fillColor: string, textColor: string) {
 
         // let fill = 'white';     //TODO: configure this color
         let stroke = 'black';   //TODO: configure this color
         let dotStrokeColor = 'black';
-        let textColor = 'black';    //TODO: configure this color
+        // let textColor = 'black';    //TODO: configure this color
 
         switch (this.props.text) {
             case 'note':
@@ -147,16 +147,16 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
             <Fragment key={`${string}.${fret}`}>
                 <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.options.dotRadius}
                         className={`d n ${css}`}
-                        // strokeWidth={this.props.dotStroke()}
+                        strokeWidth={this.props.options.dotStroke}
                         stroke={dotStrokeColor}
-                        fill={fillcolor} />
-                <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
+                        fill={fillColor} />
+                {textColor && <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
                       alignmentBaseline="central"
                       className={`dt ${css}`}
                       textAnchor="middle"
                       fontSize={this.props.options.fontSize}
                       fill={textColor}
-                      >{text}</text>
+                      >{text}</text>}
             </Fragment>
         );
     }
@@ -186,7 +186,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
     render() {
 
-        console.log("ShapeHorizontal.render");
+        console.log("ShapeHorizontal.render", this.props.shape);
 
         const shape = this.props.shape;
 
@@ -230,6 +230,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     // sc: {[key: string]: string;}    // P7: string
 
                     let fillColor = opt.fill;
+                    let textColor = opt.text;
                     if (opt.pc[pos]) {             // P1: position
                         fillColor = opt.pc[pos];
                     } else if (opt.ic[interval]) {             // P2: interval
@@ -244,6 +245,24 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                         fillColor = opt.fc[f];
                     } else if (opt.sc[s]) {         // P7: string
                         fillColor = opt.sc[s];
+                    } else if (interval === '1P' && opt.root) {
+                        fillColor = opt.root;
+                    }
+
+                    if (opt.pct[pos]) {             // P1: position
+                        textColor = opt.pct[pos];
+                    } else if (opt.ict[interval]) {             // P2: interval
+                        textColor = opt.ict[interval];
+                    } else if (opt.nct[pc]) {            // P3: note without octave (pitch class) color
+                        textColor = opt.nct[pc];
+                    } else if (opt.noct[note]) {         // P4: note with octave color
+                        textColor = opt.noct[note];
+                    } else if (!isNaN(oct) && opt.oct[oct]) {         // P5: octave
+                        textColor = opt.oct[oct];
+                    } else if (opt.fct[f]) {         // P6: fret
+                        textColor = opt.fct[f];
+                    } else if (opt.sct[s]) {         // P7: string
+                        textColor = opt.sct[s];
                     }
 
                     e.push(
@@ -253,7 +272,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                             this.getText(s, f),
                             i ? i[f] : '',
                             n ? n[f] : '',
-                            fillColor
+                            fillColor,
+                            textColor
                         )
                     );
                 }

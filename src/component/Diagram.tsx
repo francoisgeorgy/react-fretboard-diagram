@@ -57,8 +57,10 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         shapes: null,
         debug: false,
         diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
-        dotOptions: null
-    };
+        dotOptions: null,
+        mouseClickHandler: null,
+        mouseMoveHandler: null
+};
 
     // constructor(props: DiagramProps) {
     //     super(props);
@@ -158,14 +160,14 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
     };
 
     onMouseClick = (e: React.MouseEvent) => {
-        if (typeof this.props.mouseClickHandler !== "function") return;
+        if (!this.props.mouseClickHandler || typeof this.props.mouseClickHandler !== "function") return;
         let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
         if (!sf) return;
         this.props.mouseClickHandler(sf.string, sf.fret, e);
     };
 
     onMouseMove = (e: React.MouseEvent) => {
-        if (typeof this.props.mouseMoveHandler !== "function") return;
+        if (!this.props.mouseMoveHandler || typeof this.props.mouseMoveHandler !== "function") return;
         let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
         if (!sf) return;
         this.props.mouseMoveHandler(sf.string, sf.fret, e);

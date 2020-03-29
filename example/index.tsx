@@ -9,6 +9,7 @@ import {TwitterPicker} from 'react-color';
 
 
 import "./main.css";
+import {ExampleDefaults} from "./ExampleDefaults";
 
 function getDefaultDotOptions(): DotOptions {
     return {
@@ -79,6 +80,9 @@ const App = () => {
 
     return (
         <div>
+            <div className="w200">
+                <ExampleDefaults/>
+            </div>
             <div className="row">
                 <div>Interval</div>
                 {"C C# Db D D# Eb E F F# Gb G G# Ab A A# Bb B".split(' ').map((n,i) =>
