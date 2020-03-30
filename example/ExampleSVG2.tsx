@@ -1,23 +1,23 @@
 import * as React from 'react';
 
-export const ExampleSVG = () => {
+export const ExampleSVG2 = () => {
     return (
-        <svg xheight="162" xwidth="147" width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 147 162">
+        <svg xheight="162" xwidth="147" width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 294 324">
 
-            <path fill="none" stroke="#444444" d="M20,36L20,130"/>
-            <path fill="none" stroke="#444444" d="M47,36L47,130"/>
-            <path fill="none" stroke="#444444" d="M74,36L74,130"/>
-            <path fill="none" stroke="#444444" d="M101,36L101,130"/>
-            <path fill="none" stroke="#444444" d="M128,36L128,130"/>
-            <path fill="none" stroke="#444444" d="M20,36L128,36"/>
+            <path fill="none" stroke="#444444" d="M40,72L40,260" strokeWidth="1" />
+            <path fill="none" stroke="#444444" d="M94,72L94,260" strokeWidth="2" />
+            <path fill="none" stroke="#444444" d="M148,72L148,260" strokeWidth="3" />
+            <path fill="none" stroke="#444444" d="M202,72L202,260" strokeWidth="4" />
+            <path fill="none" stroke="#444444" d="M256,72L256,260" strokeWidth="5" />
 
-            <path fill="none" stroke="#444444" d="M20,54.8L128,54.8"/>
-            <path fill="none" stroke="#444444" d="M20,73.6L128,73.6"/>
-            <path fill="none" stroke="#444444" d="M20,92.4L128,92.4"/>
-            <path fill="none" stroke="#444444" d="M20,111.2L128,111.2"/>
-            <path fill="none" stroke="#444444" d="M20,130L128,130"/>
+            <path fill="none" stroke="#444444" d="M40,72L256,72" strokeWidth="1" />
+            <path fill="none" stroke="red" d="M40,110L256,110" strokeWidth="2" />
+            <path fill="none" stroke="blue" d="M40,148L256,148" strokeWidth="3" />
+            <path fill="none" stroke="#444444" d="M40,184L256,184" strokeWidth="4" />
+            <path fill="none" stroke="#444444" d="M40,222L256,222" strokeWidth="5" />
+            <path fill="none" stroke="green" d="M40,260L256,260" strokeWidth="6" />
 
-            <rect x="16" y="36" width="4" height="94" rx="0" ry="0" fill="#444444" stroke="#444444"/>
+            <rect x="32" y="72" width="8" height="188" rx="0" ry="0" fill="#444444" stroke="#444444"/>
 
             <path fill="none" stroke="#444444" d="M1,125L11,135" />
             <path fill="none" stroke="#444444" d="M11,125L1,135" />

@@ -32,6 +32,7 @@ export interface DiagramProps {     //TODO: define correct types
     fretNumbers: any;
     fretNumbersPosition: any;
     shapes: any;
+    shapesDotOptions: any;
     debug: any;
     diagramOptions: DiagramOptions;
     dotOptions: DotOptions; // will be passed to the Shapes; will not be used by the Diagram itself.
@@ -55,6 +56,7 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         tuning: FretboardAPI.Tuning.guitar.standard,
         // tuning: [],
         shapes: null,
+        shapesDotOptions: null,
         debug: false,
         diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
         dotOptions: null,
@@ -196,22 +198,30 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         //FIXME: pass dotOptions to Shape
 
         return (
-            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#eeeeee"}} preserveAspectRatio='xMinYMin meet' width='100%'
+            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#ffffff"}} preserveAspectRatio='xMinYMin meet' width='100%'
                  className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
                 <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramOptions={this.props.diagramOptions} />
                 {
                     this.props.shapes &&
-                    this.props.shapes.map((shape: any, index: number) =>
-                        <ShapeHorizontal key={index}
+                    this.props.shapes.map((shape: any, index: number) => {
+
+                        let opt = Object.assign({}, this.props.dotOptions);
+                        if (this.props.shapesDotOptions && this.props.shapesDotOptions[index]) {
+                            Object.assign(opt, this.props.shapesDotOptions[index]);
+                        }
+
+                        return (
+                            <ShapeHorizontal key={index}
                                shape={FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape))}
                                strings={strings}
                                orientation={this.props.orientation}
                                text={this.props.text}
                                options={this.props.diagramOptions}
-                               dotOptions={this.props.dotOptions}
+                               dotOptions={opt}
                                fretToX={this.x} stringToY={this.y} />
-                    )
+                        );
+                    })
                 }
                 {(this.props.fretNumbers !== 'none') &&
                 <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} options={this.props.diagramOptions} />}

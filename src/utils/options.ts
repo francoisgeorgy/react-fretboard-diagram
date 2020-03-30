@@ -45,20 +45,20 @@ export interface DiagramOptions extends FretboardOptions, SVGOptions {
 export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     paddingHigh: 70,    // make room for fret numbers
     paddingLow: 30,
-    paddingHead: 80,
+    paddingHead: 70,
     paddingBody: 15,
-    stringInterval: 60,
-    stringWidth: 6,
-    fretInterval: 100,
-    fretWidth: 4,
+    stringInterval: 50,
+    stringWidth: 3,
+    fretInterval: 80,
+    fretWidth: 3,
     fretNumberDistance: 30,
     fretNumberFontSize: 24,
-    dotIn: 50,
+    dotIn: 40,
     dotOut: 40,
-    dotRadius: 24,
-    dotStroke: 6,
+    dotRadius: 20,
+    dotStroke: 4,
     crossLinecap: "round",
-    crossStroke: 8,
+    crossStroke: 4,
     fontSize: 25
 };
 
