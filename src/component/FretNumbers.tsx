@@ -38,7 +38,9 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
                          x={opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2}
                          y={opts.paddingHigh - opts.fretNumberDistance}
                          fontSize={opts.fretNumberFontSize}
-                         // stroke={this.props.options.fretNumberColor}
+                         fontFamily={opts.fretNumberFontFamily}
+                         fill={opts.fretNumberColor}
+                         // stroke={opts.fretNumberColor}
                          className="fretboard-fret-number">{arabToRoman(startAt + i)}</text>);
         }
         return <g className="fretboard-fret-number-group">{s}</g>;

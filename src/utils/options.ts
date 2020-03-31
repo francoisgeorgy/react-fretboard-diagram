@@ -1,13 +1,5 @@
 import Assert from "assert-js";
 
-export interface SVGOptions {
-    dotRadius: number,
-    // dotStroke: number,
-    fontSize: number,
-    crossStroke: number,
-    crossLinecap: "round"
-}
-
 /**
  * Default SVG styles
  */
@@ -29,19 +21,32 @@ export interface FretboardOptions {
     paddingHead: number;
     stringInterval: number;
     stringWidth: number;
+    stringColor: string;
     fretInterval: number;
     fretWidth: number;
+    fretColor: string;
     fretNumberDistance: number;
     fretNumberFontSize: number;
+    fretNumberFontFamily: string;
+    fretNumberColor: string;
+    inlays: boolean;
+    inlaysShape: "dot"|"square"|"triangle"|"trapeze";   // gibson|fender|ibanez|jackson...
+    inlaysColor: string;
 }
 
 // FretboardOptions + Dots & Crosses
-export interface DiagramOptions extends FretboardOptions, SVGOptions {
+export interface DiagramOptions extends FretboardOptions {
     dotIn: number;
     dotOut: number;
     dotStroke: number;
+    dotRadius: number;
+    fontSize: number;
+    crossStroke: number;
+    crossLinecap: "round";  // TODO: define other option values
 }
 
+//TODO: replace with DIAGRAM_DEFAULTS
+/*
 export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     paddingHigh: 70,    // make room for fret numbers
     paddingLow: 30,
@@ -59,9 +64,18 @@ export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     dotStroke: 4,
     crossLinecap: "round",
     crossStroke: 4,
-    fontSize: 25
-    //TODO: add inlays: true|false
+    fontSize: 25,
+
+    fretColor: "",
+    fretNumberColor: "",
+    fretNumberFontFamily: "",
+    inlays: false,
+    inlaysColor: "",
+    inlaysShape: "dot",
+    stringColor: ""
+    //TODO: add fret number roman|arab
 };
+*/
 
 export interface xMappingFunction {
     (fret: number): number;
@@ -81,10 +95,15 @@ export interface DotOptions {
     root?: string;
     roots?: string;
     fill?: string;
+    stroke?: string;
     text?: string;      // default text color
+    textfontFamily?: string;      // default text color
+    textfontSize?: number;      // default text color
+    textFontWeight?: string;
+    //TODO: add text font family
     css?: string;
     colors?: {
-        [key: string]: string;  // value is one or two colors: "<fill-color>[,<text-color>]"
+        [key: string]: string;  // value is one or two colors: "<fill-color>[,<text-color>][,<stroke-color>]"
     }
 }
 
@@ -97,7 +116,11 @@ export interface ParsedDotOptions {
     root: string;       // color of the strings
     roots: string;      // color of the frets
     fill: string;       // default fill color
+    stroke: string;       // default stroke color
     text: string|null;       // default text color  if null text is not displayed
+    textFontFamily: string|null;       // default text color  if null text is not displayed
+    textFontSize: number|null;       // default text color  if null text is not displayed
+    textFontWeight: string|null;
     css: string;
     // fill color:
     pc: {[key: string]: string;}    // P1: position
@@ -115,6 +138,14 @@ export interface ParsedDotOptions {
     oct: {[key: number]: string;}    // P5: octave
     fct: {[key: number]: string;}    // P6: fret
     sct: {[key: number]: string;}    // P7: string
+    // stroke color:
+    pcs: {[key: string]: string;}    // P1: position
+    ics: {[key: string]: string;}    // P2: interval
+    ncs: {[key: string]: string;}    // P3: note without octave color
+    nocs: {[key: string]: string;}   // P4: note with octave color
+    ocs: {[key: number]: string;}    // P5: octave
+    fcs: {[key: number]: string;}    // P6: fret
+    scs: {[key: number]: string;}    // P7: string
 }
 
 //
@@ -132,13 +163,18 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
     const p : ParsedDotOptions = {
         show: null,
         fill: "black",  // DEFAULT FILL COLOR
+        stroke: "black",
         text: null,
+        textFontFamily: "sans-serif",
+        textFontSize: 14,
+        textFontWeight: "bold",
         root: "white",
         roots: "",
         cross: true,
         css: "",
-        fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, sc: {},
-        fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {}
+        fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, sc: {},            // fill
+        fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {},     // text
+        fcs: {}, ics: {}, ncs: {}, nocs: {}, ocs: {}, pcs: {}, scs: {}      // stroke
     };
 
     if (!options || (Object.keys(options).length === 0)) return p;
@@ -188,21 +224,25 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
         for (let k of Object.keys(c)) {
             const v = c[k];
             if (!v) continue;
-            const [fillColor, textColor] = v.split(",");
+            const [fillColor, textColor, strokeColor] = v.split(",");
             // console.log(k);
             for (let e of k.split(',')) {
                 if (e.indexOf('.') > 0) {                       //console.log(">> position", e);
                     if (fillColor) p.pc[e] = fillColor;
                     if (textColor) p.pct[e] = textColor;
+                    if (strokeColor) p.pcs[e] = strokeColor;
                 } else if (e.match(/^[0-9]/)) {                 //console.log(">> interval", e);
                     if (fillColor) p.ic[e] = fillColor;
                     if (textColor) p.ict[e] = textColor;
+                    if (strokeColor) p.ics[e] = strokeColor;
                 } else if (e.match(/^[A-G][#b]?-?[0-9]/)) {     //console.log(">> note+octave", e);
                     if (fillColor) p.noc[e] = fillColor;
                     if (textColor) p.noct[e] = textColor;
+                    if (strokeColor) p.nocs[e] = strokeColor;
                 } else if (e.match(/^[A-G]/)) {                 //console.log(">> note", e);
                     if (fillColor) p.nc[e] = fillColor;
                     if (textColor) p.nct[e] = textColor;
+                    if (strokeColor) p.ncs[e] = strokeColor;
                 } else if (e.startsWith('o')) {
                     const n = parseInt(e.substr(1), 10);
                     if (isNaN(n)) {
@@ -210,6 +250,7 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
                     } else {                                   //console.log(">> octave", n);
                         if (fillColor) p.oc[e] = fillColor;
                         if (textColor) p.oct[e] = textColor;
+                        if (strokeColor) p.ocs[e] = strokeColor;
                     }
                 } else if (e.startsWith('s')) {
                     const n = parseInt(e.substr(1), 10);
@@ -218,6 +259,7 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
                     } else {                                   //console.log(">> string", n);
                         if (fillColor) p.sc[e] = fillColor;
                         if (textColor) p.sct[e] = textColor;
+                        if (strokeColor) p.scs[e] = strokeColor;
                     }
                 } else if (e.startsWith('f')) {
                     const n = parseInt(e.substr(1), 10);
@@ -226,6 +268,7 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
                     } else {                                    //console.log(">> fret", n);
                         if (fillColor) p.fc[e] = fillColor;
                         if (textColor) p.fct[e] = textColor;
+                        if (strokeColor) p.fcs[e] = strokeColor;
                     }
                 }
             }

@@ -5,12 +5,12 @@ import * as FretboardAPI from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 import ShapeHorizontal from "./ShapeHorizontal";
 import {
-    DEFAULT_DIAGRAM_OPTIONS,
     DiagramOptions,
     height,
     DotOptions, width,
     xMappingFunction, yMappingFunction
 } from "../utils/options";
+import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_BW} from "../options/presentation";
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
@@ -57,7 +57,7 @@ export class Diagram extends React.Component<DiagramProps> {
         debug: false,
         // diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
         diagramOptions: null,   // defaults will be assigned in render
-        dotOptions: null,
+        dotOptions: DOT_DEFAULTS_BW,
         mouseClickHandler: null,
         mouseMoveHandler: null
     };
@@ -70,7 +70,7 @@ export class Diagram extends React.Component<DiagramProps> {
     //         style: new diagramOptions(this.props.diagramOptions)
     //     }
 
-        this.dOpt = Object.assign({}, DEFAULT_DIAGRAM_OPTIONS);
+        this.dOpt = Object.assign({}, DIAGRAM_DEFAULTS);
         if (this.props.diagramOptions) {
             Object.assign(this.dOpt, this.props.diagramOptions);
         }
@@ -204,9 +204,13 @@ export class Diagram extends React.Component<DiagramProps> {
         //FIXME: pass dotOptions to Shape
 
         return (
-            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" Xstyle={{backgroundColor:"#ffffff"}} preserveAspectRatio='xMinYMin meet' width='100%'
-                 className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox={box} preserveAspectRatio='xMinYMin meet' width='100%'
+                 className={this.props.className}
+                 onClick={this.onMouseClick}
+                 onMouseMove={this.onMouseMove}>
+
                 {this.props.debug && <DebugGrid />}
+
                 <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramOptions={this.dOpt} />
                 {
                     this.props.shapes &&

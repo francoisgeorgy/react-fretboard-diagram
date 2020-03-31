@@ -1,8 +1,16 @@
 import * as React from "react";
 import {Diagram} from "../src/component/Diagram";
+import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_COLOR} from "../src/options/presentation";
 
 export const ExampleDiagramOptions = () => {
+
     // @ts-ignore
+    return <Diagram shapes={["X02220"]}
+                    diagramOptions={DIAGRAM_DEFAULTS}
+                    dotOptions={DOT_DEFAULTS_COLOR}
+    />
+
+/*
     return <Diagram shapes={["X02220"]}
                     diagramOptions={{
                         crossLinecap: "round",
@@ -38,4 +46,6 @@ export const ExampleDiagramOptions = () => {
                         text: "#000000"
                     }}
             />
+*/
+
 };

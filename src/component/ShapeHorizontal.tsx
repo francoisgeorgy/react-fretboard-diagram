@@ -2,7 +2,8 @@ import React, {Fragment} from "react";
 import {Interval, Note} from "tonal";
 import {Utils} from "fretboard-api";
 import {ShapeProps} from "./Shape";
-import {DEFAULT_DIAGRAM_OPTIONS, parseDotOptions} from "../utils/options";
+import {parseDotOptions} from "../utils/options";
+import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_BW} from "../options/presentation";
 
 /*
 export interface ShapeProps {
@@ -28,8 +29,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         fret: -1,
         // diagramStyle: {},
         text: 'note',
-        options: DEFAULT_DIAGRAM_OPTIONS,
-        dotOptions: null
+        options: DIAGRAM_DEFAULTS,
+        dotOptions: DOT_DEFAULTS_BW
     };
 
     // TODO: check that 'frets', 'intervals', 'fingers', ... arrays have the same structure and lengths.
@@ -103,11 +104,14 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         return t;
     }
 
-    dot(string: number, fret: number, text: string, interval: string|null, note: string|null, fillColor: string, textColor: string) {
+    dot(string: number, fret: number, text: string, interval: string|null, note: string|null,
+        fillColor: string, strokeColor: string,
+        textColor: string|null,     // if null no text is displayed
+        textFontFamily: string|null, textFontSize: number|null, textFontWeight: string|null) {
 
         // let fill = 'white';     //TODO: configure this color
-        let stroke = 'black';   //TODO: configure this color
-        let dotStrokeColor = 'black';
+        // let stroke = 'black';   //TODO: configure this color
+        // let dotStrokeColor = 'black';
         // let textColor = 'black';    //TODO: configure this color
 
         switch (this.props.text) {
@@ -150,16 +154,17 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                 <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.options.dotRadius}
                         className={`d n ${css}`}
                         strokeWidth={this.props.options.dotStroke}
-                        stroke={dotStrokeColor}
+                        stroke={strokeColor}
                         fill={fillColor} />
-                {textColor && <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
+                {textColor &&
+                <text x={this.props.fretToX(fret)} y={this.props.stringToY(string)}
                       alignmentBaseline="central"
                       className={`dt ${css}`}
                       textAnchor="middle"
-                      fontFamily="sans-serif"
-                                    fontWeight="bold"
-                      fontSize={this.props.options.fontSize}
-                      fill={textColor}
+                      fontFamily={textFontFamily ? textFontFamily : undefined}
+                      fontWeight={textFontWeight ? textFontWeight : undefined}
+                      fontSize={textFontSize ? textFontSize : undefined}
+                      fill={textColor ? textColor : undefined}
                       >{text}</text>}
             </Fragment>
         );
@@ -214,9 +219,13 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                 let i = shape.intervals[s]; // ? shape.intervals[s] : null;     // ["1P"]
                 let n = shape.notes[s]; // ? shape.notes[s] : null;             // ["C3"]
 
-                //TODO: check this: i and n should never be null
-
                 for (let f = 0; f < frets.length; f++) {    // for each fret
+
+                    //TODO: check this: i and n should never be null
+                    if (i === null) {
+                        console.error(`shape.intervals[${s}}] is null`);
+                        continue;
+                    }
 
                     const interval = i[f] || '';    //TODO: remove the empty string default when i is garanted to be not null
                     const note = n[f] || '';
@@ -235,6 +244,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
                     let fillColor = opt.fill;
                     let textColor = opt.text;
+                    let strokeColor = opt.stroke;
                     if (opt.pc[pos]) {             // P1: position
                         fillColor = opt.pc[pos];
                     } else if (opt.ic[interval]) {             // P2: interval
@@ -271,6 +281,22 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                         textColor = opt.sct[s];
                     }
 
+                    if (opt.pcs[pos]) {             // P1: position
+                        strokeColor = opt.pcs[pos];
+                    } else if (opt.ics[interval]) {             // P2: interval
+                        strokeColor = opt.ics[interval];
+                    } else if (opt.ncs[pc]) {            // P3: note without octave (pitch class) color
+                        strokeColor = opt.ncs[pc];
+                    } else if (opt.nocs[note]) {         // P4: note with octave color
+                        strokeColor = opt.nocs[note];
+                    } else if (!isNaN(oct) && opt.ocs[oct]) {         // P5: octave
+                        strokeColor = opt.ocs[oct];
+                    } else if (opt.fcs[f]) {         // P6: fret
+                        strokeColor = opt.fcs[f];
+                    } else if (opt.scs[s]) {         // P7: string
+                        strokeColor = opt.scs[s];
+                    }
+
                     console.log("ShapeHorizontal.render", interval, note, pc, oct, pos);
 
                     e.push(
@@ -281,7 +307,11 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                             i ? i[f] : '',
                             n ? n[f] : '',
                             fillColor,
-                            textColor
+                            strokeColor,
+                            textColor,
+                            opt.textFontFamily,
+                            opt.textFontSize,
+                            opt.textFontWeight
                         )
                     );
                 }
