@@ -1,4 +1,4 @@
-import Diagram from "../src/component/Diagram";
+import {Diagram} from "../src/component/Diagram";
 import * as React from "react";
 
 export const ExampleCAGED = () => {

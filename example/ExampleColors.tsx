@@ -1,11 +1,10 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import Diagram from "../src/component/Diagram";
 import {DotOptions, parseDotOptions} from "../src/utils/options";
 import {useCallback, useState} from "react";
 import {useImmer} from "use-immer";
 import {TwitterPicker} from 'react-color';
+import {Diagram} from "../src/component/Diagram";
 
 function getDefaultDotOptions(): DotOptions {
     return {

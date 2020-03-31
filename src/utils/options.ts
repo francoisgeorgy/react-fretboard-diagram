@@ -45,7 +45,7 @@ export interface DiagramOptions extends FretboardOptions, SVGOptions {
 export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     paddingHigh: 70,    // make room for fret numbers
     paddingLow: 30,
-    paddingHead: 70,
+    paddingHead: 70,    // set same as fretInterval
     paddingBody: 15,
     stringInterval: 50,
     stringWidth: 3,
@@ -53,13 +53,14 @@ export const DEFAULT_DIAGRAM_OPTIONS: DiagramOptions = {
     fretWidth: 3,
     fretNumberDistance: 30,
     fretNumberFontSize: 24,
-    dotIn: 40,
+    dotIn: 40,  //TODO: compute automatically if not defined? fretInterval/2
     dotOut: 40,
     dotRadius: 20,
     dotStroke: 4,
     crossLinecap: "round",
     crossStroke: 4,
     fontSize: 25
+    //TODO: add inlays: true|false
 };
 
 export interface xMappingFunction {

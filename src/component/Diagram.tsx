@@ -1,18 +1,13 @@
 import React from "react";
 import Fretboard from "./Fretboard";
-import Shape from "./Shape";
 import DebugGrid from "./DebugGrid";
-// import diagramOptions from "../utils/diagramOptions";
-// import {Fretboard as F, Shape as S} from "fretboard-api/types/fretboard-api";
-// import {Tuning, Shape as S, Fretboard as F} from "fretboard-api";
 import * as FretboardAPI from "fretboard-api";
 import FretNumbers from "./FretNumbers";
 import ShapeHorizontal from "./ShapeHorizontal";
-import ShapeVertical from "./ShapeVertical";
 import {
     DEFAULT_DIAGRAM_OPTIONS,
     DiagramOptions,
-    FretboardOptions, height,
+    height,
     DotOptions, width,
     xMappingFunction, yMappingFunction
 } from "../utils/options";
@@ -38,11 +33,13 @@ export interface DiagramProps {     //TODO: define correct types
     dotOptions: DotOptions; // will be passed to the Shapes; will not be used by the Diagram itself.
 }
 
+/*
 export interface DiagramState {
     // style: diagramOptions
 }
+*/
 
-export default class Diagram extends React.Component<DiagramProps, DiagramState> {
+export class Diagram extends React.Component<DiagramProps> {
 
     static defaultProps = {
         classname: '',
@@ -58,34 +55,43 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         shapes: null,
         shapesDotOptions: null,
         debug: false,
-        diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
+        // diagramOptions: DEFAULT_DIAGRAM_OPTIONS,
+        diagramOptions: null,   // defaults will be assigned in render
         dotOptions: null,
         mouseClickHandler: null,
         mouseMoveHandler: null
-};
+    };
 
-    // constructor(props: DiagramProps) {
-    //     super(props);
+    private readonly dOpt: any;
+
+    constructor(props: DiagramProps) {
+        super(props);
     //     this.state = {
     //         style: new diagramOptions(this.props.diagramOptions)
     //     }
-    // }
+
+        this.dOpt = Object.assign({}, DEFAULT_DIAGRAM_OPTIONS);
+        if (this.props.diagramOptions) {
+            Object.assign(this.dOpt, this.props.diagramOptions);
+        }
+
+    }
 
     // s: any = null;   //TODO: get rid of this variable
 
     x: xMappingFunction = (fret: number): number => {
         return fret === 0
-            ? this.props.diagramOptions.paddingHead - this.props.diagramOptions.dotOut + this.props.diagramOptions.fretWidth / 2
-            : this.props.diagramOptions.paddingHead + ((fret - 1) * this.props.diagramOptions.fretInterval) + (this.props.diagramOptions.fretInterval - this.props.diagramOptions.dotIn) + this.props.diagramOptions.fretWidth / 2;
+            ? this.dOpt.paddingHead - this.dOpt.dotOut + this.dOpt.fretWidth / 2
+            : this.dOpt.paddingHead + ((fret - 1) * this.dOpt.fretInterval) + (this.dOpt.fretInterval - this.dOpt.dotIn) + this.dOpt.fretWidth / 2;
     };
 
     y: yMappingFunction = (string: number): number => {
-        return this.props.diagramOptions.paddingHigh + (string * this.props.diagramOptions.stringInterval) + this.props.diagramOptions.stringWidth / 2;
+        return this.dOpt.paddingHigh + (string * this.dOpt.stringInterval) + this.dOpt.stringWidth / 2;
     };
 
     getStringFretFromMouseEvent = (event: React.MouseEvent, strings: number, frets: number) => {
 
-        const opts = this.props.diagramOptions;
+        const opts = this.dOpt;
 
         // console.log(`paddingHigh=${this.paddingHigh}, s=${this.props.strings}, interval=${this.stringInterval}, bottom=${this.paddingHigh + ((this.props.strings - 1) * this.stringInterval)}`);
 
@@ -181,8 +187,8 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
 
         let strings = this.props.tuning.length;
 
-        const w = width(this.props.frets, this.props.diagramOptions);
-        const h = height(strings, this.props.diagramOptions);
+        const w = width(this.props.frets, this.dOpt);
+        const h = height(strings, this.dOpt);
         let box;
         switch (this.props.orientation) {
             case 'horizontal':
@@ -198,10 +204,10 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
         //FIXME: pass dotOptions to Shape
 
         return (
-            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" style={{backgroundColor:"#ffffff"}} preserveAspectRatio='xMinYMin meet' width='100%'
+            <svg viewBox={box} xmlns="http://www.w3.org/2000/svg" Xstyle={{backgroundColor:"#ffffff"}} preserveAspectRatio='xMinYMin meet' width='100%'
                  className={this.props.className} onClick={this.onMouseClick} onMouseMove={this.onMouseMove} >
                 {this.props.debug && <DebugGrid />}
-                <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramOptions={this.props.diagramOptions} />
+                <Fretboard strings={strings} frets={this.props.frets} orientation={this.props.orientation} diagramOptions={this.dOpt} />
                 {
                     this.props.shapes &&
                     this.props.shapes.map((shape: any, index: number) => {
@@ -217,14 +223,14 @@ export default class Diagram extends React.Component<DiagramProps, DiagramState>
                                strings={strings}
                                orientation={this.props.orientation}
                                text={this.props.text}
-                               options={this.props.diagramOptions}
+                               options={this.dOpt}
                                dotOptions={opt}
                                fretToX={this.x} stringToY={this.y} />
                         );
                     })
                 }
                 {(this.props.fretNumbers !== 'none') &&
-                <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} options={this.props.diagramOptions} />}
+                <FretNumbers frets={this.props.frets} startAt={1} orientation={this.props.orientation} options={this.dOpt} />}
             </svg>
         )
     }

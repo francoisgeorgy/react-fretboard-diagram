@@ -98,9 +98,9 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
         // We draw the strings on top of the frets.
         return (
             <g>
-                <path fill="none" stroke="#444444" strokeWidth={this.props.diagramOptions.fretWidth} className="fretboard-fret"
+                <path fill="none" stroke="#424242" strokeWidth={this.props.diagramOptions.fretWidth} className="fretboard-fret"
                       d={this.getFretsPath(this.props.strings, this.props.frets, this.props.orientation)} />
-                <path fill="none" stroke="#444444" strokeWidth={this.props.diagramOptions.stringWidth} className="fretboard-string"
+                <path fill="none" stroke="#424242" strokeWidth={this.props.diagramOptions.stringWidth} className="fretboard-string"
                       d={this.getStringsPath(this.props.strings, this.props.frets, this.props.orientation)} />
             </g>
         );

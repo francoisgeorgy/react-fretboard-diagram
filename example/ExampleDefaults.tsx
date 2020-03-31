@@ -1,5 +1,5 @@
-import Diagram from "../src/component/Diagram";
 import * as React from "react";
+import {Diagram} from "../src/component/Diagram";
 
 export const ExampleDefaults = () => {
     return <>

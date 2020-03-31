@@ -143,6 +143,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         const r = interval ? (Interval.ic(interval) === 0 ? 'r' : '') : '';     // .r   root note
         const css = `f-${fret} s-${string} ${interval ? `i-${interval}` : ''} ${note ? `no-${note}` : ''} ${nn} ${o} ${nm} ${r} ${this.props.className}`;
 
+        console.log("dot", nm, o, nn, r);
+
         return (
             <Fragment key={`${string}.${fret}`}>
                 <circle cx={this.props.fretToX(fret)} cy={this.props.stringToY(string)} r={this.props.options.dotRadius}
@@ -154,6 +156,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                       alignmentBaseline="central"
                       className={`dt ${css}`}
                       textAnchor="middle"
+                      fontFamily="sans-serif"
+                                    fontWeight="bold"
                       fontSize={this.props.options.fontSize}
                       fill={textColor}
                       >{text}</text>}
@@ -194,7 +198,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
         const opt = parseDotOptions(this.props.dotOptions);
 
-        // console.log("ShapeHorizontal.render opt", opt);
+        console.log("ShapeHorizontal.render opt", opt);
 
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
@@ -218,7 +222,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     const note = n[f] || '';
                     const pc = Note.pc(note) || '';   // pitch class: C4 --> C
                     const oct = Note.oct(note) || Number.NaN;   // pitch class: C4 --> C
-                    const pos = `[${s}.${f}]`;
+                    const pos = `[${s}.${frets[f]}]`;
                     // console.log('i, n:', interval, note);
 
                     // pc: {[key: string]: string;}    // P1: position
@@ -247,6 +251,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                         fillColor = opt.sc[s];
                     } else if (interval === '1P' && opt.root) {
                         fillColor = opt.root;
+                    } else if (Interval.chroma(interval) === 0 && opt.roots) {
+                        fillColor = opt.roots;
                     }
 
                     if (opt.pct[pos]) {             // P1: position
@@ -264,6 +270,8 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     } else if (opt.sct[s]) {         // P7: string
                         textColor = opt.sct[s];
                     }
+
+                    console.log("ShapeHorizontal.render", interval, note, pc, oct, pos);
 
                     e.push(
                         this.dot(

@@ -8,11 +8,12 @@ import {ExampleSVG} from "./ExampleSVG";
 import {ExampleSVG2} from "./ExampleSVG2";
 import {ExampleSizes} from "./ExampleSizes";
 import {ExampleCAGED} from "./ExampleCAGED";
+import {ExampleDiagramOptions} from "./ExampleDiagramOptions";
 
 const App = () => {
 
     return (
-        <div>
+        <div style={{backgroundColor:"#f5f4ee"}}>
 {/*
             <div className="w600">
                 <ExampleSVG/>
@@ -21,8 +22,22 @@ const App = () => {
                 <ExampleDefaults/>
             </div>
 */}
+{/*
             <div className="w600">
                 <ExampleCAGED/>
+            </div>
+*/}
+            <div style={{width:"200px"}}>
+                <ExampleDiagramOptions />
+            </div>
+            <div style={{width:"300px"}}>
+                <ExampleDiagramOptions />
+            </div>
+            <div style={{width:"400px"}}>
+                <ExampleDiagramOptions />
+            </div>
+            <div style={{width:"800px"}}>
+                <ExampleDiagramOptions />
             </div>
 {/*
             <div className="w600">
