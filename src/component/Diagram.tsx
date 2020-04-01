@@ -249,7 +249,7 @@ export class Diagram extends React.Component<DiagramProps> {
                 {/*
                     INLAYS:
                 */}
-                {/* this.dOpt.inlays && <Inlays string={strings} fret={this.props.frets} /> */}
+                {/*{this.dOpt.inlays && <Inlays strings={strings} fromFret={this.fromFret} toFret={this.toFret} orientation={this.props.orientation} diagramOptions={this.dOpt} />}*/}
 
                 {/*
                     FRETS & STRING:
