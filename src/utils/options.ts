@@ -97,8 +97,8 @@ export interface DotOptions {
     fill?: string;
     stroke?: string;
     text?: string;      // default text color
-    textfontFamily?: string;      // default text color
-    textfontSize?: number;      // default text color
+    textFontFamily?: string;      // default text color
+    textFontSize?: number;      // default text color
     textFontWeight?: string;
     //TODO: add text font family
     css?: string;

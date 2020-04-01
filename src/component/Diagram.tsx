@@ -49,7 +49,7 @@ export class Diagram extends React.Component<DiagramProps> {
         stringsProportional: false,
         frets: "auto",
         fretNumbers: "latin",
-        fretNumbersPosition: "top",
+        fretNumbersPosition: "bottom",
         // text: 'note',
         tuning: FretboardAPI.Tuning.guitar.standard,
         // tuning: [],
@@ -211,6 +211,7 @@ export class Diagram extends React.Component<DiagramProps> {
     render() {
 
         // console.log('Diagram render', style, this.props.shapes);
+        console.log('Diagram render', this.props);
 
         let strings = this.props.tuning.length;
 
@@ -300,7 +301,7 @@ export class Diagram extends React.Component<DiagramProps> {
                     })
                 */}
                 {(this.props.fretNumbers !== "none") &&
-                <FretNumbers fromFret={this.fromFret} toFret={this.toFret} position={this.props.fretNumbersPosition} orientation={this.props.orientation} options={this.dOpt} />}
+                <FretNumbers strings={strings} fromFret={this.fromFret} toFret={this.toFret} position={this.props.fretNumbersPosition} orientation={this.props.orientation} options={this.dOpt} />}
             </svg>
         )
     }

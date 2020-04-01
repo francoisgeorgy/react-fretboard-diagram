@@ -9,13 +9,13 @@ export const DIAGRAM_DEFAULTS: DiagramOptions = {       // used by default in Di
     dotStroke: 2,
     fontSize: 14,
     fretInterval: 55,
-    fretNumberDistance: 10,   // check
+    fretNumberDistance: 35,   // check
     fretNumberFontSize: 24,   // check
     fretWidth: 2,
     paddingBody: 15, // check
     paddingHead: 55,
-    paddingHigh: 70,  // check
-    paddingLow: 30,   // check
+    paddingHigh: 30,  // check
+    paddingLow: 40,   // check
     stringInterval: 34,
     stringWidth: 2,
 
@@ -43,8 +43,8 @@ export const DOT_DEFAULTS_COLOR: DotOptions = {
     show: "interval",
     text: "#000000",
     textFontWeight: "bold",
-    textfontFamily: "sans-serif",
-    textfontSize: 14
+    textFontFamily: "sans-serif",
+    textFontSize: 14
 };
 
 export const DOT_DEFAULTS_BW: DotOptions = {        // used by default in Shape
