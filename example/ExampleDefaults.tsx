@@ -7,6 +7,6 @@ export const ExampleDefaults = () => {
         <Diagram shapes={["X02220"]} />
         <Diagram shapes={["133211"]} />
 */}
-        <Diagram shapes={["8 10, 7 8 10, 7 9 10, 7 9 10, 8 10, 7 8"]} frets={8} />
+        <Diagram shapes={["8 10, 7 8 10, 7 9 10, 7 9 10, 8 10, 7 8"]} frets={"auto"} />
     </>
 };

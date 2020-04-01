@@ -10,7 +10,7 @@ function arabToRoman(a: number): string {
 export interface FretNumbersProps {
     fromFret: number;
     toFret: number;
-    startAt: number;
+    position: "top"|"bottom";
     orientation: string;
     options: DiagramOptions;
 }
@@ -35,6 +35,7 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
 
         let s = [];
         for (let i=0; i < (this.props.toFret - this.props.fromFret + 1); i++) {
+            console.log("fret number position", i, opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2, opts.paddingHigh - opts.fretNumberDistance);
             s.push(<text key={i}
                          x={opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2}
                          y={opts.paddingHigh - opts.fretNumberDistance}
@@ -44,7 +45,9 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
                          // stroke={opts.fretNumberColor}
                          className="fretboard-fret-number">{arabToRoman(this.props.fromFret + i)}</text>);
         }
+
         return <g className="fretboard-fret-number-group">{s}</g>;
+
         // return <Fragment>{s}</Fragment>;
 
         // let i = 1;

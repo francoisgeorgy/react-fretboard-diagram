@@ -3209,10 +3209,10 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-fretboard-api@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.7.0.tgz#f8c1d629878fc470be4593b14f28ea4a0a837575"
-  integrity sha512-5AaW4mJeMjR1uzuONqFUXDcn003CjnAy9oR+/k3EXGA9ecB7YBLGSXgVXC1/dMyjIDx3OTen8TsgBq/ejryZgA==
+fretboard-api@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/fretboard-api/-/fretboard-api-0.7.1.tgz#ae20c9db91d0a4505c67b69810c69da67ab6df7e"
+  integrity sha512-4O/b5z9pPixDrM7K4XjeFtyYvDJrHjQdOB6kYJc9ptnolhRuPB1Ch/+LfaDkPqmGaCvAb2O/Jb+1SIj347EfpA==
   dependencies:
     immer "^6.0.2"
     tonal "^2.2.2"

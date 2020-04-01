@@ -22,13 +22,13 @@ export interface DiagramProps {
     frets: string;             // "<total>"|"<from>,auto"|"auto,<to>"|"<from>,<to>"|"auto"|
     // text: any;
     leftHanded: any;            //FIXME: replace any type by correct type
-    // stringsProportional: any;
-    // fretNumbers: any;
     shapes: any;                //FIXME: replace any type by correct type
     shapesDotOptions: any;      //FIXME: replace any type by correct type
     diagramOptions: DiagramOptions;
     dotOptions: DotOptions; // will be passed to the Shapes; will not be used by the Diagram itself.
-    // fretNumbersPosition: any;
+    // stringsProportional: any;
+    fretNumbers: "latin"|"none";
+    fretNumbersPosition: "top"|"bottom";    //FIXME: define a type
     mouseClickHandler: any;     //FIXME: replace any type by correct type
     mouseMoveHandler: any;      //FIXME: replace any type by correct type
     debug: any;                 //FIXME: replace any type by correct type
@@ -48,8 +48,8 @@ export class Diagram extends React.Component<DiagramProps> {
         leftHanded: false,
         stringsProportional: false,
         frets: "auto",
-        // fretNumbers: 'latin',
-        // fretNumbersPosition: 'top',
+        fretNumbers: "latin",
+        fretNumbersPosition: "top",
         // text: 'note',
         tuning: FretboardAPI.Tuning.guitar.standard,
         // tuning: [],
@@ -104,9 +104,12 @@ export class Diagram extends React.Component<DiagramProps> {
     // s: any = null;   //TODO: get rid of this variable
 
     x: xMappingFunction = (fret: number): number => {
-        return fret === 0
+
+        const f = fret - this.fromFret + 1;
+
+        return f === 0
             ? this.dOpt.paddingHead - this.dOpt.dotOut + this.dOpt.fretWidth / 2
-            : this.dOpt.paddingHead + ((fret - 1) * this.dOpt.fretInterval) + (this.dOpt.fretInterval - this.dOpt.dotIn) + this.dOpt.fretWidth / 2;
+            : this.dOpt.paddingHead + ((f - 1) * this.dOpt.fretInterval) + (this.dOpt.fretInterval - this.dOpt.dotIn) + this.dOpt.fretWidth / 2;
     };
 
     y: yMappingFunction = (string: number): number => {
@@ -296,8 +299,8 @@ export class Diagram extends React.Component<DiagramProps> {
                         );
                     })
                 */}
-                {(this.props.fretNumbers !== 'none') &&
-                <FretNumbers fromFret={this.fromFret} toFret={this.toFret} orientation={this.props.orientation} options={this.dOpt} />}
+                {(this.props.fretNumbers !== "none") &&
+                <FretNumbers fromFret={this.fromFret} toFret={this.toFret} position={this.props.fretNumbersPosition} orientation={this.props.orientation} options={this.dOpt} />}
             </svg>
         )
     }
