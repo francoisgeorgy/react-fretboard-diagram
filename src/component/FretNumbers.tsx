@@ -8,7 +8,8 @@ function arabToRoman(a: number): string {
 }
 
 export interface FretNumbersProps {
-    frets: number;
+    fromFret: number;
+    toFret: number;
     startAt: number;
     orientation: string;
     options: DiagramOptions;
@@ -23,8 +24,8 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
 
         const opts = this.props.options;
 
-        let frets = this.props.frets;
-        let startAt = this.props.startAt;
+        // let frets = this.props.frets;
+        // let startAt = this.props.startAt;
 
         //TODO: add option to display only odd (1, 3, 5, ...) or only "standard" (3, 5, 7, 9, 12, ...) numbers
 
@@ -33,7 +34,7 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
         //FIXME: fret's text class
 
         let s = [];
-        for (let i=0; i < Math.trunc(frets); i++) {
+        for (let i=0; i < (this.props.toFret - this.props.fromFret + 1); i++) {
             s.push(<text key={i}
                          x={opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2}
                          y={opts.paddingHigh - opts.fretNumberDistance}
@@ -41,7 +42,7 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
                          fontFamily={opts.fretNumberFontFamily}
                          fill={opts.fretNumberColor}
                          // stroke={opts.fretNumberColor}
-                         className="fretboard-fret-number">{arabToRoman(startAt + i)}</text>);
+                         className="fretboard-fret-number">{arabToRoman(this.props.fromFret + i)}</text>);
         }
         return <g className="fretboard-fret-number-group">{s}</g>;
         // return <Fragment>{s}</Fragment>;

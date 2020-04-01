@@ -13,20 +13,21 @@ import {ExampleDiagramOptions} from "./ExampleDiagramOptions";
 const App = () => {
 
     return (
-        <div style={{backgroundColor:"#f5f4ee"}}>
+        <div className="content">
 {/*
             <div className="w600">
                 <ExampleSVG/>
             </div>
+*/}
             <div className="w600">
                 <ExampleDefaults/>
             </div>
-*/}
 {/*
             <div className="w600">
                 <ExampleCAGED/>
             </div>
 */}
+{/*
             <div style={{width:"200px"}}>
                 <ExampleDiagramOptions />
             </div>
@@ -39,6 +40,7 @@ const App = () => {
             <div style={{width:"800px"}}>
                 <ExampleDiagramOptions />
             </div>
+*/}
 {/*
             <div className="w600">
                 <ExampleSVG2 />

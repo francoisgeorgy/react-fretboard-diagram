@@ -54,7 +54,7 @@ export const DOT_DEFAULTS_BW: DotOptions = {        // used by default in Shape
     fill: "black",
     stroke: "black",
     root: "white",
-    roots: "",
+    roots: "white",
     show: null  //,
     // text: null,
     // textFontWeight: "",

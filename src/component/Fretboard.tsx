@@ -4,7 +4,8 @@ import {DiagramOptions, fretLength, stringLength} from "../utils/options";
 
 export interface FretboardProps {
     strings: number;
-    frets: number;
+    fromFret: number;
+    toFret: number;
     orientation: string;
     diagramOptions: DiagramOptions;
 }
@@ -16,7 +17,8 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
     static defaultProps = {
         strings: 6,
-        frets: 5
+        fromFrets: 1,
+        toFrets: 5
     };
 
     getStringsPath(strings: number, frets: number, orientation: string) {   //TODO: add orientation left handed, mirror, etc...
@@ -58,6 +60,8 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
 
     getFretsPath(strings: number, frets: number, orientation: string) {
 
+        console.log(`getFretsPath(${strings}, ${frets}, ${orientation})`);
+
         const opts = this.props.diagramOptions;
 
         let fLen = fretLength(strings, this.props.diagramOptions);
@@ -94,20 +98,23 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
     }
 
     render() {
-        console.log('Fretboard render', this.props.diagramOptions);
+        console.log('Fretboard render', this.props.diagramOptions, this.props.toFret, this.props.fromFret);
         // We draw the strings on top of the frets.
+
+        const frets = this.props.toFret - this.props.fromFret + 1;
+
         return (
             <g>
                 <path fill="none"
                       stroke={this.props.diagramOptions.fretColor}
                       strokeWidth={this.props.diagramOptions.fretWidth}
                       className="fretboard-fret"
-                      d={this.getFretsPath(this.props.strings, this.props.frets, this.props.orientation)} />
+                      d={this.getFretsPath(this.props.strings, frets, this.props.orientation)} />
                 <path fill="none"
                       stroke={this.props.diagramOptions.stringColor}
                       strokeWidth={this.props.diagramOptions.stringWidth}
                       className="fretboard-string"
-                      d={this.getStringsPath(this.props.strings, this.props.frets, this.props.orientation)} />
+                      d={this.getStringsPath(this.props.strings, frets, this.props.orientation)} />
             </g>
         );
     }

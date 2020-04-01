@@ -114,18 +114,17 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         // let dotStrokeColor = 'black';
         // let textColor = 'black';    //TODO: configure this color
 
+/*
         switch (this.props.text) {
             case 'note':
                 break;
             case 'interval':
-/*
-                if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
-                    // console.log(this.props.diagramStyle.colors.interval);
-                    fill = this.props.diagramStyle.colors.interval[text].fill;
-                    stroke = this.props.diagramStyle.colors.interval[text].stroke;
-                    textColor = this.props.diagramStyle.colors.interval[text].rotate;
-                }
-*/
+                // if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
+                //     // console.log(this.props.diagramStyle.colors.interval);
+                //     fill = this.props.diagramStyle.colors.interval[text].fill;
+                //     stroke = this.props.diagramStyle.colors.interval[text].stroke;
+                //     textColor = this.props.diagramStyle.colors.interval[text].rotate;
+                // }
                 break;
             // case 'interval-compound':
             //     if (this.props.diagramStyle.colors.interval.hasOwnProperty(text)) {
@@ -138,6 +137,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
             case 'finger':
                 break;
         }
+*/
 
         //TODO: if single letter in circle, make x = x-1
 
@@ -147,7 +147,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
         const r = interval ? (Interval.ic(interval) === 0 ? 'r' : '') : '';     // .r   root note
         const css = `f-${fret} s-${string} ${interval ? `i-${interval}` : ''} ${note ? `no-${note}` : ''} ${nn} ${o} ${nm} ${r} ${this.props.className}`;
 
-        console.log("dot", nm, o, nn, r);
+        // console.log("dot", nm, o, nn, r);
 
         return (
             <Fragment key={`${string}.${fret}`}>
@@ -203,7 +203,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
         const opt = parseDotOptions(this.props.dotOptions);
 
-        console.log("ShapeHorizontal.render opt", opt);
+        // console.log("ShapeHorizontal.render opt", opt);
 
         let e = [];
         for (let s = 0; s < shape.frets.length; s++) {      // for each string
@@ -216,7 +216,9 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                 }
             } else {
 
+                // @ts-ignore
                 let i = shape.intervals[s]; // ? shape.intervals[s] : null;     // ["1P"]
+                // @ts-ignore
                 let n = shape.notes[s]; // ? shape.notes[s] : null;             // ["C3"]
 
                 for (let f = 0; f < frets.length; f++) {    // for each fret
@@ -224,6 +226,10 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                     //TODO: check this: i and n should never be null
                     if (i === null) {
                         console.error(`shape.intervals[${s}}] is null`);
+                        continue;
+                    }
+                    if (n === null) {
+                        console.error(`shape.notes[${s}}] is null`);
                         continue;
                     }
 
@@ -297,7 +303,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
                         strokeColor = opt.scs[s];
                     }
 
-                    console.log("ShapeHorizontal.render", interval, note, pc, oct, pos);
+                    // console.log("ShapeHorizontal.render", interval, note, pc, oct, pos);
 
                     e.push(
                         this.dot(
