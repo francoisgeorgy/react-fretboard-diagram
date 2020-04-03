@@ -74,7 +74,7 @@ export default class Fretboard extends React.Component<FretboardProps, DiagramSt
             case 'horizontal':
                 for (let i=0; i<f; i++) {
 
-                    console.log("fret", opts.paddingHead + (i * opts.fretInterval));
+                    // console.log("fret", opts.paddingHead + (i * opts.fretInterval));
 
                     s[i] = svg.verticalLine(
                         opts.paddingHead + (i * opts.fretInterval), // X

@@ -15,18 +15,12 @@ const App = () => {
     return (
         <div className="content">
 {/*
-            <div className="w600">
+
                 <ExampleSVG/>
-            </div>
 */}
-            <div className="w600">
-                <ExampleDefaults/>
-            </div>
-{/*
-            <div className="w600">
+                {/*<ExampleDefaults/>*/}
+                {/*<ExampleDiagramOptions />*/}
                 <ExampleCAGED/>
-            </div>
-*/}
 {/*
             <div style={{width:"200px"}}>
                 <ExampleDiagramOptions />
@@ -42,7 +36,7 @@ const App = () => {
             </div>
 */}
 {/*
-            <div className="w600">
+            <div className="h400">
                 <ExampleSVG2 />
             </div>
             <ExampleSizes />

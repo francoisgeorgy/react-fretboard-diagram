@@ -12,6 +12,8 @@ import {
 } from "../utils/options";
 import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_BW} from "../options/presentation";
 import Inlays from "./Inlays";
+import Tuning from "./Tuning";
+import {ShapeType} from "fretboard-api";
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
@@ -19,7 +21,7 @@ export interface DiagramProps {
     className: any;             //FIXME: replace any type by correct type
     orientation: string;
     tuning: any;                //FIXME: replace any type by correct type
-    frets: string;             // "<total>"|"<from>,auto"|"auto,<to>"|"<from>,<to>"|"auto"|
+    frets: string|number;             // "<total>"|"<from>,auto"|"auto,<to>"|"<from>,<to>"|"auto"|
     // text: any;
     leftHanded: any;            //FIXME: replace any type by correct type
     shapes: any;                //FIXME: replace any type by correct type
@@ -27,8 +29,7 @@ export interface DiagramProps {
     diagramOptions: DiagramOptions;
     dotOptions: DotOptions; // will be passed to the Shapes; will not be used by the Diagram itself.
     // stringsProportional: any;
-    fretNumbers: "latin"|"none";
-    fretNumbersPosition: "top"|"bottom";    //FIXME: define a type
+    displayTuning?: "left"|"right"|"top"|"bottom";
     mouseClickHandler: any;     //FIXME: replace any type by correct type
     mouseMoveHandler: any;      //FIXME: replace any type by correct type
     debug: any;                 //FIXME: replace any type by correct type
@@ -48,8 +49,6 @@ export class Diagram extends React.Component<DiagramProps> {
         leftHanded: false,
         stringsProportional: false,
         frets: "auto",
-        fretNumbers: "latin",
-        fretNumbersPosition: "bottom",
         // text: 'note',
         tuning: FretboardAPI.Tuning.guitar.standard,
         // tuning: [],
@@ -83,7 +82,8 @@ export class Diagram extends React.Component<DiagramProps> {
         // TODO: consider to move this into the component's state
         if (this.props.shapes) {
 
-            this.playedShapes = this.props.shapes.map(shape => FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape)));
+            //FIXME: define type for shape
+            this.playedShapes = this.props.shapes.map((shape:any) => FretboardAPI.Fretboard.play(FretboardAPI.Shape.create(shape)));
 
             console.log("Diagram constructor play the shapes", this.playedShapes, this.playedShapes[0].fromFret);
 
@@ -94,8 +94,18 @@ export class Diagram extends React.Component<DiagramProps> {
 
         } else {
             this.playedShapes = null;
-            this.fromFret = 0;
+            this.fromFret = 1;
             this.toFret = 12;   //TODO: define to,from fret defaults
+        }
+
+        if (typeof this.props.frets === "number") {
+            this.fromFret = 1;
+            this.toFret = this.props.frets;
+        } else {
+
+            //FIXME: define minFret prop and allow for <4 frets diagrams
+            if (this.fromFret === 0) this.fromFret = 1;
+            if (this.toFret - this.fromFret < 3) this.toFret = this.fromFret + 3;
         }
 
         console.log("Diagram constructor", this.fromFret, this.toFret);
@@ -196,14 +206,14 @@ export class Diagram extends React.Component<DiagramProps> {
 
     onMouseClick = (e: React.MouseEvent) => {
         if (!this.props.mouseClickHandler || typeof this.props.mouseClickHandler !== "function") return;
-        let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
+        let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.toFret - this.fromFret + 1);
         if (!sf) return;
         this.props.mouseClickHandler(sf.string, sf.fret, e);
     };
 
     onMouseMove = (e: React.MouseEvent) => {
         if (!this.props.mouseMoveHandler || typeof this.props.mouseMoveHandler !== "function") return;
-        let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.props.frets);
+        let sf = this.getStringFretFromMouseEvent(e, this.props.tuning.length, this.toFret - this.fromFret + 1);
         if (!sf) return;
         this.props.mouseMoveHandler(sf.string, sf.fret, e);
     };
@@ -233,10 +243,18 @@ export class Diagram extends React.Component<DiagramProps> {
                 box = '0 0 0 0';    //TODO: throw an error
         }
 
-
-
-
         //FIXME: pass dotOptions to Shape
+
+        let numbers = null;
+        // if (this.dOpt.fretNumbers !== "none") {
+            if (this.dOpt.fretNumbers === "root") {
+                numbers = this.playedShapes.map((s: ShapeType) => s.root.fret);
+            } else if (this.dOpt.fretNumbers === "all") {
+                numbers = Array.from({length: this.toFret - this.fromFret + 1}, (v, k) => this.fromFret + k);
+            }
+        // }
+
+        console.log("Diagram numbers", numbers);
 
         return (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox={box} preserveAspectRatio='xMinYMin meet' width='100%'
@@ -272,7 +290,7 @@ export class Diagram extends React.Component<DiagramProps> {
                                              shape={shape}
                                              strings={strings}
                                              orientation={this.props.orientation}
-                                             text={this.props.text}
+                                             // text={this.props.text}
                                              options={this.dOpt}
                                              dotOptions={opt}
                                              fretToX={this.x} stringToY={this.y} />
@@ -300,8 +318,12 @@ export class Diagram extends React.Component<DiagramProps> {
                         );
                     })
                 */}
-                {(this.props.fretNumbers !== "none") &&
-                <FretNumbers strings={strings} fromFret={this.fromFret} toFret={this.toFret} position={this.props.fretNumbersPosition} orientation={this.props.orientation} options={this.dOpt} />}
+                {numbers &&
+                <FretNumbers strings={strings} fromFret={this.fromFret} toFret={this.toFret} numbers={numbers} orientation={this.props.orientation} options={this.dOpt} />}
+
+                {this.props.displayTuning &&
+                <Tuning position={this.props.displayTuning} orientation={this.props.orientation} options={this.dOpt} />}
+
             </svg>
         )
     }

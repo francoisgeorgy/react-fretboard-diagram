@@ -22,6 +22,10 @@ export const DIAGRAM_DEFAULTS: DiagramOptions = {       // used by default in Di
     fretColor: "#424242",
     fretNumberColor: "#aaaaaa",
     fretNumberFontFamily: "sans-serif",
+    fretNumbers: "root",
+    fretNumbersAlphabet: "arab",
+    fretNumbersPosition: "bottom",    //FIXME: define a type
+
     inlays: false,
     inlaysColor: "#eeeeee",
     inlaysShape: "dot",

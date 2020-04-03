@@ -5,10 +5,11 @@ import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_COLOR} from "../src/options/presentation"
 export const ExampleDiagramOptions = () => {
 
     // @ts-ignore
-    return <Diagram shapes={["X02220"]}
+    return <div className="h400">
+        <Diagram shapes={["X02220"]}
                     diagramOptions={DIAGRAM_DEFAULTS}
-                    dotOptions={DOT_DEFAULTS_COLOR}
-    />
+                    dotOptions={DOT_DEFAULTS_COLOR}/>
+        </div>
 
 /*
     return <Diagram shapes={["X02220"]}

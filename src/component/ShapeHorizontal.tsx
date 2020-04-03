@@ -25,10 +25,10 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
     static defaultProps = {
         className: '',
         strings: 6,
-        string: -1,
-        fret: -1,
+        // string: -1,
+        // fret: -1,
         // diagramStyle: {},
-        text: 'note',
+        // text: 'note',
         options: DIAGRAM_DEFAULTS,
         dotOptions: DOT_DEFAULTS_BW
     };
@@ -57,7 +57,7 @@ export default class ShapeHorizontal extends React.Component<ShapeProps> {
 
         // if ((s.notes[string][fretIndex] === undefined) || (s.notes[string][fretIndex] === null)) return;
 
-        switch (this.props.text) {
+        switch (this.props.dotOptions.show) {
             case 'note':
                 if (s.notes == null) {
                     throw new Error("Shape notes are undefined. Play the shape to set its notes.");

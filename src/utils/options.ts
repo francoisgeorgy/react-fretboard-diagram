@@ -29,6 +29,9 @@ export interface FretboardOptions {
     fretNumberFontSize: number;
     fretNumberFontFamily: string;
     fretNumberColor: string;
+    fretNumbers: "none"|"root"|"all"|number[];      //FIXME: define a type
+    fretNumbersAlphabet: "arab"|"roman",
+    fretNumbersPosition: "top"|"bottom",    //FIXME: define a type
     inlays: boolean;
     inlaysShape: "dot"|"square"|"triangle"|"trapeze";   // gibson|fender|ibanez|jackson...
     inlaysColor: string;
@@ -90,7 +93,7 @@ export interface xyMappingFunction {
 }
 
 export interface DotOptions {
-    show?: null | 'note' | 'interval' | 'interval-simple';
+    show?: null | 'note' | 'interval' | 'interval-simple' | 'finger';
     cross?: boolean;
     root?: string;
     roots?: string;

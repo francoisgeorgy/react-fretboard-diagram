@@ -2,6 +2,7 @@ import * as React from 'react';
 
 export const ExampleSVG = () => {
     return (
+        <div className="h400">
         <svg xheight="162" xwidth="147" width="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 147 162">
 
             <path fill="none" stroke="#444444" d="M20,36L20,130"/>
@@ -42,5 +43,6 @@ export const ExampleSVG = () => {
                 <tspan dy="5.6015625">1</tspan>
             </text>
         </svg>
+        </div>
     );
 };

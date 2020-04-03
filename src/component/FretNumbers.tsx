@@ -11,8 +11,9 @@ export interface FretNumbersProps {
     strings: number;    // we need to know the number of strings to compute the height of the diagram (in case the numbers are at the bottom)
     fromFret: number;
     toFret: number;
+    numbers: number[];
     // only?:only number;
-    position: "top"|"bottom";
+    // position: "top"|"bottom";
     orientation: string;
     options: DiagramOptions;
 }
@@ -32,20 +33,23 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
         // let startAt = this.props.startAt;
 
         //TODO: add option to display only odd (1, 3, 5, ...) or only "standard" (3, 5, 7, 9, 12, ...) numbers
-
-        //TODO: allow to choose placement over of below the strings
-
         //FIXME: fret's text class
 
-
-
-        const y = this.props.position === "top" ?
+        const y = this.props.options.fretNumbersPosition === "top" ?
             opts.paddingHigh - opts.fretNumberDistance :
             opts.paddingHigh + fretLength(this.props.strings, opts) + opts.fretNumberDistance;
 
         let s = [];
         for (let i=0; i < (this.props.toFret - this.props.fromFret + 1); i++) {
+
+            if (!this.props.numbers.includes(i+1)) {
+                continue;
+            }
+
             console.log("fret number position", i, opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2, opts.paddingHigh - opts.fretNumberDistance);
+
+            let num = this.props.options.fretNumbersAlphabet === "arab" ? (this.props.fromFret + i) : arabToRoman(this.props.fromFret + i);
+
             s.push(<text key={i}
                          x={opts.paddingHead + ((i + 0.5) * opts.fretInterval) + opts.fretWidth / 2}
                          y={y}
@@ -54,7 +58,7 @@ export default class FretNumbers extends React.Component<FretNumbersProps> {
                          fontFamily={opts.fretNumberFontFamily}
                          fill={opts.fretNumberColor}
                          // stroke={opts.fretNumberColor}
-                         className="fretboard-fret-number">{arabToRoman(this.props.fromFret + i)}</text>);
+                         className="fretboard-fret-number">{num}</text>);
         }
 
         return <g className="fretboard-fret-number-group">{s}</g>;

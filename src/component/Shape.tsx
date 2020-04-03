@@ -2,12 +2,12 @@ import React, {Fragment} from "react";
 import {ShapeType, Utils} from "fretboard-api";
 import ShapeHorizontal from "./ShapeHorizontal";
 import {
-    DEFAULT_DIAGRAM_OPTIONS,
     DiagramOptions,
     DotOptions,
     xMappingFunction,
     yMappingFunction
 } from "../utils/options";
+import {DIAGRAM_DEFAULTS} from "../options/presentation";
 
 //TODO: add option to display non played string as 'X' or nothing at all
 
@@ -15,10 +15,10 @@ export interface ShapeProps {
     className: string,
     shape: ShapeType,
     strings: number,   // number of strings
-    string: number,   // shape position
-    fret: number,     // shape position
+    // string: number,   // shape position
+    // fret: number,     // shape position
     orientation: string;
-    text: 'note' | 'interval' | 'finger' | 'custom';   // TODO: define "custom"
+    // text: 'note' | 'interval' | 'finger' | 'custom';   // TODO: define "custom"
     options: DiagramOptions;
     dotOptions: DotOptions;
     // svgOptions: SVGOptions;
@@ -38,9 +38,9 @@ export default class Shape extends React.Component<ShapeProps/*, ShapeState*/> {
         string: -1,
         fret: -1,
         // diagramStyle: {},
-        text: 'note',
+        // text: 'note',
         dotOptions: null,
-        options: DEFAULT_DIAGRAM_OPTIONS
+        options: DIAGRAM_DEFAULTS
     };
 
     // TODO: check that 'frets', 'intervals', 'fingers', ... arrays have the same structure and lengths.
