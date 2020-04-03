@@ -26,9 +26,10 @@ export const DIAGRAM_DEFAULTS: DiagramOptions = {       // used by default in Di
     fretNumbersAlphabet: "arab",
     fretNumbersPosition: "bottom",    //FIXME: define a type
 
-    inlays: false,
+    inlays: true,
     inlaysColor: "#eeeeee",
     inlaysShape: "dot",
+    inlaysRadius: 10,
     stringColor: "#424242"
 };
 
@@ -57,9 +58,13 @@ export const DOT_DEFAULTS_BW: DotOptions = {        // used by default in Shape
     css: "",
     fill: "black",
     stroke: "black",
-    root: "white",
+    root: "",
     roots: "white",
+    text: "#000000",
     show: null  //,
+    textFontWeight: "bold",
+    textFontFamily: "sans-serif",
+    textFontSize: 14
     // text: null,
     // textFontWeight: "",
     // textfontFamily: "",

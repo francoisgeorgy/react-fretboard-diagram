@@ -108,7 +108,7 @@ export class Diagram extends React.Component<DiagramProps> {
             if (this.toFret - this.fromFret < 3) this.toFret = this.fromFret + 3;
         }
 
-        console.log("Diagram constructor", this.fromFret, this.toFret);
+        console.log("Diagram constructor", this.fromFret, this.toFret, this.dOpt);
     }
 
     // s: any = null;   //TODO: get rid of this variable
@@ -267,7 +267,7 @@ export class Diagram extends React.Component<DiagramProps> {
                 {/*
                     INLAYS:
                 */}
-                {/*{this.dOpt.inlays && <Inlays strings={strings} fromFret={this.fromFret} toFret={this.toFret} orientation={this.props.orientation} diagramOptions={this.dOpt} />}*/}
+                {this.dOpt.inlays && <Inlays strings={strings} fromFret={this.fromFret} toFret={this.toFret} orientation={this.props.orientation} diagramOptions={this.dOpt} />}
 
                 {/*
                     FRETS & STRING:

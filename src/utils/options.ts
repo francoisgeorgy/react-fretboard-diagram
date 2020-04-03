@@ -1,4 +1,5 @@
 import Assert from "assert-js";
+import {DOT_DEFAULTS_BW} from "../options/presentation";
 
 /**
  * Default SVG styles
@@ -33,6 +34,7 @@ export interface FretboardOptions {
     fretNumbersAlphabet: "arab"|"roman",
     fretNumbersPosition: "top"|"bottom",    //FIXME: define a type
     inlays: boolean;
+    inlaysRadius: number;
     inlaysShape: "dot"|"square"|"triangle"|"trapeze";   // gibson|fender|ibanez|jackson...
     inlaysColor: string;
 }
@@ -92,8 +94,10 @@ export interface xyMappingFunction {
     (fret: number, string: number): [number, number];
 }
 
+export type DotContent = 'note' | 'interval' | 'interval-simple' | 'finger';
+
 export interface DotOptions {
-    show?: null | 'note' | 'interval' | 'interval-simple' | 'finger';
+    show?: DotContent | null;
     cross?: boolean;
     root?: string;
     roots?: string;
@@ -114,7 +118,7 @@ export interface DotOptions {
 
 // TODO: find a way to make a specific color option top-priority
 export interface ParsedDotOptions {
-    show: null | 'note' | 'interval' | 'interval-simple';
+    show: DotContent | null;
     cross: boolean;
     root: string;       // color of the strings
     roots: string;      // color of the frets
@@ -163,6 +167,7 @@ export interface ParsedDotOptions {
 export function parseDotOptions(options: DotOptions): ParsedDotOptions {
 
     //TODO: define defaults dot colors
+/*
     const p : ParsedDotOptions = {
         show: null,
         fill: "black",  // DEFAULT FILL COLOR
@@ -171,7 +176,25 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
         textFontFamily: "sans-serif",
         textFontSize: 14,
         textFontWeight: "bold",
-        root: "white",
+        root: "",
+        roots: "white",
+        cross: true,
+        css: "",
+        fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, sc: {},            // fill
+        fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {},     // text
+        fcs: {}, ics: {}, ncs: {}, nocs: {}, ocs: {}, pcs: {}, scs: {}      // stroke
+    };
+*/
+
+    let p : ParsedDotOptions = {
+        show: null,
+        fill: "",
+        stroke: "",
+        text: null,
+        textFontFamily: null,
+        textFontSize: null,
+        textFontWeight: null,
+        root: "",
         roots: "",
         cross: true,
         css: "",
@@ -179,6 +202,15 @@ export function parseDotOptions(options: DotOptions): ParsedDotOptions {
         fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {},     // text
         fcs: {}, ics: {}, ncs: {}, nocs: {}, ocs: {}, pcs: {}, scs: {}      // stroke
     };
+
+    Object.assign(p, DOT_DEFAULTS_BW, {colors: undefined});
+
+    // let colors = {};
+    // let {colors, ...p} = DOT_DEFAULTS_BW;   // colors will be ignored
+
+    // Object.assign(p, {fc: {}, ic: {}, nc: {}, noc: {}, oc: {}, pc: {}, sc: {},            // fill
+    //     fct: {}, ict: {}, nct: {}, noct: {}, oct: {}, pct: {}, sct: {},     // text
+    //     fcs: {}, ics: {}, ncs: {}, nocs: {}, ocs: {}, pcs: {}, scs: {}});
 
     if (!options || (Object.keys(options).length === 0)) return p;
 
