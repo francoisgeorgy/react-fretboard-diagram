@@ -26,7 +26,8 @@ export default class Inlays extends React.Component<InlaysProps> {
             if (i===3 || i===5 || i===7 || i===9 || i===15 || i===17 || i===19 || i===21) {
 
                 s.push(
-                    <circle cx={x} cy={y} r={opts.inlaysRadius}
+                    <circle key={i}
+                            cx={x} cy={y} r={opts.inlaysRadius}
                             className="inlay"
                             strokeWidth={0}
                             // stroke="#aaa"
@@ -35,7 +36,8 @@ export default class Inlays extends React.Component<InlaysProps> {
 
             } else if (i===12 || i===24) {
                 s.push(
-                    <circle cx={x}
+                    <circle key={`${i}.1`}
+                            cx={x}
                             cy={y - opts.stringInterval}
                             r={opts.inlaysRadius}
                             className="inlay"
@@ -44,7 +46,8 @@ export default class Inlays extends React.Component<InlaysProps> {
                             fill={opts.inlaysColor} />
                 );
                 s.push(
-                    <circle cx={x}
+                    <circle key={`${i}.2`}
+                            cx={x}
                             cy={y + opts.stringInterval}
                             r={opts.inlaysRadius}
                             className="inlay"

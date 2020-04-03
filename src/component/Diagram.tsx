@@ -14,6 +14,7 @@ import {DIAGRAM_DEFAULTS, DOT_DEFAULTS_BW} from "../options/presentation";
 import Inlays from "./Inlays";
 import Tuning from "./Tuning";
 import {ShapeType} from "fretboard-api";
+import CAGED from "./CAGED";
 
 //TODO: allow strings prop to be able to display a subset of the strings, even if the tuning is for more strings.
 
@@ -113,7 +114,7 @@ export class Diagram extends React.Component<DiagramProps> {
 
     // s: any = null;   //TODO: get rid of this variable
 
-    x: xMappingFunction = (fret: number): number => {
+    x: xMappingFunction = (fret: number): number => {       // fret can be a float (non integer)
 
         const f = fret - this.fromFret + 1;
 
@@ -286,6 +287,7 @@ export class Diagram extends React.Component<DiagramProps> {
                         }
 
                         return (
+                            <g>
                             <ShapeHorizontal key={index}
                                              shape={shape}
                                              strings={strings}
@@ -294,6 +296,8 @@ export class Diagram extends React.Component<DiagramProps> {
                                              options={this.dOpt}
                                              dotOptions={opt}
                                              fretToX={this.x} stringToY={this.y} />
+                            <CAGED form={"A"} playedShape={shape} strings={strings} orientation={this.props.orientation} options={this.dOpt} fretToX={this.x} stringToY={this.y} />
+                            </g>
                         );
                     })
                 }
@@ -323,6 +327,7 @@ export class Diagram extends React.Component<DiagramProps> {
 
                 {this.props.displayTuning &&
                 <Tuning position={this.props.displayTuning} orientation={this.props.orientation} options={this.dOpt} />}
+
 
             </svg>
         )
